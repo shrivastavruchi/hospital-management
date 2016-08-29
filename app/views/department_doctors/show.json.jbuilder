@@ -1,0 +1,1 @@
+json.partial! "department_doctors/department_doctor", department_doctor: @department_doctor

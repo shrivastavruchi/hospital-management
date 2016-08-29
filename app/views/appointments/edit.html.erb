@@ -1,0 +1,37 @@
+<%=form_for @appointment  do |f|%>
+  <div class="field">
+    <%= f.label :patient_id %><br>
+    <%= f.select :patient_id,  Patient.all.map{|p| [ p.patient_name, p.id ]},{}, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :consultant_doctor %><br>
+    <%= f.select :doctor_id ,DepartmentDoctor.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.text_field :date, class: "form-control " ,id: 'start_date_picker'%>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.text_field :appoint_time, class: "form-control " ,id: 'start_date_picker'%>
+  </div>
+  <%=f.submit 'save',:class=>"btn btn-primary"%>
+<%end%>
+
+
+<script>
+    $('#start_date_picker').datepicker({
+        format: 'yyyy-mm-dd',
+        daysOfWeekDisabled: [0, 6],
+        daysOfWeekHighlighted: [1, 2, 3, 4, 5],
+        todayBtn: false
+    })
+</script>
+
+
+<script>
+  $(function() {
+    $('#timepicker').timepicker();
+  });
+</script>

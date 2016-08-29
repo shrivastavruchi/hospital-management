@@ -1,0 +1,27 @@
+<h1>Appoitnments</h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>patient name</th>
+      <th>Doctor name</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%@appointment.each do |appoint|%>
+      <tr>
+        <%if appoint.department_doctor.present?%>
+        	<td><%=appoint.department_doctor.name%></td>
+        <%end%>
+        <%if appoint.patient.present?%>	
+        	<td><%=appoint.patient.patient_name%></td>
+      	<%end%>	
+      	<td><%=appoint.date%></td>
+        <td><%=appoint.appoint_time%></td>
+        <td><%=link_to'edit', edit_appointment_path(appoint)%></td>
+        <td><%=link_to'destroy',appointment_path(appoint), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -1,0 +1,21 @@
+<%=form_for @user, url: user_path do |f| %>
+	<%= f.label :name %>
+  <%= f.text_field :name, autofocus: true, class: "form-control", :require=>true %>
+  <%= f.label :age %>
+  <%= f.text_field :age, autofocus: true, class: "form-control" ,:required => true%>
+  <%= f.label :email %>
+  <%= f.email_field :email, autofocus: true, class: "form-control" ,:required => true%>
+  <%= label_tag :add_roles %>
+  <div class="controls">
+    <% User::ROLES.each do |role|%>
+      <label class="checkbox-inline">
+        <% if @user.has_role? role %>
+          <input name="roles[]" type="checkbox" value="<%= role %>" checked="checked"><%= role %></label>
+        <%else%>  
+          <input name="roles[]" type="checkbox" value="<%= role %>"><%= role %></label>
+        <%end%>  
+    <% end %>
+  </div>
+  <%=f.submit 'save' , :class => 'btn btn-primary', :style=>"
+    margin-top: 15px;"%>
+<%end%>

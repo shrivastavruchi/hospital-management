@@ -1,0 +1,1 @@
+json.array! @department_doctors, partial: 'department_doctors/department_doctor', as: :department_doctor

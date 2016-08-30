@@ -7,8 +7,8 @@ class Ability
       user ||= User.new # guest user (not logged in)
       if user.has_role? :admin
         can :manage, [User,Department,DepartmentDoctor]
-      elsif user.has_role? :receptionist
-        can :manage, [Patient]
+      elsif user.has_role? :receptionist 
+        can :manage, [Patient,Appointment,Visit,Address]
       else  
     end
     #

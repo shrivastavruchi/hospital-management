@@ -1,4 +1,4 @@
-<%= form_for(@visit) do |f| %>
+<%= form_for [@patient, @visit]  do |f| %>
   <% if @visit.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@visit.errors.count, "error") %> prohibited this visit from being saved:</h2>
@@ -28,6 +28,39 @@
     <%= f.label :visit_date %><br>
     <%= f.text_field :date , class: "form-control ",id: 'start_date_picker' %>
   </div>
+  <h4>Basic Details</h4>
+  <%= f.fields_for :basic_detail do |basic_detail| %>
+    <div class="field">
+      <%=  basic_detail.label :weight %>
+      <%= basic_detail.text_field :weight, class: "form-control" %>  
+    </div>
+     <div class="field">
+      <%=  basic_detail.label :blood_group %>
+      <%= basic_detail.text_field :blood_group, class: "form-control" %>  
+    </div>
+     <div class="field">
+      <%=  basic_detail.label :blood_presure %>
+      <%= basic_detail.text_field :boold_presure, class: "form-control" %>  
+    </div>
+     <div class="field">
+      <%=  basic_detail.label :patient_history %>
+      <%= basic_detail.text_area :patient_history, class: "form-control" %>  
+    </div>
+     <div class="field">
+      <%=  basic_detail.label :examination_details %>
+      <%= basic_detail.text_area :examination_details, class: "form-control" %>  
+    </div>
+    <div class="field">
+      <%=  basic_detail.label :diagnosis %>
+      <%= basic_detail.text_area :diagnosis, class: "form-control" %>  
+    </div>
+  <% end %>
+
+
+
+
+
+
   <div class="actions">
     <%= f.submit %>
   </div>

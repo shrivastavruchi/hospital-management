@@ -3,14 +3,17 @@ class AppointmentsController < ApplicationController
 	before_action :find_appointment,	:only=>[:edit,:update,:destroy]
 
 	def index
+		authorize! :read, Appointment
 		@appointment = Appointment.all
 	end	
 
 	def new
+		authorize! :create, Appointment
 		@appointment = Appointment.new
 	end	
 
 	def create
+		authorize! :create, Appointment
 		@appoitnement = @patient.appointments.build(appointment_params)
 		if @appoitnement.save
 			redirect_to  appointments_path
@@ -19,9 +22,11 @@ class AppointmentsController < ApplicationController
 		end	
 	end	
 	def edit
+		authorize! :edit, Appointment
 	end
 	
 	def update
+		authorize! :update, Appointment
 		if @appointment.update(appointment_params)
 			redirect_to appointments_path 
 		else
@@ -30,6 +35,7 @@ class AppointmentsController < ApplicationController
 	end	
 
 	def destroy
+		authorize! :delete, Appointment
 		if @appointment.destroy
 			redirect_to appointments_path ,notice: 'appointment was successfully destroyed.'
 		end

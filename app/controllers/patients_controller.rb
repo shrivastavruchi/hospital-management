@@ -4,29 +4,35 @@ class PatientsController < ApplicationController
   # GET /patients
   # GET /patients.json
   def index
+    authorize! :read, Patient
     @patients = Patient.all  
   end
 
   # GET /patients/1
   # GET /patients/1.json
   def show
+    authorize! :read, Patient
     @address = @patient.address
   end
 
   # GET /patients/new
   def new
+    #
+    authorize! :create, Patient
     @patient = Patient.new
     @patient.build_address
   end
 
   # GET /patients/1/edit
   def edit
+    authorize! :edit, Patient
     @address = @patient.address
   end
 
   # POST /patients
   # POST /patients.json
   def create
+    authorize! :create, Patient
     @patient = Patient.new(patient_params)
     if @patient.save
       @address = @patient.build_address(patient_params[:address_attributes])
@@ -40,6 +46,7 @@ class PatientsController < ApplicationController
   # PATCH/PUT /patients/1
   # PATCH/PUT /patients/1.json
   def update
+    authorize! :update, Patient
     respond_to do |format|
       if @patient.update(patient_params)
         format.html { redirect_to @patient, notice: 'Patient was successfully updated.' }
@@ -54,6 +61,7 @@ class PatientsController < ApplicationController
   # DELETE /patients/1
   # DELETE /patients/1.json
   def destroy
+    authorize! :delete, Patient
     @patient.destroy
     respond_to do |format|
       format.html { redirect_to patients_url, notice: 'Patient was successfully destroyed.' }

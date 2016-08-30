@@ -4,7 +4,7 @@
 
 <p>
   <strong>Visit no</strong>
-  0000<%= @visit.id %>
+  <%= @visit.id %>
 </p>
 
 <p>
@@ -36,6 +36,29 @@
 </p>
 
 
+<p>
+  <strong>history</strong>
+   <%=@basic_detail.patient_history%>
+</p>
+<p>
+  <strong>weight</strong>
+  <%=@basic_detail.weight %>
+</p>
+<p>
+  <strong>Blood group</strong>
+  <%=@basic_detail.blood_group%>
+</p>
+<p>
+  <strong>Blood presure</strong>
+  <%=@basic_detail.boold_presure%>
+</p>
+<p>
+  <strong>Blood diagnosis</strong>
+  <%=@basic_detail.diagnosis%>
+</p>
 
-<%= link_to 'Edit', edit_visit_path(@visit) %> |
-<%= link_to 'Back', visits_path %>
+
+
+
+<%#= link_to 'Edit', edit_visit_path(@visit) %> 
+<%#= link_to 'Back', visits_path %>

@@ -1,20 +1,24 @@
 class VisitsController < ApplicationController
+  before_action :set_patient 
   before_action :set_visit, only: [:show, :edit, :update, :destroy]
-
   # GET /visits
   # GET /visits.json
   def index
+    authorize! :read, Visit
     @visits = Visit.all
   end
 
   # GET /visits/1
   # GET /visits/1.json
   def show
+    @basic_detail = @visit.basic_detail
   end
 
   # GET /visits/new
   def new
+    authorize! :new, Visit
     @visit = Visit.new
+    @visit.build_basic_detail
   end
 
   # GET /visits/1/edit
@@ -24,22 +28,21 @@ class VisitsController < ApplicationController
   # POST /visits
   # POST /visits.json
   def create
-    @visit = Visit.new(visit_params)
-
-    respond_to do |format|
+    authorize! :create, Visit
+    @visit = @patient.visits.build(visit_params)
       if @visit.save
-        format.html { redirect_to @visit, notice: 'Visit was successfully created.' }
-        format.json { render :show, status: :created, location: @visit }
+        @basic_details  = @visit.build_basic_detail(visit_params[:basic_detail_attributes])
+        @basic_details.save
+        redirect_to patient_visit_path(@patient,@visit), notice: 'Visit was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @visit.errors, status: :unprocessable_entity }
-      end
+        render :new 
+      end  
     end
-  end
 
   # PATCH/PUT /visits/1
   # PATCH/PUT /visits/1.json
   def update
+    authorize! :update, Visit
     respond_to do |format|
       if @visit.update(visit_params)
         format.html { redirect_to @visit, notice: 'Visit was successfully updated.' }
@@ -54,6 +57,7 @@ class VisitsController < ApplicationController
   # DELETE /visits/1
   # DELETE /visits/1.json
   def destroy
+    authorize! :delete, Visit
     @visit.destroy
     respond_to do |format|
       format.html { redirect_to visits_url, notice: 'Visit was successfully destroyed.' }
@@ -67,8 +71,12 @@ class VisitsController < ApplicationController
       @visit = Visit.find(params[:id])
     end
 
+    def set_patient
+      @patient = Patient.find(params[:patient_id])
+    end  
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
-      params.require(:visit).permit(:patient_id, :doctor_id, :date)
+      params.require(:visit).permit(:patient_id, :doctor_id, :date,basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id])
     end
 end

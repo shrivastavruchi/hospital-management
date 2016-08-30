@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  resources :visits
   resources :departments
   resources :department_doctors
-  resources :patients  
+  resources :patients do
+    resources :visits
+  end  
   resources :appointments
   devise_for :users
   resources :user

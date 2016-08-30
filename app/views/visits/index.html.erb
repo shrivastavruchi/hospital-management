@@ -3,10 +3,9 @@
 <table  class="table table-striped">
   <thead>
     <tr>
-      <th>visit</th>
+      <th>visit Id</th>
       <th>Date</th>
       <th>Patient name</th>
-      <th>age</th>
       <th>address</th>
       <th>doctor</th>
     </tr>
@@ -18,7 +17,6 @@
         <td><%= visit.id %></td>
         <td><%= visit.date %></td>
         <td><%= visit.patient.patient_name %></td>
-        <td><%= visit.patient.age %></td>
         <td>
           <%if visit.patient.present? && visit.patient.address.present?%>
             <%= visit.patient.address.city %>
@@ -32,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Visit', new_visit_path %>
+<%#= link_to 'New Visit', new_visit_path %>

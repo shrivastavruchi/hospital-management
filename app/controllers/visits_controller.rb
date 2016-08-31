@@ -1,6 +1,6 @@
 class VisitsController < ApplicationController
-  before_action :set_patient 
-  before_action :set_visit, only: [:show, :edit, :update, :destroy]
+  before_action :set_appointment ,only: [:new, :create ] 
+  before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail]
   # GET /visits
   # GET /visits.json
   def index
@@ -19,6 +19,7 @@ class VisitsController < ApplicationController
     authorize! :new, Visit
     @visit = Visit.new
     @visit.build_basic_detail
+    @visit.prescription_details.build
   end
 
   # GET /visits/1/edit
@@ -29,11 +30,9 @@ class VisitsController < ApplicationController
   # POST /visits.json
   def create
     authorize! :create, Visit
-    @visit = @patient.visits.build(visit_params)
+    @visit = @appoitnemnt.build_visit(visit_params)
       if @visit.save
-        @basic_details  = @visit.build_basic_detail(visit_params[:basic_detail_attributes])
-        @basic_details.save
-        redirect_to patient_visit_path(@patient,@visit), notice: 'Visit was successfully created.'
+        redirect_to appointment_visit_path(@appoitnemnt,@visit), notice: 'Visit was successfully created.'
       else
         render :new 
       end  
@@ -43,15 +42,12 @@ class VisitsController < ApplicationController
   # PATCH/PUT /visits/1.json
   def update
     authorize! :update, Visit
-    respond_to do |format|
       if @visit.update(visit_params)
-        format.html { redirect_to @visit, notice: 'Visit was successfully updated.' }
-        format.json { render :show, status: :ok, location: @visit }
+        redirect_to opd_visits_path, notice: 'Visit was successfully updated.' 
       else
-        format.html { render :edit }
-        format.json { render json: @visit.errors, status: :unprocessable_entity }
+        render :edit
+      
       end
-    end
   end
 
   # DELETE /visits/1
@@ -65,18 +61,28 @@ class VisitsController < ApplicationController
     end
   end
 
+  def prescription_detail
+    @prescription_details = @visit.prescription_details
+  end  
+
+  def opd_visit
+   @visits = Visit.all
+  end  
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_visit
       @visit = Visit.find(params[:id])
     end
 
-    def set_patient
-      @patient = Patient.find(params[:patient_id])
+    def set_appointment 
+      @appoitnemnt = Appointment.find(params[:appointment_id])
     end  
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
-      params.require(:visit).permit(:patient_id, :doctor_id, :date,basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id])
+      params.require(:visit).permit(:patient_id, :appointment_id, :doctor_id, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ])
     end
 end

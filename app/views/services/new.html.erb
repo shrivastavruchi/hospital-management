@@ -1,0 +1,16 @@
+<div class="container">
+  <%= nested_form_for @visit do |f| %>
+    <%= f.fields_for :services do |service| %>
+        <div class="field">
+          <%=  service.label :name %>
+          <%= service.text_field :service_name, class: "form-control" %> 
+        </div>
+        <div class="field">
+          <%=  service.label :charges %>
+          <%= service.text_field :charges, class: "form-control" %> 
+        </div>
+      <%end%> 
+      <%= f.link_to_add "Add new prescription", :services,:class=>"btn btn-primary" %>
+    <%= f.submit 'save'%>  
+  <% end %>
+</div>

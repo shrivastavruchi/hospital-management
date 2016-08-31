@@ -14,17 +14,22 @@
     <%@appointment.each do |appoint|%>
       <tr>
         <td><%=appoint.patient.id%></td>
-        <%if appoint.department_doctor.present?%>
-        	<td><%=appoint.department_doctor.name%></td>
-        <%end%>
         <%if appoint.patient.present?%>	
         	<td><%=appoint.patient.patient_name%></td>
       	<%end%>	
+        <%if appoint.department_doctor.present?%>
+          <td><%=appoint.department_doctor.name%></td>
+        <%end%>
       	<td><%=appoint.date%></td>
         <td><%=appoint.appoint_time%></td>
         <td> 
+          <% if appoint.visit.present?%>
+            1
+          <%else%>
+            0  
+          <%end%>
         </td>
-        <td><%=link_to 'select visit' ,new_patient_visit_path(appoint.patient) %></td>
+        <td><%=link_to 'select visit' ,new_appointment_visit_path(appoint) %></td>
         <td><%=link_to'edit', edit_appointment_path(appoint)%></td>
         <td><%=link_to'destroy',appointment_path(appoint), method: :delete, data: { confirm: 'Are you sure?' }%></td>
       </tr>

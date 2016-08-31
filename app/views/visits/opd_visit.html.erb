@@ -1,0 +1,29 @@
+
+<h3>Opd Visit</h3>
+<table  class="table table-striped">
+  <thead>
+    <tr>
+      <th>visit Id</th>
+      <th>Patient name</th>
+      <th>Doctor name</th>
+      <th>Opd date</th>
+      <th>Register date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @visits.each do |visit| %>
+      <tr>
+        <td><%= visit.id %></td>
+        <td><%= visit.patient.patient_name %></td>  
+        <td><%= visit.department_doctor.name %></td>
+        <td><%= visit.date %></td>
+        <td><%=visit.patient.created_at.strftime("%d-%m-%Y")%></td>
+        <td><%=link_to'service', new_visit_service_path(visit) %></td>
+      </tr>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

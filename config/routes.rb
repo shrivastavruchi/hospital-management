@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
   resources :departments
   resources :department_doctors
-  resources :patients do
-    resources :visits
+  resources :patients do  
   end  
-  resources :appointments
+  get 'visit/:id/prescription_detail' => 'visits#prescription_detail', :as=>"prescription_details"
+  get '/opd_visit' => 'visits#opd_visit', :as=>"opd_visits"
+  resources :appointments do 
+     resources :visits do
+      #get 'prescription_detail' 
+    end
+  end  
   devise_for :users
   resources :user
+  resources :visits do
+    resources :services do
+    end  
+  end  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

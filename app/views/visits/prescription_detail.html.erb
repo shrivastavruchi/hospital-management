@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<h3>Opd visit</h3>
+
+<p>
+  <strong>Visit no</strong>
+  <%= @visit.id %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @visit.date %>
+</p>
+
+<p>
+  <strong>Patient name</strong>
+  <%=@visit.patient.patient_name%>
+</p>
+
+<p>
+  <strong>Patient age</strong>
+  <%=@visit.patient.age%>
+</p>
+
+
+<p>
+  <strong>address</strong>
+  <%if @visit.patient.present? && @visit.patient.address.present? %>
+  	<%=@visit.patient.address.city%>
+  <%end%>	
+</p>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @visit.department_doctor.name %>
+</p>
+
+<table  class="table table-striped">
+  <thead>
+    <tr>
+      <th>Drug name</th>
+      <th>Description</th>
+      <th>schedule</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prescription_details.each do |prescription_detail| %>
+      <tr>
+        <td><%=prescription_detail.drug_name%></td>
+        <td><%=prescription_detail.description%></td>
+        <td><%=prescription_detail.schedule%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

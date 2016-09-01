@@ -1,39 +1,53 @@
-<h1>Appoitnments</h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Patient name</th>
-      <th>Doctor Name</th>
-      <th>Appointment Date</th>
-      <th>Appointment Time</th>
-      <th>Visit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%@appointment.each do |appoint|%>
-      <tr>
-        <td><%=appoint.patient.id%></td>
-        <%if appoint.patient.present?%>	
-        	<td><%=appoint.patient.patient_name%></td>
-      	<%end%>	
-        <%if appoint.department_doctor.present?%>
-          <td><%=appoint.department_doctor.name%></td>
-        <%end%>
-      	<td><%=appoint.date%></td>
-        <td><%=appoint.appoint_time%></td>
-        <td> 
-          <% if appoint.visit.present?%>
-            1
-          <%else%>
-            0  
-          <%end%>
-        </td>
-        <td><%=link_to 'select visit' ,new_appointment_visit_path(appoint) %></td>
-        <td><%=link_to'edit', edit_appointment_path(appoint)%></td>
-        <td><%=link_to'destroy',appointment_path(appoint), method: :delete, data: { confirm: 'Are you sure?' }%></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Opd Visits </div>
+          <div class="panel-body">
+            <h1>Appoitnments</h1>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Patient name</th>
+                  <th>Doctor Name</th>
+                  <th>Appointment Date</th>
+                  <th>Appointment Time</th>
+                  <th>Visit</th>
+                  <th></th>
+                  <th>edit</th>
+                  <th>delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%@appointment.each do |appoint|%>
+                  <tr>
+                    <td><%=appoint.id%></td>
+                    <%if appoint.patient.present?%> 
+                      <td><%=appoint.patient.patient_name%></td>
+                    <%end%> 
+                    <%if appoint.department_doctor.present?%>
+                      <td><%=appoint.department_doctor.name%></td>
+                    <%end%>
+                    <td><%=appoint.date%></td>
+                    <td><%=appoint.appoint_time%></td>
+                    <td> 
+                      <% if appoint.visit.present?%>
+                        1
+                      <%else%>
+                        0  
+                      <%end%>
+                    </td>
+                    <td>
+                    <% unless appoint.visit.present?%>
+                      <%=link_to 'select visit' ,new_appointment_visit_path(appoint) %></td>
+                    <%end%>  
+                    <td><%=link_to'edit', edit_appointment_path(appoint)%></td>
+                    <td><%=link_to'destroy',appointment_path(appoint), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>  
+    </div>
+  </div>
+</div>  

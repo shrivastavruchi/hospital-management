@@ -9,5 +9,5 @@ class User < ActiveRecord::Base
  
 
 
-  ROLES = ['doctor','receptionist','chasier']      
+  ROLES = ['receptionist','chasier','ipd user','opd user']      
 end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :patients do  
   end  
   get 'visit/:id/prescription_detail' => 'visits#prescription_detail', :as=>"prescription_details"
+  get  'visit/:id/services' => 'visits#services', :as=>"visit_services"
   get '/opd_visit' => 'visits#opd_visit', :as=>"opd_visits"
   resources :appointments do 
      resources :visits do
@@ -13,8 +14,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :user
   resources :visits do
-    resources :services do
-    end  
+    # resources :services do
+    # end  
   end  
 
   # The priority is based upon order of creation: first created -> highest priority.

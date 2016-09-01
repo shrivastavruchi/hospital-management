@@ -1,0 +1,27 @@
+<div class="container">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">SERVICES </div>
+			  <%= nested_form_for @visit do |f| %>
+			    <%= f.fields_for :services do |service| %>
+	    			<div class="panel-body">
+			        <div class="col-sm-5" >
+			          <%=  service.label :name %>
+			          <%= service.text_field :service_name, class: "form-control",:required=>true %> 
+			        </div>
+			        <div class="col-sm-5">
+			          <%=  service.label :charges %>
+			          <%= service.text_field :charges, class: "form-control",:required=>true %> 
+			        </div>
+			        <div class="col-sm-2">
+				      	<%= service.link_to_remove "Remove",:class=>"btn btn-default",:style=>"margin-top: 22px;" %>
+				      </div>
+						</div>  
+			    <%end%> 
+			      <%= f.link_to_add "Add new row", :services,:class=>"btn btn-primary", :style=>"margin-left: 30px; margin-top:-12px;" %>
+			    <%= f.submit 'save',:class=>"btn btn-primary",:style=>"margin-bottom: 10px;" %>  
+			  <% end %> 
+		</div>  
+	</div>
+</div>
+

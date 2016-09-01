@@ -1,42 +1,71 @@
-<%=form_for @appointment  do |f|%>
-  <div class="field">
-    <%= f.label :patient_id %><br>
-    <%= f.select :patient_id,  Patient.all.map{|p| [ p.patient_name, p.id ]},{}, class: "form-control" %>
-  </div>
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Appointment </div>
+        <%=form_for @appointment do |f|%>
+          <% if @appointment.errors.any? %>
+            <div id="error_explanation">
+              <ul>
+              <% @appointment.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-  <div class="field">
-    <%= f.label :consultant_doctor %><br>
-    <%= f.select :doctor_id ,DepartmentDoctor.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
+          <div class="panel-body">
+            <div class="field">
+              <%= f.label :patient_id %><br>
+              <%= f.select :patient_id,  Patient.all.map{|p| [ p.patient_name, p.id ]},{}, class: "form-control" %>
+            </div>
+
+            <div class="field">
+              <%= f.label :consultant_doctor %><br>
+              <%= f.select :doctor_id ,DepartmentDoctor.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :date %><br>
+              <%= f.text_field :date, class: "form-control " ,id: 'start_date_picker'%>
+            </div>
+            <div class="field">
+              <%= f.label :appointment_time %><br>
+              <%= f.text_field :appoint_time, class: "form-control ",id: 'timepicker'  %>
+            </div>
+            <button id="save" class="btn btn-primary ">Save</button>
+            <%#=f.submit 'save',:class=>"btn btn-primary "%>
+          </div>  
+        <%end%>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.text_field :date, class: "form-control " ,id: 'start_date_picker'%>
-  </div>
-  <div class="field">
-    <%= f.label :appointment_time %><br>
-    <%= f.text_field :appoint_time, class: "form-control ",id: 'timepicker'  %>
-  </div>
-  <%=f.submit 'save',:class=>"btn btn-primary"%>
-<%end%>
+</div>      
 
 
 
 <script>
-    $('#start_date_picker').datepicker({
-        format: 'yyyy-mm-dd',
-        daysOfWeekDisabled: [0, 6],
-        daysOfWeekHighlighted: [1, 2, 3, 4, 5],
-        todayBtn: false
-    })
+  $('#start_date_picker').datepicker({
+      format: 'yyyy-mm-dd',
+      daysOfWeekDisabled: [0, 6],
+      daysOfWeekHighlighted: [1, 2, 3, 4, 5],
+      todayBtn: false
+  })
 </script>
-
-
-
 
 <script>
   $(function() {
     $('#timepicker').timepicker();
   });
+</script>
+
+<script>
+  $("#save").click(function(){
+    if($("#start_date_picker").val() ==""){
+      alert("Please select date");
+      return false;
+    } 
+    else{
+      $("#new_appointment").submit();
+    } 
+});
 </script>
 
 

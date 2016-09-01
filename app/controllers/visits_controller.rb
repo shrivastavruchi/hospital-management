@@ -1,6 +1,6 @@
 class VisitsController < ApplicationController
-  before_action :set_appointment ,only: [:new, :create ] 
-  before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail]
+  before_action :set_appointment ,only: [:new ] 
+  before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail,:services]
   # GET /visits
   # GET /visits.json
   def index
@@ -30,12 +30,15 @@ class VisitsController < ApplicationController
   # POST /visits.json
   def create
     authorize! :create, Visit
-    @visit = @appoitnemnt.build_visit(visit_params)
-      if @visit.save
-        redirect_to appointment_visit_path(@appoitnemnt,@visit), notice: 'Visit was successfully created.'
-      else
-        render :new 
-      end  
+    @appointment = Appointment.find(params[:appointment_id])
+      unless @appointment.visit.present?
+        @visit =  @appointment.build_visit(visit_params)
+          if @visit.save
+            redirect_to appointment_visit_path(@appointment ,@visit), notice: 'Visit was successfully created.'
+          else
+            render :new 
+          end 
+      end
     end
 
   # PATCH/PUT /visits/1
@@ -45,8 +48,7 @@ class VisitsController < ApplicationController
       if @visit.update(visit_params)
         redirect_to opd_visits_path, notice: 'Visit was successfully updated.' 
       else
-        render :edit
-      
+        render :services
       end
   end
 
@@ -69,6 +71,15 @@ class VisitsController < ApplicationController
    @visits = Visit.all
   end  
 
+  def services
+    
+    if @visit.services.present?
+      @visit.services
+    else
+      @visit.services.build
+    end
+  end  
+
 
 
   private
@@ -83,6 +94,6 @@ class VisitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
-      params.require(:visit).permit(:patient_id, :appointment_id, :doctor_id, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ])
+      params.require(:visit).permit(:id, :patient_id, :appointment_id, :doctor_id, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ])
     end
 end

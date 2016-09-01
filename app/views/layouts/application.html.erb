@@ -58,23 +58,23 @@
             <% if current_user %>
                <% if can? :create, Patient%>
                 <li><%= link_to 'Patient Registration', new_patient_path %></li>
-               <li><%= link_to 'Registerd Patient ', patients_path %></li>
+               <li><%= link_to 'Patient registration list ', patients_path %></li>
                <%end%>
                 <% if can? :create, Appointment%>
-                  <li><%=link_to 'appointment', new_appointment_path%></li>
-                  <li><%=link_to 'all appointment', appointments_path%></li>
+                  <li><%=link_to 'Appointment', new_appointment_path%></li>
+                  <li><%=link_to 'All Appointment', appointments_path%></li>
                 <%end%>  
                 <% if can? :read, User%>
-                  <li><%= link_to 'user',user_index_path %></li> 
+                  <li><%= link_to 'User',user_index_path %></li> 
                 <%end%>
                 <% if can? :read, Department%>
-                  <li><%=link_to 'departments', departments_path%></li>
+                  <li><%=link_to 'Departments', departments_path%></li>
                 <%end%> 
                 <% if can? :read, DepartmentDoctor%> 
-                  <li><%=link_to 'all doctors', department_doctors_path%></li>
+                  <li><%=link_to 'All doctors', department_doctors_path%></li>
                 <%end%>  
                 <% if can? :create, Visit%>
-                  <li><%=link_to 'visit', opd_visits_path %></li>
+                  <li><%=link_to 'Visit', opd_visits_path %></li>
                 <%end%>  
             <%end%>
           </ul>

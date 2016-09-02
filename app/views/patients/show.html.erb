@@ -1,43 +1,59 @@
 <p id="notice"><%= notice %></p>
-
-<p>
-	<strong>Registration No:</strong>
-  <%= @patient.id %></br>
-  <strong>Date:</strong>
-  <%= @patient.created_at %>
-</p>
-
-
-<p>
-  <strong>Patient name:</strong>
-  <%= @patient.patient_name %>
-</p>
-
-<p>
-  <strong>Age:</strong>
-  <%= @patient.age %>
-</p>
-
-<p>
-  <strong>Gender:</strong>
-  <%= @patient.gender %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @address.city %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @address.state %>
-</p>
-
-<p>
-  <strong>Pin Code:</strong>
-  <%= @address.pin_code%>
-</p>
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading"> Patient Details </div>
+        <div class="panel-body">
+            <div class="col-sm-6">
+              <strong>Registration No:</strong>
+              <%= @patient.id %>
+            </div>
+            
+            <div class="col-sm-6">  
+              <strong>Date:</strong>
+              <%= @patient.created_at %>
+            </div>
 
 
-<%= link_to 'Edit', edit_patient_path(@patient),:class=>"btn btn-primary" %> |
+            <div class="col-sm-6">
+              <strong>Patient name:</strong>
+              <%= @patient.patient_name %>
+            </div>
 
+            <div class="col-sm-6">
+              <strong>Age:</strong>
+              <%= @patient.age %>
+            </div>
+
+            <div class="col-sm-6">
+              <strong>Gender:</strong>
+              <%= @patient.gender %>
+            </div>
+
+            <div class="col-sm-6">
+              <strong>Location:</strong>
+              <%= @address.city %>
+            </div>
+
+
+
+            <div class="col-sm-6">
+              <strong>Country:</strong>
+              <%= @address.country %>
+            </div>
+
+            <div class="col-sm-6">
+              <strong>City:</strong>
+              <%= @address.city %>
+            </div>
+
+            <div class="col-sm-6">
+              <strong>Pin Code:</strong>
+              <%= @address.pin_code%>
+            </div>
+
+
+        </div>  
+    </div>
+  </div>
+</div>      

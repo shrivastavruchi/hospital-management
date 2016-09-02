@@ -21,6 +21,7 @@
         <td><%=visit.patient.created_at.strftime("%d-%m-%Y")%></td>
         <td><%#=link_to'service', new_visit_service_path(visit) %></td>
         <td><%=link_to'services',  visit_services_path(visit)  %></td>
+        <td><%=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td> 
       </tr>
       </tr>
     <% end %>

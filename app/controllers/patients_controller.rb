@@ -39,7 +39,7 @@ class PatientsController < ApplicationController
       @address.save
       redirect_to  patient_path(@patient) ,:notice=>"Registration  was sucessfully" 
     else
-      format.html { render :new }
+      render :new 
     end
   end
 

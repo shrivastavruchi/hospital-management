@@ -21,3 +21,45 @@
 
 en:
   hello: "Hello world"
+en:
+  activerecord:
+    attributes:
+      address:
+        country: "Country"
+        city: "City"
+        pin_code: "PinCode"
+      prescription_details:
+        drug_name: "Drug name"
+        description: "Description"
+        schedule: "Schedule"  
+      basic_detail :
+        examination_details: "Examination Details"
+        blood_group: "Blood group"
+
+          
+    errors:
+      models:
+        address:
+          attributes:
+            country:
+              blank: "can not be blank"
+            city:  
+              blank: "can not be blank"
+            pin_code:  
+              blank: "can not be blank" 
+        prescription_details:
+          attributes:
+            drug_name:
+              blank: "can not be blank"
+            description:  
+              blank: "can not be blank"
+            schedule:  
+              blank: "can not be blank" 
+        basic_detail:       
+          attributes:
+            examination_details:
+              blank: "can not be blank" 
+              blood_group: "can not be blank"              
+
+
+

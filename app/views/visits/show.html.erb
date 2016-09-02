@@ -1,66 +1,83 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading"> Opd visit</div>
+        <div class="panel-body">
+          <p>
+            <strong>Visit no</strong>
+            <%= @visit.id %>
+          </p>
 
-<h3>Opd visit</h3>
+          <p>
+            <strong>Date:</strong>
+            <%= @visit.date %>
+          </p>
 
-<p>
-  <strong>Visit no</strong>
-  <%= @visit.id %>
-</p>
+          <p>
+            <strong>Patient name</strong>
+            <%=@visit.patient.patient_name%>
+          </p>
 
-<p>
-  <strong>Date:</strong>
-  <%= @visit.date %>
-</p>
-
-<p>
-  <strong>Patient name</strong>
-  <%=@visit.patient.patient_name%>
-</p>
-
-<p>
-  <strong>Patient age</strong>
-  <%=@visit.patient.age%>
-</p>
-
-
-<p>
-  <strong>address</strong>
-  <%if @visit.patient.present? && @visit.patient.address.present? %>
-  	<%=@visit.patient.address.city%>
-  <%end%>	
-</p>
-
-<p>
-  <strong>Doctor:</strong>
-  <%= @visit.department_doctor.name %>
-</p>
+          <p>
+            <strong>Patient age</strong>
+            <%=@visit.patient.age%>
+          </p>
 
 
-<p>
-  <strong>history</strong>
-   <%=@basic_detail.patient_history%>
-</p>
-<p>
-  <strong>weight</strong>
-  <%=@basic_detail.weight %>
-</p>
-<p>
-  <strong>Blood group</strong>
-  <%=@basic_detail.blood_group%>
-</p>
-<p>
-  <strong>Blood presure</strong>
-  <%=@basic_detail.boold_presure%>
-</p>
-<p>
-  <strong>Blood diagnosis</strong>
-  <%=@basic_detail.diagnosis%>
-</p>
+          <p>
+            <strong>address</strong>
+            <%if @visit.patient.present? && @visit.patient.address.present? %>
+              <%=@visit.patient.address.city%>
+            <%end%> 
+          </p>
 
+          <p>
+            <strong>Doctor:</strong>
+            <%= @visit.department_doctor.name %>
+          </p>
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Patient history</th>
+                  <th>weight</th>
+                  <th>Blood group</th>
+                  <th>Blood presure</th>
+                  <th>Blood diagnosis</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                     <%=@basic_detail.patient_history%>
+                  </td>
+                  <td>
+                    <%=@basic_detail.weight %>
+                  </td>
+                  <td>
+                     <%=@basic_detail.blood_group%>
+                  </td>
+                  <td>
+                    <%=@basic_detail.boold_presure%>
+                  </td>
+                  <td>
+                    <%=@basic_detail.boold_presure%>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          
+            
+        </div>  
+    </div>
+  </div>
+</div> 
 <%=link_to 'Prescription detail',prescription_details_path(@visit),:class=>"btn btn-primary"%>
 
+<button id='print'>Print</button>
 
-
-
-<%#= link_to 'Edit', edit_visit_path(@visit) %> 
-<%#= link_to 'Back', visits_path %>
+<script>
+  $("#print").click(function(){
+    window.print();
+});
+</script>

@@ -1,5 +1,5 @@
 class VisitsController < ApplicationController
-  before_action :set_appointment ,only: [:new ] 
+  before_action :set_appointment ,only: [:new ,:create] 
   before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail,:services]
   # GET /visits
   # GET /visits.json
@@ -11,6 +11,7 @@ class VisitsController < ApplicationController
   # GET /visits/1
   # GET /visits/1.json
   def show
+    authorize! :read, Visit
     @basic_detail = @visit.basic_detail
   end
 
@@ -24,6 +25,7 @@ class VisitsController < ApplicationController
 
   # GET /visits/1/edit
   def edit
+    authorize! :edit, Visit
   end
 
   # POST /visits
@@ -68,16 +70,24 @@ class VisitsController < ApplicationController
   end  
 
   def opd_visit
-   @visits = Visit.all
+    authorize! :read, Visit    
+    @visits = Visit.all
   end  
 
   def services
-    
+    authorize! :read, Visit    
     if @visit.services.present?
       @visit.services
     else
       @visit.services.build
     end
+  end  
+
+
+  def genrate_bill
+    authorize! :read, Visit    
+    @visit = Visit.find(params[:visit_id])
+    @services = @visit.services
   end  
 
 

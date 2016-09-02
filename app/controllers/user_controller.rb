@@ -2,15 +2,17 @@ class UserController < ApplicationController
 	before_action :find_user, :only=>[:edit,:update]
 
 	def index
+		authorize! :read, User
 		@users = User.all_except(current_user)
 	end	
 
 	def new
-
+		authorize! :create, User
 		@user =User.new
 	end
 
 	def create
+		authorize! :create, User
 		@user = User.new(params_user)
     if @user.save
       unless params[:roles].blank?
@@ -23,9 +25,11 @@ class UserController < ApplicationController
 	end	
 
 	def edit
+	authorize! :edit, User
 	end	
 
 	def update
+		authorize! :update, User
 		if @user.update(params_user)
 			unless params[:roles].blank?
 				@user.roles.delete_all

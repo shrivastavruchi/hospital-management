@@ -1,79 +1,87 @@
 <div class="container">
-  <%= nested_form_for [@appoitnemnt, @visit]  do |f| %>
-    <% if @visit.errors.any? %>
-      <div id="error_explanation">
-        <ul>
-        <% @visit.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"> Patient Registration </div>
+        <div class="panel-body">
+            <%= nested_form_for [@appoitnemnt, @visit]  do |f| %>
+              <% if @visit.errors.any? %>
+                <div id="error_explanation">
+                  <ul>
+                  <% @visit.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                  </ul>
+                </div>
+              <% end %>
 
-    <div class="field">
-      <%= f.label :visit_id %><br>
-      <%= f.text_field :id ,class: "form-control",:placeholder=>'Visit No',disabled: true %>
-    </div>
+              <div class="field">
+                <%= f.label :visit_id %><br>
+                <%= f.text_field :id ,class: "form-control",:placeholder=>'Visit No',disabled: true %>
+              </div>
 
-    <div class="field">
-      <%= f.label :patient_id %><br>
-      <%= f.select :patient_id, Patient.all.map{|p| [ p.patient_name, p.id ]},{}, class: "form-control" %>
+              <div class="field">
+                <%= f.label :patient_id %><br>
+                <%= f.select :patient_id, Patient.all.map{|p| [ p.patient_name, p.id ]},{}, class: "form-control" %>
+              </div>
+              <div class="field">
+                <%= f.label :doctor_id %><br>
+                <%= f.select :doctor_id ,DepartmentDoctor.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
+              </div>
+              <div class="field">
+                <%= f.label :visit_date %><br>
+                <%= f.text_field :date , class: "form-control ",id: 'start_date_picker' %>
+              </div></br>
+              <h4 class="text-muted">Basic Details</h4>
+              <%= f.fields_for :basic_detail do |basic_detail| %>
+                <div class="col-sm-3">
+                  <%=  basic_detail.label :weight %>
+                  <%= basic_detail.text_field :weight, class: "form-control" %>  
+                </div>
+                <div class="col-sm-3">
+                  <%=  basic_detail.label :blood_group %>
+                  <%= basic_detail.text_field :blood_group, class: "form-control" %>  
+                </div>
+                <div class="col-sm-3">
+                  <%=  basic_detail.label :blood_presure %>
+                  <%= basic_detail.text_field :boold_presure, class: "form-control" %>  
+                </div>
+                <div class="col-sm-3">
+                  <%=  basic_detail.label :patient_history %>
+                  <%= basic_detail.text_field :patient_history, class: "form-control" %>  
+                </div>
+                <div class="col-sm-6">
+                  <%=  basic_detail.label :examination_details %>
+                  <%= basic_detail.text_area :examination_details, class: "form-control" %>  
+                </div>
+                <div class="col-sm-6">
+                  <%=  basic_detail.label :diagnosis %>
+                  <%= basic_detail.text_area :diagnosis, class: "form-control" %>  
+                </div>
+              <% end %>
+
+              <h4 class="text-muted">Prescription Details</h4>
+              <%= f.fields_for :prescription_details do |p_detail| %>
+                 <div class="col-sm-4">
+                  <%=  p_detail.label :drug %>
+                  <%= p_detail.text_field :drug_name, class: "form-control" %> 
+                </div>
+                <div class="col-sm-4">
+                  <%=  p_detail.label :description%>
+                  <%= p_detail.text_field :description, class: "form-control" %> 
+                </div>
+                <div  class="col-sm-4" >
+                  <%=  p_detail.label :schedule %>
+                  <%= p_detail.text_field :schedule, class: "form-control" %> 
+                </div>
+              <% end %>
+              <%= f.link_to_add "Add new prescription", :prescription_details,:class=>"btn btn-primary",:style=>"margin-top: 15px; margin-left: 65px;" %>
+              <div class="actions">
+                <%= f.submit 'save', :class=>"btn btn-primary",:style=>"margin-top: -59px;" %>
+              </div>
+            <% end %>
+        </div>  
     </div>
-    <div class="field">
-      <%= f.label :doctor_id %><br>
-      <%= f.select :doctor_id ,DepartmentDoctor.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
-    </div>
-    <div class="field">
-      <%= f.label :visit_date %><br>
-      <%= f.text_field :date , class: "form-control ",id: 'start_date_picker' %>
-    </div>
-    <h4>Basic Details</h4>
-    <%= f.fields_for :basic_detail do |basic_detail| %>
-      <div class="field">
-        <%=  basic_detail.label :weight %>
-        <%= basic_detail.text_field :weight, class: "form-control" %>  
-      </div>
-       <div class="field">
-        <%=  basic_detail.label :blood_group %>
-        <%= basic_detail.text_field :blood_group, class: "form-control" %>  
-      </div>
-       <div class="field">
-        <%=  basic_detail.label :blood_presure %>
-        <%= basic_detail.text_field :boold_presure, class: "form-control" %>  
-      </div>
-       <div class="field">
-        <%=  basic_detail.label :patient_history %>
-        <%= basic_detail.text_area :patient_history, class: "form-control" %>  
-      </div>
-       <div class="field">
-        <%=  basic_detail.label :examination_details %>
-        <%= basic_detail.text_area :examination_details, class: "form-control" %>  
-      </div>
-      <div class="field">
-        <%=  basic_detail.label :diagnosis %>
-        <%= basic_detail.text_area :diagnosis, class: "form-control" %>  
-      </div>
-    <% end %>
-    <h4>Prescription Details</h4>
-    <%= f.fields_for :prescription_details do |p_detail| %>
-       <div class="field">
-        <%=  p_detail.label :drug %>
-        <%= p_detail.text_field :drug_name, class: "form-control" %> 
-      </div>
-      <div class="field">
-        <%=  p_detail.label :description%>
-        <%= p_detail.text_field :description, class: "form-control" %> 
-      </div>
-      <div class="field">
-        <%=  p_detail.label :schedule %>
-        <%= p_detail.text_field :schedule, class: "form-control" %> 
-      </div>
-    <% end %>
-    <%= f.link_to_add "Add new prescription", :prescription_details,:class=>"btn btn-primary" %>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <% end %>
+  </div>
 </div>
 
 
@@ -85,6 +93,9 @@
         todayBtn: false
     })
 </script>
+
+
+
 
 
 

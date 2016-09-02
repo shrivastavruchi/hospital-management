@@ -26,7 +26,8 @@ gem 'devise'
 gem "twitter-bootstrap-rails"
 gem "rolify"
 gem "cancan"
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails'#(date picker)
+gem 'bootstrap-sass'
 gem 'bootstrap-timepicker-rails-addon'
 gem "font-awesome-rails"
 gem "nested_form"

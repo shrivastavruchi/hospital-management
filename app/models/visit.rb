@@ -9,6 +9,8 @@ class Visit < ActiveRecord::Base
 	accepts_nested_attributes_for :basic_detail
 	accepts_nested_attributes_for :prescription_details
 	accepts_nested_attributes_for :services
+
+	validates :date ,:presence=>true
 end
 
 

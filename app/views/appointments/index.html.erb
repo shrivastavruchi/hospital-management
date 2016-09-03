@@ -14,20 +14,28 @@
                   <th>Appointment Time</th>
                   <th>Visit</th>
                   <th></th>
-                  <th>edit</th>
-                  <th>delete</th>
+                  <%if can? :edit,Appointment %>
+                    <th>edit</th>
+                  <%end%>
+                  <%if can? :delete ,Appointment %>
+                    <th>delete</th>
+                  <%end%> 
                 </tr>
               </thead>
               <tbody>
-                <%@appointment.each do |appoint|%>
+                <%@appointments.each do |appoint|%>
                   <tr>
                     <td><%=appoint.id%></td>
-                    <%if appoint.patient.present?%> 
-                      <td><%=appoint.patient.patient_name%></td>
-                    <%end%> 
-                    <%if appoint.department_doctor.present?%>
-                      <td><%=appoint.department_doctor.name%></td>
-                    <%end%>
+                    <td>  
+                      <%if appoint.patient.present?%> 
+                        <%=appoint.patient.patient_name%>
+                      <%end%>
+                    </td>   
+                    <td>  
+                      <%if appoint.user.present?%>
+                        <%=appoint.user.name%>
+                      <%end%>
+                    </td>  
                     <td><%=appoint.date%></td>
                     <td><%=appoint.appoint_time%></td>
                     <td> 
@@ -38,11 +46,17 @@
                       <%end%>
                     </td>
                     <td>
-                    <% unless appoint.visit.present?%>
-                      <%=link_to 'select visit' ,new_appointment_visit_path(appoint) %></td>
+                    <%if can? :create, Visit %>
+                      <% unless appoint.visit.present?%>
+                        <%=link_to 'select visit' ,new_appointment_visit_path(appoint) %></td>
+                      <%end%> 
+                    <%end%>
+                    <%if can? :edit, Appointment %>  
+                      <td><%=link_to'edit', edit_appointment_path(appoint)%></td>
+                    <%end%>
+                    <%if can? :delete, Appointment %>
+                      <td><%=link_to'destroy',appointment_path(appoint), method: :delete, data: { confirm: 'Are you sure?' }%></td>
                     <%end%>  
-                    <td><%=link_to'edit', edit_appointment_path(appoint)%></td>
-                    <td><%=link_to'destroy',appointment_path(appoint), method: :delete, data: { confirm: 'Are you sure?' }%></td>
                   </tr>
                 <% end %>
               </tbody>

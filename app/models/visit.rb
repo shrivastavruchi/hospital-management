@@ -1,7 +1,7 @@
 class Visit < ActiveRecord::Base
 	belongs_to :patient
 	belongs_to :appointment
-	belongs_to :department_doctor ,:foreign_key => :doctor_id
+	belongs_to :user ,:foreign_key => :doctor_id
 	has_one :basic_detail
 	has_many :prescription_details
 	has_many :services

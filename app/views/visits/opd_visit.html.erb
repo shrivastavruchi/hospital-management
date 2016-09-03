@@ -8,6 +8,8 @@
       <th>Doctor name</th>
       <th>Opd date</th>
       <th>Register date</th>
+      <th>Prescription detail</th>
+      <th>Basic detail</th>
     </tr>
   </thead>
 
@@ -16,9 +18,13 @@
       <tr>
         <td><%= visit.id %></td>
         <td><%= visit.patient.patient_name %></td>  
-        <td><%= visit.department_doctor.name %></td>
+        <%if visit.user.present?%>   
+          <td><%= visit.user.name %></td>
+        <%end%>
         <td><%= visit.date %></td>
         <td><%=visit.patient.created_at.strftime("%d-%m-%Y")%></td>
+        <td><%=link_to 'Prescription detail',prescription_details_path(visit)%></td>
+        <td><%=link_to 'Basic detail',visit_path(visit)%></td>
         <td><%#=link_to'service', new_visit_service_path(visit) %></td>
         <td><%=link_to'services',  visit_services_path(visit)  %></td>
         <td><%=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td> 

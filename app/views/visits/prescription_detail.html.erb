@@ -24,7 +24,7 @@
           </p>
           <p>
             <strong>Consultant </strong>
-            <%=@visit.department_doctor.name%>
+            <%=@visit.user.name%>
           </p>
 
           <table class="table table-bordered">
@@ -49,5 +49,13 @@
             </table>
       </div>  
     </div>
+    <button id="print" class="btn btn-primary">Print</button>
   </div>
 </div> 
+
+
+<script>
+  $("#print").click(function(){
+    window.print();
+});
+</script>

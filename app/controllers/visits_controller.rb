@@ -19,6 +19,7 @@ class VisitsController < ApplicationController
   def new
     authorize! :new, Visit
     @visit = Visit.new
+    @doctors = User.with_role :doctor
     @visit.build_basic_detail
     @visit.prescription_details.build
   end
@@ -36,7 +37,7 @@ class VisitsController < ApplicationController
       unless @appointment.visit.present?
         @visit =  @appointment.build_visit(visit_params)
           if @visit.save
-            redirect_to appointment_visit_path(@appointment ,@visit), notice: 'Visit was successfully created.'
+            redirect_to opd_visits_path, notice: 'Visit was successfully created.'
           else
             render :new 
           end 
@@ -66,6 +67,7 @@ class VisitsController < ApplicationController
   end
 
   def prescription_detail
+    authorize! :read, Visit
     @prescription_details = @visit.prescription_details
   end  
 

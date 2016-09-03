@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :addmissions
   resources :departments
   resources :department_doctors
   resources :patients do  
@@ -14,8 +15,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :user
   resources :visits do
-    # resources :services do
-    # end  
+   get 'genrate_bill'   
   end  
 
   # The priority is based upon order of creation: first created -> highest priority.

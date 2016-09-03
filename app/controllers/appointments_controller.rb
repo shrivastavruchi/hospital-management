@@ -4,12 +4,17 @@ class AppointmentsController < ApplicationController
 
 	def index
 		authorize! :read, Appointment
-		@appointment = Appointment.all
+		if current_user.has_role? (:doctor)
+			@appointments = Appointment.where(:doctor_id=>current_user.id)
+		else	
+			@appointments = Appointment.all
+		end
 	end	
 
 	def new
 		authorize! :create, Appointment
 		@appointment = Appointment.new
+		@doctors = doctors = User.with_role :doctor
 	end	
 
 	def create

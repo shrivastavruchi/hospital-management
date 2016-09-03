@@ -5,6 +5,12 @@
   <%= f.text_field :name, autofocus: true, class: "form-control", :require=>true %>
   <%= f.label :age %>
   <%= f.text_field :age, autofocus: true, class: "form-control" ,:required => true%>
+  <%= f.label :department %>
+  <%= f.select :department_id,Department.all.map{|d| d.department_name},{}, class: "form-control" %>
+  <%= f.label :specilization %>
+  <%= f.text_field :specilization, class: "form-control" ,:required => true%>
+
+
   <%= f.label :email %>
   <%= f.email_field :email, autofocus: true, class: "form-control" ,:required => true%>
   <%= f.label :password %>

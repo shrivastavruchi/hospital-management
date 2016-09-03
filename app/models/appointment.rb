@@ -1,6 +1,6 @@
 class Appointment < ActiveRecord::Base
 	belongs_to :patient 
-	belongs_to :department_doctor ,:foreign_key => :doctor_id
+	belongs_to :user ,:foreign_key => :doctor_id
 	has_one :visit
 	#validates :patient_id,:doctor_id,:appoint_time,:date ,:presence=>true 
 

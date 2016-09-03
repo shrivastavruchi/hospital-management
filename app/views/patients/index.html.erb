@@ -3,6 +3,9 @@
     <div class="panel panel-default">
       <div class="panel-heading"> Patient Registration </div>
         <div class="panel-body">
+          <%if can? :create, Patient %>
+            <%= link_to 'Patient Registration', new_patient_path,:class=>"btn btn-primary",:style=>"margin-left: 80%;" %>
+          <%end%>  
           <table class="table table-striped">
             <thead >
               <tr>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Addmissions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Visit</th>
+      <th>Doctor</th>
+      <th>Patient</th>
+      <th>Addmission date</th>
+      <th>Discharge date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @addmissions.each do |addmission| %>
+      <tr>
+        <td><%= addmission.visit_id %></td>
+        <td><%= addmission.doctor_id %></td>
+        <td><%= addmission.patient_id %></td>
+        <td><%= addmission.addmission_date %></td>
+        <td><%= addmission.discharge_date %></td>
+        <td><%= link_to 'Show', addmission %></td>
+        <td><%= link_to 'Edit', edit_addmission_path(addmission) %></td>
+        <td><%= link_to 'Destroy', addmission, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Addmission', new_addmission_path %>

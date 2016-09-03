@@ -8,7 +8,11 @@ class Ability
       if user.has_role? :admin
         can :manage, [User,Department,DepartmentDoctor]
       elsif user.has_role? :receptionist 
-        can :manage, [Patient,Appointment,Visit,Address]
+        can :manage, [Patient,Appointment ,Address,Addmission]
+        can :read,[Visit]
+      elsif user.has_role? :doctor
+        can :read,[Appointment]  
+        can :manage,[Visit]
       else  
     end
     #

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="panel-group">
     <div class="panel panel-default">
-      <div class="panel-heading"> Patient Registration </div>
+      <div class="panel-heading">Opd visit</div>
         <div class="panel-body">
             <%= nested_form_for [@appoitnemnt, @visit]  do |f| %>
               <% if @visit.errors.any? %>
@@ -25,7 +25,7 @@
               </div>
               <div class="field">
                 <%= f.label :doctor_id %><br>
-                <%= f.select :doctor_id ,DepartmentDoctor.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
+                <%= f.select :doctor_id ,@doctors.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
               </div>
               <div class="field">
                 <%= f.label :visit_date %><br>

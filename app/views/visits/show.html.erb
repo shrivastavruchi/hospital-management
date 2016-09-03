@@ -33,7 +33,7 @@
 
           <p>
             <strong>Doctor:</strong>
-            <%= @visit.department_doctor.name %>
+            <%= @visit.user.name %>
           </p>
           <table class="table table-bordered">
               <thead>
@@ -65,14 +65,10 @@
                 </tr>
               </tbody>
             </table>
-
-          
-            
         </div>  
     </div>
   </div>
 </div> 
-<%=link_to 'Prescription detail',prescription_details_path(@visit),:class=>"btn btn-primary"%>
 
 <button id='print'>Print</button>
 

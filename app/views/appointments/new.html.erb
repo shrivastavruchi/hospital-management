@@ -21,7 +21,7 @@
 
             <div class="field">
               <%= f.label :consultant_doctor %><br>
-              <%= f.select :doctor_id ,DepartmentDoctor.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
+              <%= f.select :doctor_id ,@doctors.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
             </div>
             <div class="field">
               <%= f.label :date %><br>

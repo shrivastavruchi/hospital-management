@@ -5,6 +5,8 @@ class Visit < ActiveRecord::Base
 	has_one :basic_detail
 	has_many :prescription_details
 	has_many :services
+	has_one :addmission
+
 	
 	accepts_nested_attributes_for :basic_detail
 	accepts_nested_attributes_for :prescription_details

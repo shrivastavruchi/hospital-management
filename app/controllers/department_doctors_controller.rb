@@ -3,7 +3,7 @@ class DepartmentDoctorsController < ApplicationController
   before_action :find_department, only: [:create]
   def index
     authorize! :read, DepartmentDoctor
-    @department_doctors = DepartmentDoctor.all
+    @doctors = User.with_role :doctor
   end
 
 

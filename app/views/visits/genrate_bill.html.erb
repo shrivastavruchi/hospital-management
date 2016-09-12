@@ -1,5 +1,69 @@
-<%=@visit.patient.patient_name%>
-<%=@visit.department_doctor.name%>
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading"> services </div>
+        <div class="panel-body">
+         <p>
+          <strong>Visit no</strong>
+            <%= @visit.id %>
+          </p>
+
+          <p>
+            <strong>Date:</strong>
+            <%= @visit.date %>
+          </p>
+
+          <p>
+            <strong>Patient name</strong>
+            <%=@visit.patient.patient_name%>
+          </p>
+
+          <p>
+            <strong>Patient age</strong>
+            <%=@visit.patient.age%>
+          </p>
+          <p>
+            <strong>Consultant </strong>
+            <%=@visit.user.name%>
+          </p>
+
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Service name</th>
+                  <th>Charges</th>
+                 </tr>
+              </thead>
+              <tbody>
+              	<%total =0 %>
+								<%@services.each do |service|%>
+								<tr>
+									<td><%=service.service_name%></td>
+									<td><%=service.charges%></td>
+									<%total += service.charges.to_i%>
+								</tr>	
+								<%end%>
+								<tr>
+									<td>Total</td>
+									<td><%=total%></td>
+								</tr>	
+              </tbody>
+            </table>
+      </div>  
+    </div>
+    <button id="print" class="btn btn-primary">Print</button>
+  </div>
+</div> 
+
+
+<script>
+  $("#print").click(function(){
+    window.print();
+});
+</script>
+
+
+
 
 
 

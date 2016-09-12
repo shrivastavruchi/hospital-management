@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :addmissions
   resources :departments
   resources :department_doctors
   resources :patients do  
@@ -11,7 +10,15 @@ Rails.application.routes.draw do
      resources :visits do
       #get 'prescription_detail' 
     end
-  end  
+  end 
+
+  resources :visits do 
+    resources :addmissions do
+    end  
+  end 
+  get '/ipd_addmissions' => 'addmissions#ipd_addmissions', :as=>"ipd_addmissions"
+  get  'addmission/:id/new_work_details' => 'addmissions#new_work_details', :as=>"new_work_details"
+  post  'addmission/:id/create_work_details' => 'addmissions#create_work_details', :as=>"create_work_details"
   devise_for :users
   resources :user
   resources :visits do

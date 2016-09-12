@@ -27,7 +27,14 @@
         <td><%=link_to 'Basic detail',visit_path(visit)%></td>
         <td><%#=link_to'service', new_visit_service_path(visit) %></td>
         <td><%=link_to'services',  visit_services_path(visit)  %></td>
-        <td><%=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td> 
+        <td><%=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td>
+        <td>
+          <%if visit.addmission.present?%>
+            <%=link_to 'Admission', new_visit_addmission_path(visit) %>
+          <%else%>
+            <%=link_to 'Admission', new_visit_addmission_path(visit)  %>
+          <%end%>
+        </td>
       </tr>
       </tr>
     <% end %>

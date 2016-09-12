@@ -87,7 +87,7 @@ class VisitsController < ApplicationController
 
 
   def genrate_bill
-    authorize! :read, Visit    
+    authorize! :read, Visit  
     @visit = Visit.find(params[:visit_id])
     @services = @visit.services
   end  

@@ -8,24 +8,26 @@
       <th>Doctor Name</th>
       <th>Addmission date</th>
       <th>Discharge date</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @addmissions.each do |addmission| %>
     <tr>
-    <td><%=addmission.visit.id if addmission.visit.present? %></td>  
+    <td><%=addmission.id %></td>  
     <td>
       <%=addmission.visit.patient.patient_name if addmission.visit.present? %>
     </td>
     <td><%=addmission.visit.user.name if addmission.visit.present? %></td>
     <td><%=addmission.addmission_date%></td>
     <td><%=addmission.discharge_date%></td>
+    <td><%=link_to 'select', new_work_details_path(addmission),:remote=>true %>
     </tr>  
-
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
-<br>
+<div id="work_detail">sa</div>
 
+<br>

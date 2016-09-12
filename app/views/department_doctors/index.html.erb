@@ -1,31 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<h4>Listing Department Doctors</h4>
-
-<table class="table table-striped">
+<h3>Doctors</h3>
+<table  class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Age</th>
-      <th>Specialization</th>
       <th>Email</th>
-      <th>Department name</th>
-      <th colspan="3"></th>
+      <th>age</th>
+      <th>salary</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @department_doctors.each do |doctor| %>
+    <% @doctors.each do |doctor| %>
       <tr>
         <td><%= doctor.name %></td>
+        <td><%= doctor.email %></td>
         <td><%= doctor.age %></td>
-        <td><%= doctor.specialization %></td>
-        <td><%=doctor.email %></td>
-        <%if doctor.department.present?%>
-          <td><%=doctor.department.department_name %></td>
-        <%end%>  
-        <td><%= link_to 'Edit', edit_department_doctor_path(doctor) %></td>
-        <td><%= link_to 'Destroy', doctor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= doctor.salary %></td>
       </tr>
     <% end %>
   </tbody>
@@ -33,4 +23,7 @@
 
 <br>
 
-<%= link_to 'Add doctor', new_department_doctor_path ,:class=>"btn btn-primary"%>
+
+
+
+ 

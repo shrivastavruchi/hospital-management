@@ -1,0 +1,48 @@
+<div class="col-sm-12">
+  <%=form_for (@worksheet_detail),:url=>create_work_details_path  do |f| %>
+  	<div class="col-sm-2">
+      <%= f.label :medicine_name %><br>
+      <%= f.text_field :medicine_name,:class=>"form-control " %>
+    </div>
+   	<div  class="col-sm-2">
+      <%= f.label :quantity %><br>
+      <%= f.text_field :quantity,:class=>"form-control" %>
+    </div>
+    <div  class="col-sm-2">
+      <%= f.label :type %><br>
+      <%= f.text_field :type,:class=>"form-control" %>
+    </div>
+    <div  class="col-sm-2">
+      <%= f.label :blood_presure %><br>
+      <%= f.text_field :blood_presure,:class=>"form-control" %>
+    </div>
+    <div  class="col-sm-2">
+      <%= f.label :date %><br>
+      <%= f.text_field :date,:class=>"form-control" %>
+    </div>
+    <div  class="col-sm-2">
+      <%= f.label :time %><br>
+      <%= f.text_field :time,:class=>"form-control" %>
+    </div>
+    
+    <%=f.submit 'save',:class=>'btn btn-primary',:style=>"margin-top: 15px;" %>
+  <%end%>
+</div>  
+
+
+
+
+<!-- <div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Opd Visits </div>
+          <div class="panel-body">
+            <h1>Appoitnments</h1>
+            <table class="table table-bordered">
+              <tbody>
+              </tbody>
+            </table>
+          </div>  
+    </div>
+  </div>
+</div>   -->

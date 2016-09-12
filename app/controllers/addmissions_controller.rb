@@ -1,6 +1,6 @@
   class AddmissionsController < ApplicationController
   before_action :set_addmission, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_visit, only: [:new ,:create]
   # GET /addmissions
   # GET /addmissions.json
   def index
@@ -14,6 +14,7 @@
 
   # GET /addmissions/new
   def new
+    @addmission = Addmission.find_by_visit_id(params[:visit_id])
     @addmission = Addmission.new
     @doctors = User.with_role :doctor
   end
@@ -25,10 +26,10 @@
   # POST /addmissions
   # POST /addmissions.json
   def create
-    @addmission = Addmission.new(addmission_params)
+    @addmission = @visit.build_addmission(addmission_params)
 
     if @addmission.save
-      redirect_to addmissions_path, notice: 'Addmission was successfully created.' 
+      redirect_to  ipd_addmissions_path, notice: 'Addmission was successfully created.' 
     else
       render :new 
     end
@@ -58,6 +59,25 @@
     end
   end
 
+
+  def ipd_addmissions
+    @addmissions = Addmission.all
+  end  
+
+  def new_work_details
+    @addmission = Addmission.find(params[:id])
+    @worksheet_detail = WorksheetDetail.new
+  end  
+
+  def create_work_details
+    @addmission = Addmission.find(params[:id])
+    @workdetails = @addmission.worksheet_details.build( work_detail_params)
+    if @workdetails.save
+      redirect_to  ipd_addmissions_path
+    end  
+  end  
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_addmission
@@ -68,4 +88,12 @@
     def addmission_params
       params.require(:addmission).permit(:visit_id, :doctor_id, :patient_id, :addmission_date, :discharge_date)
     end
+
+    def set_visit
+      @visit = Visit.find(params[:visit_id])
+    end  
+
+    def work_detail_params
+      params.require(:worksheet_detail).permit(:addmission_id,:medicine_name,:quantity,:blood_presure,:date,:time)
+    end  
 end

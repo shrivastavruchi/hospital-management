@@ -10,6 +10,7 @@ class Ability
       elsif user.has_role? :receptionist 
         can :manage, [Patient,Appointment ,Address,Addmission]
         can :read,[Visit]
+        can :update,[Visit]
       elsif user.has_role? :doctor
         can :read,[Appointment]  
         can :manage,[Visit]

@@ -61,7 +61,7 @@
                <li><%= link_to 'Patient registration list ', patients_path %></li>
                 <li><%=link_to 'Appointment', new_appointment_path%></li>
                 <li><%=link_to 'All Appointment', appointments_path%></li> 
-                <li><%#=link_to 'Admission',new_addmission_path %><li>
+                <li><%=link_to 'Admission', ipd_addmissions_path %><li>
               <%end%> 
               <%if can? :read, Visit %>  
                 <li><%=link_to 'Visit', opd_visits_path %></li>

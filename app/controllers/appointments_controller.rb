@@ -14,7 +14,7 @@ class AppointmentsController < ApplicationController
 	def new
 		authorize! :create, Appointment
 		@appointment = Appointment.new
-		@doctors = doctors = User.with_role :doctor
+		@doctors  = User.with_role :doctor
 	end	
 
 	def create

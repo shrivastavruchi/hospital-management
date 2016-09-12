@@ -1,5 +1,8 @@
 class Addmission < ActiveRecord::Base
+	# belongs_to :patient
+	# belongs_to :user ,:foreign_key => :doctor_id
 	belongs_to :visit
+	has_many :worksheet_details
 
 	validate :valid_date
 

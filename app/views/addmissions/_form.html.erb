@@ -3,13 +3,16 @@
     <div class="panel panel-default">
       <div class="panel-heading">Ipd addmission</div>
         <div class="panel-body">
-          <%= form_for(@addmission) do |f| %>
+          <%= form_for [@visit,@addmission] do |f| %>
             <div class="field">
               <%#= f.label :visit_id %><br>
               <%#= f.text_field :visit_id %>
             </div>
             <div class="field">
+        
               <%= f.label :doctor_id %><br>
+               <!-- @visit.patient.patient_name -->
+               <!-- @visit.user.name -->
               <%= f.select :doctor_id ,@doctors.all.map{|d| [d.name,d.id ]},{},:class=>"form-control"%>
             </div>
             <div class="field">

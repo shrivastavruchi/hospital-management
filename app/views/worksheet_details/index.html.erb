@@ -1,0 +1,31 @@
+<table class="table table-striped">
+  <thead >
+    <tr>
+      <th>Date</th>
+      <th>Pulse rate</th>
+      <th>Height</th>
+      <th>weight</th>
+      <th>Blood Presure</th>
+      <th>Prepared_by </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @worksheet_details.each do |worksheet_detail| %>
+      <tr>
+        <td><%= worksheet_detail.date %></td>
+        <td><%= worksheet_detail.pulse_rate %></td>
+        <td><%= worksheet_detail.height %></td>
+        <td><%= worksheet_detail.weight %></td>
+        <td><%= worksheet_detail.blood_presure %></td>
+        <td><%= worksheet_detail.user.name if worksheet_detail.user.present?%></td>
+        <td><%=link_to'Remove', addmission_worksheet_detail_path(worksheet_detail.addmission,worksheet_detail ),method: :delete %></td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%=link_to'Add details',new_addmission_worksheet_detail_path(@addmission),:class=>"btn  btn-primary"%>
+
+<br>

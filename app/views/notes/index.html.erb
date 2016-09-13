@@ -1,0 +1,33 @@
+<table class="table table-striped">
+  <thead >
+    <tr>
+      <th>Date</th>
+      <th>Progress</th>
+      <th>Treatment</th>
+      <th>Remarks</th>
+      <th>User</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notes.each do |note| %>
+      <tr>
+        <td><%= note.date %></td>
+        <td><%= note.progress %></td>
+        <td><%= note.treatment %></td>
+        <td><%= note.remarks %></td>
+        <td><%= note.user_id %></td>
+        <td><%=link_to'Remove', addmission_note_path(note.addmission,note ),method: :delete %></td>
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%=link_to'Add notes',new_addmission_note_path(@addmission),:class=>"btn  btn-primary"%>
+
+<br>
+
+
+
+

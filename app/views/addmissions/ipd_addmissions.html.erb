@@ -3,7 +3,7 @@
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th>Id</th>
+      <th>Ipd no</th>
       <th>Patient Name</th>
       <th>Doctor Name</th>
       <th>Addmission date</th>
@@ -16,18 +16,17 @@
     <% @addmissions.each do |addmission| %>
     <tr>
     <td><%=addmission.id %></td>  
-    <td>
-      <%=addmission.visit.patient.patient_name if addmission.visit.present? %>
-    </td>
-    <td><%=addmission.visit.user.name if addmission.visit.present? %></td>
+    <td><%=addmission.patient.patient_name%></td>
+    <td><%=addmission.user.name%></td>  
     <td><%=addmission.addmission_date%></td>
     <td><%=addmission.discharge_date%></td>
-    <td><%=link_to 'select', new_work_details_path(addmission),:remote=>true %>
+    <td><%=link_to'show',  addmission_path(addmission)%></td>
     </tr>  
   <% end %>
   </tbody>
 </table>
 
-<div id="work_detail">sa</div>
 
 <br>
+
+

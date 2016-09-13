@@ -9,6 +9,7 @@
           <table class="table table-striped">
             <thead >
               <tr>
+                <th>Registration Id</th>
                 <th>Patient name</th>
                 <th>Age</th>
                 <th>Gender</th>
@@ -20,13 +21,15 @@
             <tbody>
               <% @patients.each do |patient| %>
                 <tr>
+                  <td><%= patient.id %></td>
                   <td><%= patient.patient_name %></td>
                   <td><%= patient.age %></td>
                   <td><%= patient.gender %></td>
                   <td><%= patient.address.city %></td>
                   <td><%= link_to 'Show', patient %></td>
                   <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
-                  <td></td>
+
+                  <td><%=link_to 'Admit', new_patient_addmission_path(patient)%></td>
                 </tr>
               <% end %>
             </tbody>

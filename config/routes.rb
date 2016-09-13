@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :diagnoses
   resources :departments
   resources :department_doctors
   resources :patients do  
@@ -12,13 +13,37 @@ Rails.application.routes.draw do
     end
   end 
 
-  resources :visits do 
+  resources :patients do
     resources :addmissions do
     end  
-  end 
+  end
+
   get '/ipd_addmissions' => 'addmissions#ipd_addmissions', :as=>"ipd_addmissions"
-  get  'addmission/:id/new_work_details' => 'addmissions#new_work_details', :as=>"new_work_details"
-  post  'addmission/:id/create_work_details' => 'addmissions#create_work_details', :as=>"create_work_details"
+  resources :addmissions do
+    resources :notes do
+    end  
+    get 'basic_information'
+  end 
+
+  resources :addmissions do
+    resources :worksheet_details do
+    end  
+  end  
+
+  resources :addmissions do
+    resources :diagnoses do
+    end  
+  end 
+
+
+  resources :addmissions do
+    resources :prescription_details do
+    end
+  end    
+
+
+
+ 
   devise_for :users
   resources :user
   resources :visits do

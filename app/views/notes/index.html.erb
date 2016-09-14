@@ -17,14 +17,14 @@
         <td><%= note.treatment %></td>
         <td><%= note.remarks %></td>
         <td><%= note.user_id %></td>
-        <td><%=link_to'Remove', addmission_note_path(note.addmission,note ),method: :delete %></td>
+        <td><%=link_to'Remove', visit_note_path(note.visit,note ),method: :delete %></td>
         
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%=link_to'Add notes',new_addmission_note_path(@addmission),:class=>"btn  btn-primary"%>
+<%=link_to'Add notes', new_visit_note_path(@visit),:class=>"btn  btn-primary"%>
 
 <br>
 

@@ -9,7 +9,7 @@
     <% @diagnoses.each do |diagnosis| %>
       <tr>
         <td><%= diagnosis.name %></td>
-        <td><%= link_to 'Remove',  addmission_diagnosis_path(diagnosis.addmission,diagnosis), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+        <td><%= link_to 'Remove',  visit_diagnosis_path(diagnosis.visit,diagnosis), method: :delete, data: { confirm: 'Are you sure?' }%></td>
       </tr>
     <% end %>
   </tbody>
@@ -17,6 +17,6 @@
 
 <br>
 
-<%= link_to 'Add Diagnosis',  new_addmission_diagnosis_path(
-@addmission),:class=>"btn btn-primary"%>
+<%= link_to 'Add Diagnosis',   new_visit_diagnosis_path(
+@visit),:class=>"btn btn-primary"%>
 

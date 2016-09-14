@@ -1,15 +1,14 @@
-
 <h3>Opd Visit</h3>
 <table  class="table table-striped">
   <thead>
     <tr>
-      <th>visit Id</th>
+      <th>Opd Id</th>
       <th>Patient name</th>
       <th>Doctor name</th>
       <th>Opd date</th>
       <th>Register date</th>
       <th>Prescription detail</th>
-      <th>Basic detail</th>
+      <th>Diagnosis</th>
     </tr>
   </thead>
 
@@ -23,11 +22,10 @@
         <%end%>
         <td><%= visit.date %></td>
         <td><%=visit.patient.created_at.strftime("%d-%m-%Y")%></td>
-        <td><%=link_to 'Prescription detail',prescription_details_path(visit)%></td>
-        <td><%=link_to 'Basic detail',visit_path(visit)%></td>
-        <td><%#=link_to'service', new_visit_service_path(visit) %></td>
+        <td><%=link_to 'prescription details',visit_prescription_details_path(visit)%></td>
+        <td><%=link_to'DIA',new_visit_diagnosis_path(visit)%></td>
         <td><%=link_to'services',  visit_services_path(visit)  %></td>
-        <td><%=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td>
+        <td><%#=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td>
       </tr>
       </tr>
     <% end %>

@@ -8,6 +8,7 @@ class CreateWorksheetDetails < ActiveRecord::Migration
       t.string :blood_presure
       t.string :date
       t.string :time
+      t.integer :visit_id
 
       t.timestamps null: false
     end

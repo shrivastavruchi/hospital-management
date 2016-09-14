@@ -2,7 +2,7 @@
   <div class="col-sm-12">
     <div class="panel panel-default">
       <div class="panel-heading">Appointment </div>
-        <%=form_for @appointment do |f|%>
+        <%=form_for [@patient, @appointment] do |f|%>
           <% if @appointment.errors.any? %>
             <div id="error_explanation">
               <ul>
@@ -15,8 +15,8 @@
 
           <div class="panel-body">
             <div class="field">
-              <%= f.label :patient_id %><br>
-              <%= f.select :patient_id,  Patient.all.map{|p| [ p.patient_name, p.id ]},{}, class: "form-control" %>
+              <%#= f.label :patient_id %><br>
+              <%#= f.select :patient_id,  Patient.all.map{|p| [ p.patient_name, p.id ]},{}, class: "form-control" %>
             </div>
 
             <div class="field">

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-sm-12">
     <div class="panel panel-default">
-      <div class="panel-heading">Opd Visits </div>
+      <div class="panel-heading">Appointment </div>
           <div class="panel-body">
             <h1>Appoitnments</h1>
             <table class="table table-bordered">
@@ -12,7 +12,6 @@
                   <th>Doctor Name</th>
                   <th>Appointment Date</th>
                   <th>Appointment Time</th>
-                  <th>Visit</th>
                   <th></th>
                   <%if can? :edit,Appointment %>
                     <th>edit</th>
@@ -38,21 +37,9 @@
                     </td>  
                     <td><%=appoint.date%></td>
                     <td><%=appoint.appoint_time%></td>
-                    <td> 
-                      <% if appoint.visit.present?%>
-                        1
-                      <%else%>
-                        0  
-                      <%end%>
-                    </td>
                     <td>
-                    <%if can? :create, Visit %>
-                      <% unless appoint.visit.present?%>
-                        <%=link_to 'select visit' ,new_appointment_visit_path(appoint) %></td>
-                      <%end%> 
-                    <%end%>
                     <%if can? :edit, Appointment %>  
-                      <td><%=link_to'edit', edit_appointment_path(appoint)%></td>
+                      <td><%=link_to'edit',  edit_patient_appointment_path(appoint.patient,appoint)%></td>
                     <%end%>
                     <%if can? :delete, Appointment %>
                       <td><%=link_to'destroy',appointment_path(appoint), method: :delete, data: { confirm: 'Are you sure?' }%></td>

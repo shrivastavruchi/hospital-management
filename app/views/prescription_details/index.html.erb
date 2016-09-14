@@ -15,13 +15,13 @@
         <td><%= prescription_detail.quantity %></td>
         <td><%= prescription_detail.description %></td>
         <td><%= prescription_detail.schedule %></td>     
-        <td><%=link_to'Remove',addmission_prescription_detail_path(prescription_detail.addmission, prescription_detail ),method: :delete %></td>
+        <td><%=link_to'Remove',visit_prescription_detail_path(prescription_detail.visit, prescription_detail ),method: :delete %></td>
         
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%=link_to'Add prescription',new_addmission_prescription_detail_path(@addmission),:class=>"btn  btn-primary"%>
+<%=link_to'Add prescription',new_visit_prescription_detail_path(@visit),:class=>"btn  btn-primary"%>
 
 <br>

@@ -7,31 +7,61 @@ Rails.application.routes.draw do
   get 'visit/:id/prescription_detail' => 'visits#prescription_detail', :as=>"prescription_details"
   get  'visit/:id/services' => 'visits#services', :as=>"visit_services"
   get '/opd_visit' => 'visits#opd_visit', :as=>"opd_visits"
-  resources :appointments do 
+  
+  resources :patient do  
+     resources :appointments,only: [:new, :create,:edit,:update] do
+      #get 'prescription_detail' 
+    end
+  end 
+
+  resources :appointments
+
+  # resources :appointments do 
+  #    resources :visits do
+  #     #get 'prescription_detail' 
+  #   end
+  # end 
+
+
+  resources :patients do 
      resources :visits do
       #get 'prescription_detail' 
     end
   end 
+
+  resources :visits do 
+    resources :prescription_details,only: [:index, :new, :create,:destroy] do
+    end  
+  end  
+
+  resources :visits do
+    resources :diagnoses do
+    end  
+  end 
+
+  get '/ipd_visits' => 'visits#ipd_visits', :as=>"ipd_visits"
+
+  resources :visits do
+    resources :notes do
+    end 
+  end 
+
+
+#-------------------------------------------------
 
   resources :patients do
     resources :addmissions do
     end  
   end
 
-  get '/ipd_addmissions' => 'addmissions#ipd_addmissions', :as=>"ipd_addmissions"
-  resources :addmissions do
-    resources :notes do
-    end  
-    get 'basic_information'
-  end 
+  # resources :addmissions do
+  #   resources :notes do
+  #   end  
+  #   get 'basic_information'
+  # end 
 
   resources :addmissions do
     resources :worksheet_details do
-    end  
-  end  
-
-  resources :addmissions do
-    resources :diagnoses do
     end  
   end 
 

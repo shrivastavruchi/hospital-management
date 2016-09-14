@@ -1,9 +1,10 @@
 class PrescriptionDetailsController < ApplicationController
-	before_action :set_addmission,  only:[:new,:create,:index,:destroy]
+	#before_action :set_addmission,  only:[:new,:create,:index,:destroy]
+	before_action :set_visit,  only:[:new,:create,:index,:destroy]
 	layout 'patient'
 
 	def index
-		@prescription_details = @addmission.prescription_details
+		@prescription_details = @visit.prescription_details
 	end	
 
 
@@ -12,18 +13,18 @@ class PrescriptionDetailsController < ApplicationController
 	end
 
 	def create
-		@prescription_detail = @addmission.prescription_details.build(prescription_detail_params)
+		@prescription_detail = @visit.prescription_details.build(prescription_detail_params)
 		if @prescription_detail.save
-			redirect_to  addmission_prescription_details_path(@addmission)
+			redirect_to   visit_prescription_details_path(@visit)
 		else
 			render :new	
 		end	
 	end
 
 	def destroy
-		@prescription_detail =PrescriptionDetail.find_by_addmission_id(params[:addmission_id])
+		@prescription_detail =PrescriptionDetail.find_by_visit_id(params[:visit_id])
 		if @prescription_detail.destroy
-			redirect_to  addmission_prescription_details_path(@addmission)
+			redirect_to  visit_prescription_details_path(@visit)
 		else
 			render :index
 		end	
@@ -39,6 +40,10 @@ class PrescriptionDetailsController < ApplicationController
   def set_addmission
     @addmission = Addmission.find(params[:addmission_id])
   end  
+
+  def set_visit
+  	@visit = Visit.find(params[:visit_id])
+  end	
 
   def prescription_detail_params
   	params.require(:prescription_detail).permit(:addmission_id,:drug_name,:description,:schedule,:quantity)

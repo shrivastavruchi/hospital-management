@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-	before_action :find_patient, :only=>[:create]
+	before_action :find_patient, :only=>[:new, :create,:edit,:update]
 	before_action :find_appointment,	:only=>[:edit,:update,:destroy]
 
 	def index
@@ -21,7 +21,7 @@ class AppointmentsController < ApplicationController
 		authorize! :create, Appointment
 		@appoitnement = @patient.appointments.build(appointment_params)
 		if @appoitnement.save
-			redirect_to  appointments_path
+			redirect_to  appointments_path 
 		else
 			render :new
 		end	
@@ -49,11 +49,11 @@ class AppointmentsController < ApplicationController
 	private
 
 	def find_patient
-		@patient = Patient.find(params[:appointment][:patient_id])
+		@patient = Patient.find(params[:patient_id])
 	end	
 
 	def find_appointment
-		@appointment =Appointment.find(params[:id])
+		@appointment = Appointment.find_by_patient_id(params[:patient_id])
 	end	
 
 	def appointment_params

@@ -1,7 +1,7 @@
-<%=form_for @appointment  do |f|%>
+<%=form_for [@patient, @appointment]  do |f|%>
   <div class="field">
-    <%= f.label :patient_id %><br>
-    <%= f.select :patient_id,  Patient.all.map{|p| [ p.patient_name, p.id ]},{}, class: "form-control" %>
+    <%#= f.label :patient_id %><br>
+    <%#= f.select :patient_id,  Patient.all.map{|p| [ p.patient_name, p.id ]},{}, class: "form-control" %>
   </div>
 
   <div class="field">

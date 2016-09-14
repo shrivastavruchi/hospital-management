@@ -1,6 +1,8 @@
 class VisitsController < ApplicationController
-  before_action :set_appointment ,only: [:new ,:create] 
   before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail,:services]
+  before_action :set_patient, only: [:new, :create]
+  layout 'patient', only: [:show]
+
   # GET /visits
   # GET /visits.json
   def index
@@ -12,7 +14,6 @@ class VisitsController < ApplicationController
   # GET /visits/1.json
   def show
     authorize! :read, Visit
-    @basic_detail = @visit.basic_detail
   end
 
   # GET /visits/new
@@ -20,8 +21,8 @@ class VisitsController < ApplicationController
     authorize! :new, Visit
     @visit = Visit.new
     @doctors = User.with_role :doctor
-    @visit.build_basic_detail
-    @visit.prescription_details.build
+    #@visit.build_basic_detail
+    #@visit.prescription_details.build
   end
 
   # GET /visits/1/edit
@@ -33,15 +34,16 @@ class VisitsController < ApplicationController
   # POST /visits.json
   def create
     authorize! :create, Visit
-    @appointment = Appointment.find(params[:appointment_id])
-      unless @appointment.visit.present?
-        @visit =  @appointment.build_visit(visit_params)
-          if @visit.save
-            redirect_to opd_visits_path, notice: 'Visit was successfully created.'
+      @visit =  @patient.visits.build(visit_params) 
+        if @visit.save
+          if params[:visit][:visit_type] == "opd"
+            redirect_to opd_visits_path, notice: 'Opd Visit was successfully created.'
           else
-            render :new 
-          end 
-      end
+            redirect_to ipd_visits_path, notice: 'Ipd Visit was successfully created.'
+          end  
+        else
+          render :new 
+        end 
     end
 
   # PATCH/PUT /visits/1
@@ -73,7 +75,7 @@ class VisitsController < ApplicationController
 
   def opd_visit
     authorize! :read, Visit    
-    @visits = Visit.all
+    @visits = Visit.where(:visit_type=>"opd")
   end  
 
   def services
@@ -92,20 +94,24 @@ class VisitsController < ApplicationController
     @services = @visit.services
   end  
 
+  def ipd_visits
+    @visits = Visit.where(:visit_type=>"ipd")
+  end  
+
 
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_visit
       @visit = Visit.find(params[:id])
-    end
+    end 
 
-    def set_appointment 
-      @appoitnemnt = Appointment.find(params[:appointment_id])
+    def set_patient
+     @patient = Patient.find(params[:patient_id])
     end  
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
-      params.require(:visit).permit(:id, :patient_id, :appointment_id, :doctor_id, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ])
+      params.require(:visit).permit(:id, :patient_id, :appointment_id,:room_no, :doctor_id,:visit_type, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ])
     end
 end

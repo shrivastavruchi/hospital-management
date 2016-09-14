@@ -1,17 +1,35 @@
 <div class="container">
-  <div class="col-sm-12">
+  <div class="col-sm-6">
     <div class="panel panel-default">
       <div class="panel-heading"> Opd visit</div>
         <div class="panel-body">
+        <%if @visit.visit_type == "ipd"%>
           <p>
-            <strong>Visit no</strong>
+            <strong>Ipd no</strong>
             <%= @visit.id %>
           </p>
 
+
           <p>
-            <strong>Date:</strong>
+            <strong>Admit Date:</strong>
             <%= @visit.date %>
           </p>
+          <p>
+            <strong>Room no:</strong>
+            <%= @visit.room_no%>
+          </p>
+        <%else%>
+          <p>
+            <strong>Opd no</strong>
+            <%= @visit.id %>
+          </p>
+
+
+          <p>
+            <strong>Visit Date:</strong>
+            <%= @visit.date %>
+          </p>
+        <%end%>  
 
           <p>
             <strong>Patient name</strong>
@@ -19,61 +37,11 @@
           </p>
 
           <p>
-            <strong>Patient age</strong>
-            <%=@visit.patient.age%>
+            <strong>Doctor name</strong>
+            <%=@visit.user.name%>
           </p>
-
-
-          <p>
-            <strong>address</strong>
-            <%if @visit.patient.present? && @visit.patient.address.present? %>
-              <%=@visit.patient.address.city%>
-            <%end%> 
-          </p>
-
-          <p>
-            <strong>Doctor:</strong>
-            <%= @visit.user.name %>
-          </p>
-          <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Patient history</th>
-                  <th>weight</th>
-                  <th>Blood group</th>
-                  <th>Blood presure</th>
-                  <th>Blood diagnosis</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                     <%=@basic_detail.patient_history%>
-                  </td>
-                  <td>
-                    <%=@basic_detail.weight %>
-                  </td>
-                  <td>
-                     <%=@basic_detail.blood_group%>
-                  </td>
-                  <td>
-                    <%=@basic_detail.boold_presure%>
-                  </td>
-                  <td>
-                    <%=@basic_detail.boold_presure%>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
         </div>  
     </div>
   </div>
 </div> 
 
-<button id='print'>Print</button>
-
-<script>
-  $("#print").click(function(){
-    window.print();
-});
-</script>

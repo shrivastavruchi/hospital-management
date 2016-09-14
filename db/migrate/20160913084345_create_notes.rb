@@ -6,6 +6,7 @@ class CreateNotes < ActiveRecord::Migration
       t.string :progress
       t.string :treatment
       t.integer :user_id
+      t.integer :visit_id
       t.string :remarks
       t.integer :addmission_id
 

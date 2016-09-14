@@ -1,0 +1,34 @@
+<h3>Ipd Visits</h3>
+<table  class="table table-striped">
+  <thead>
+    <tr>
+      <th>Ipd id</th>
+      <th>Patient name</th>
+      <th>Doctor name</th>
+      <th>Date Admit</th>
+      <th>Room No</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @visits.each do |visit| %>
+      <tr>
+        <td><%= visit.id %></td>
+        <td><%= visit.patient.patient_name %></td>  
+        <%if visit.user.present?%>   
+          <td><%= visit.user.name %></td>
+        <%end%>
+        <td><%= visit.date %></td>
+        <td><%= visit.room_no %></td>
+        <td><%=link_to 'Basic Details',visit_path(visit) %></td>
+        <td><%=link_to 'Diagnosis',  new_visit_diagnosis_path(visit) %></td>
+        <td><%=link_to 'Prescription Details',visit_prescription_details_path(visit) %></td>
+        <td><%=link_to 'Progress Notes',new_visit_note_path(visit)%></td>
+        <td>Discharge</td>
+      </tr>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

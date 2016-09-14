@@ -1,35 +1,32 @@
 class NotesController < ApplicationController
   before_action :set_note, only: [:show, :edit, :update, :destroy]
-  before_action :set_addmission,  only:[:new,:create,:index,:destroy]
+  before_action :set_visit, only:[:new ,:create,:destroy,:index] 
   layout 'patient'
   # GET /notes
   # GET /notes.json
   def index
-    @notes = @addmission.notes
+    @notes = @visit.notes
   end
 
-  # GET /notes/1
-  # GET /notes/1.json
   def show
   end
 
-  # GET /notes/new
   def new
     @note = Note.new
   end
 
-  # GET /notes/1/edit
+
   def edit
   end
 
   # POST /notes
   # POST /notes.json
   def create
-    @note = @addmission.notes.build(note_params)
+    @note = @visit.notes.build(note_params)
 
     respond_to do |format|
       if @note.save
-        format.html { redirect_to addmission_notes_path(@addmission), notice: 'Note was successfully created.' }
+        format.html { redirect_to visit_notes_path(@visit), notice: 'Note was successfully created.' }
         
       else
         format.html { render :new }
@@ -55,10 +52,10 @@ class NotesController < ApplicationController
   # DELETE /notes/1
   # DELETE /notes/1.json
   def destroy
-    @note = Note.find_by_addmission_id(params[:addmission_id])
+    @note = Note.find_by_visit_id(params[:visit_id])
     @note.destroy
     respond_to do |format|
-      format.html { redirect_to addmission_notes_path(@addmission), notice: 'Note was successfully destroyed.' }
+      format.html { redirect_to  visit_notes_path(@visit), notice: 'Note was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,8 +66,8 @@ class NotesController < ApplicationController
       @note = Note.find(params[:id])
     end
 
-    def set_addmission
-      @addmission = Addmission.find(params[:addmission_id])
+    def set_visit
+       @visit = Visit.find(params[:visit_id])
     end  
 
 

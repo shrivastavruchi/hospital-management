@@ -60,10 +60,6 @@
   end
 
 
-  def ipd_addmissions
-    @addmissions = Addmission.all
-  end 
-
   def show
 
   end 

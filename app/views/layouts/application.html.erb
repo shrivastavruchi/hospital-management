@@ -59,9 +59,9 @@
               <% if  current_user.has_role? (:receptionist) %>
 
                <li><%= link_to 'Registration Patients', patients_path %></li>
-                <li><%=link_to 'Appointment', new_appointment_path%></li>
-                <li><%=link_to 'All Appointment', appointments_path%></li> 
-                <li><%=link_to 'IPD Patients', ipd_addmissions_path %><li>
+                <li><%#=link_to 'Appointment', new_appointment_path%></li>
+                <li><%#=link_to 'All Appointment', appointments_path%></li> 
+                <li><%=link_to 'IPD Patients', ipd_visits_path %><li>
               <%end%> 
               <%if can? :read, Visit %>  
                 <li><%=link_to 'OPD Patients', opd_visits_path %></li>

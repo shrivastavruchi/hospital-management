@@ -2,32 +2,23 @@
 		      <ul class="sidebar-nav">
 		          <li class="sidebar-brand">
 		              <a href="#">
-		              <p>
-		              	<strong>Registration no:</strong>
-										  <%= @addmission.patient.id %>
-										</p>
-
-										<p>
-										  <strong>Patient name:</strong>
-										  <%= @addmission.patient.patient_name %>
-										</p>
 		                  
 		              </a>
 		          </li>
 		          <li>
-		              <%=link_to 'Basic information', addmission_basic_information_path(@addmission) %>
+		            <%=link_to 'Basic Details',visit_path(@visit) %> 
 		          </li>
 		          <li>
-		          	<%=link_to 'Add Notes', addmission_notes_path(@addmission)%>
+		          	<%=link_to 'Diagnosis',  new_visit_diagnosis_path(@visit) %>
 		          </li>
 		          <li>
-		             <%=link_to 'add details',addmission_worksheet_details_path(@addmission) %>
+		            <%=link_to 'Prescription Details',visit_prescription_details_path(@visit) %>
 		          </li>
 		          <li>
-		             <%=link_to 'add diagnoses',addmission_diagnoses_path(@addmission) %>
+		             <%=link_to 'Progress Notes',new_visit_note_path(@visit)%>
 		          </li>
 		          <li>
-		          	<%=link_to 'Add medicine',addmission_prescription_details_path(@addmission) %>
+		          	
 		          </li>
 
 

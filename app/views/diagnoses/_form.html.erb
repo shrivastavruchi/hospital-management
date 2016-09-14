@@ -1,4 +1,4 @@
-<%= form_for [@addmission, @diagnosis] do |f| %>
+<%= form_for [@visit, @diagnosis] do |f| %>
   <% if @diagnosis.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@diagnosis.errors.count, "error") %> prohibited this diagnosis from being saved:</h2>

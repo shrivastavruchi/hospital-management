@@ -28,8 +28,10 @@
                   <td><%= patient.address.city %></td>
                   <td><%= link_to 'Show', patient %></td>
                   <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
-
-                  <td><%=link_to 'Admit', new_patient_addmission_path(patient)%></td>
+                  <td><%=link_to 'Appoinment',new_patient_appointment_path(patient) %>
+                  <td><%#=link_to 'Admit', new_patient_addmission_path(patient)%></td>
+                  <td><%=link_to 'visit',new_patient_visit_path(patient,:visit_type=> "opd") %></td>
+                  <td><%=link_to 'Admit',new_patient_visit_path(patient,:visit_type=> "ipd") %>
                 </tr>
               <% end %>
             </tbody>

@@ -1,12 +1,13 @@
 class DiagnosesController < ApplicationController
   before_action :set_diagnosis, only: [:show, :edit, :update, :destroy]
-  before_action :set_addmission,only: [:new,:create,:index,:destroy]
+  before_action :set_visit,only: [:new, :create, :index,:destroy]
+  #before_action :set_addmission,only: [:new,:create,:index,:destroy]
   layout 'patient'
 
   # GET /diagnoses
   # GET /diagnoses.json
   def index
-    @diagnoses = @addmission.diagnosis
+    @diagnoses = @visit.diagnoses
   end
 
   # GET /diagnoses/1
@@ -26,11 +27,11 @@ class DiagnosesController < ApplicationController
   # POST /diagnoses
   # POST /diagnoses.json
   def create
-    @diagnosis = @addmission.diagnosis.build(diagnosis_params)
+    @diagnosis = @visit.diagnoses.build(diagnosis_params)
 
     respond_to do |format|
       if @diagnosis.save
-        format.html { redirect_to  addmission_diagnoses_path(@addmission), notice: 'Diagnosis was successfully created.' }
+        format.html { redirect_to   visit_diagnoses_path(@visit), notice: 'Diagnosis was successfully created.' }
       else
         format.html { render :new }
       end
@@ -54,9 +55,9 @@ class DiagnosesController < ApplicationController
   # DELETE /diagnoses/1
   # DELETE /diagnoses/1.json
   def destroy
-    @diagnosis = Diagnosis.find_by_addmission_id(params[:addmission_id])
+    @diagnosis = Diagnosis.find_by_visit_id(params[:visit_id])
     if @diagnosis.destroy
-      redirect_to  addmission_diagnoses_path(@addmission), notice: 'Diagnosis was successfully destroyed.' 
+      redirect_to  visit_diagnoses_path(@visit), notice: 'Diagnosis was successfully destroyed.' 
     else
       render :index
 
@@ -69,8 +70,13 @@ class DiagnosesController < ApplicationController
       @diagnosis = Diagnosis.find(params[:id])
     end
 
-    def set_addmission
-      @addmission = Addmission.find(params[:addmission_id])
+    # def set_addmission
+    #   @addmission = Addmission.find(params[:addmission_id])
+    # end  
+
+    def set_visit
+
+      @visit = Visit.find(params[:visit_id])
     end  
 
     # Never trust parameters from the scary internet, only allow the white list through.

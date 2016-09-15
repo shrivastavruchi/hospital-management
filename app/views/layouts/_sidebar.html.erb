@@ -1,28 +1,35 @@
-<div id="sidebar-wrapper">
-		      <ul class="sidebar-nav">
-		          <li class="sidebar-brand">
-		              <a href="#">
-		                  
-		              </a>
-		          </li>
-		          <li>
-		            <%=link_to 'Basic Details',visit_path(@visit) %> 
-		          </li>
-		          <li>
-		          	<%=link_to 'Diagnosis',  new_visit_diagnosis_path(@visit) %>
-		          </li>
-		          <li>
-		            <%=link_to 'Prescription Details',visit_prescription_details_path(@visit) %>
-		          </li>
-		          <li>
-		             <%=link_to 'Progress Notes',new_visit_note_path(@visit)%>
-		          </li>
-		          <li>
-		          	
-		          </li>
+<div style="margin-left: -213px;">
+	<%if @visit.patient.present?%>
+	  Patient Name:
+	  <%=@visit.patient.patient_name%>
+		Registration No:
+		<%=@visit.patient.id%>
+	<%end%>
+</div>
+<div id="sidebar-wrapper">	
+  <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+      </li>
+      <li>
+        <%=link_to 'Basic Details',basic_detail_path(@visit) %> 
+      </li>
+      <li>
+      	<%=link_to 'Diagnosis',  visit_diagnoses_path(@visit) %>
+      </li>
+      <li>
+        <%=link_to 'Prescription Details',visit_prescription_details_path(@visit) %>
+      </li>
+      <li>
+         <%=link_to 'Progress Notes',new_visit_note_path(@visit)%>
+      </li>
+      <li>
+       <%=link_to 'Work sheet details', new_visit_worksheet_detail_path(@visit)%>
+      </li>
+      	
+      </li>
 
 
 
-		      </ul>
-		  </div>
+  </ul>
+</div>
 		  <!-- /#sidebar-wrapper -->

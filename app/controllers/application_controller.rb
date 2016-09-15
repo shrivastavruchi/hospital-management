@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
     if resource.has_role? (:receptionist)
 			patients_path
     elsif resource.has_role? (:doctor)  
-      appointments_path
+      visits_path
     else
    		user_index_path
     end

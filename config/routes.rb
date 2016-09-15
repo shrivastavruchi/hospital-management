@@ -39,13 +39,19 @@ Rails.application.routes.draw do
     end  
   end 
 
-  get '/ipd_visits' => 'visits#ipd_visits', :as=>"ipd_visits"
 
   resources :visits do
     resources :notes do
     end 
   end 
 
+  resources :visits do
+    resources :worksheet_details do
+    end  
+  end 
+
+  get '/ipd_visits' => 'visits#ipd_visits', :as=>"ipd_visits"
+  get '/visit/:id/basic_detail' => 'visits#basic_detail', :as=>"basic_detail"
 
 #-------------------------------------------------
 
@@ -60,10 +66,10 @@ Rails.application.routes.draw do
   #   get 'basic_information'
   # end 
 
-  resources :addmissions do
-    resources :worksheet_details do
-    end  
-  end 
+  # resources :addmissions do
+  #   resources :worksheet_details do
+  #   end  
+  # end 
 
 
   resources :addmissions do

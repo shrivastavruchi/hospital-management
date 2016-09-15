@@ -1,45 +1,68 @@
-<%= form_for [@visit, @note] do |f| %>
-  <% if @note.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@note.errors.count, "error") %> prohibited this note from being saved:</h2>
 
-      <ul>
-      <% @note.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="col-sm-8">
+    <div class="panel panel-default">
+      <div class="panel-heading"> Progress notes </div>
+        <div class="panel-body">
+
+          <%= form_for [@visit, @note] do |f| %>
+            <% if @note.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@note.errors.count, "error") %> prohibited this note from being saved:</h2>
+
+                <ul>
+                <% @note.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="field">
+              <%= f.label :date %><br>
+              <%= f.text_field :date,:class=>"form-control",:id=>"start_date_picker" %>
+            </div>
+            <div class="field">
+              <%= f.label :time %><br>
+              <%= f.text_field :time,:class=>"form-control", id: 'timepicker' %>
+            </div>
+            <div class="field">
+              <%= f.label :progress %><br>
+              <%= f.text_field :progress,:class=>"form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :treatment %><br>
+              <%= f.text_field :treatment,:class=>"form-control" %>
+            </div>
+              <%#= f.label :user_id %>
+              <%#= f.number_field :user_id,:class=>"form-control" %>
+            <div class="field">
+              <%= f.label :remarks %><br>
+              <%= f.text_field :remarks,:class=>"form-control" %>
+            </div>
+            <div class="actions">
+              <%= f.submit 'save',:class=>"btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>  
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.text_field :date %>
   </div>
-  <div class="field">
-    <%= f.label :time %><br>
-    <%= f.text_field :time %>
-  </div>
-  <div class="field">
-    <%= f.label :progress %><br>
-    <%= f.text_field :progress %>
-  </div>
-  <div class="field">
-    <%= f.label :treatment %><br>
-    <%= f.text_field :treatment %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :remarks %><br>
-    <%= f.text_field :remarks %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
 
 
+
+<script>
+    $('#start_date_picker').datepicker({
+        format: 'yyyy-mm-dd',
+        daysOfWeekDisabled: [0, 6],
+        daysOfWeekHighlighted: [1, 2, 3, 4, 5],
+        todayBtn: false
+    })
+</script>
+
+
+<script>
+  $(function() {
+    $('#timepicker').timepicker();
+  });
+</script>
 
 

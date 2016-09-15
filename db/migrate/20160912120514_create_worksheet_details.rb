@@ -9,6 +9,9 @@ class CreateWorksheetDetails < ActiveRecord::Migration
       t.string :date
       t.string :time
       t.integer :visit_id
+      t.string :weight
+      t.string :height
+      t.string :pulse_rate
 
       t.timestamps null: false
     end

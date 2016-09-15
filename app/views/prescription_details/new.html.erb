@@ -1,19 +1,37 @@
-<%= form_for [@visit, @prescription_detail] do |f| %>
-  <div class="field">
-    <%= f.label :drug_name %><br>
-    <%= f.text_field :drug_name %>
+  <div class="panel-group">
+    <div class="panel panel-default"> 
+      <div class="panel-heading">Add Prescription Detail</div>  
+        <div class="panel-body">
+          <%= form_for [@visit, @prescription_detail] do |f| %>
+            <% if @prescription_detail.errors.any? %>
+              <div id="">
+
+                <ul>
+                <% @prescription_detail.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="field">
+              <%= f.label :drug_name %><br>
+              <%= f.text_field :drug_name,:class=>"form-control" %>
+            </div>
+             <div class="field">
+              <%= f.label :quantity %><br>
+              <%= f.text_field :quantity,:class=>"form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :description %><br>
+              <%= f.text_field :description,:class=>"form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :schedule %><br>
+              <%= f.text_field :schedule,:class=>"form-control" %>
+            </div>
+            <%=f.submit 'save',:class=>"btn btn-primary"%>
+          <% end %>
+        </div>  
+    </div>
   </div>
-   <div class="field">
-    <%= f.label :quantity %><br>
-    <%= f.text_field :quantity %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :schedule %><br>
-    <%= f.text_field :schedule %>
-  </div>
-  <%=f.submit 'save'%>
-<% end %>

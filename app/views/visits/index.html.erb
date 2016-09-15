@@ -1,33 +1,24 @@
-
-<h3>Visit</h3>
 <table  class="table table-striped">
   <thead>
     <tr>
-      <th>visit Id</th>
-      <th>Date</th>
+      <th>Id</th>
       <th>Patient name</th>
-      <th>address</th>
-      <th>doctor</th>
+      <th>Doctor Name</th>
+      <th>Date</th>
+      <th>Visit Type</th>
     </tr>
   </thead>
 
   <tbody>
     <% @visits.each do |visit| %>
       <tr>
-        <td><%= visit.id %></td>
-        <td><%= visit.date %></td>
+        <td><%=link_to visit.id ,visit_path(visit) %>	
         <td><%= visit.patient.patient_name %></td>
-        <td>
-          <%if visit.patient.present? && visit.patient.address.present?%>
-            <%= visit.patient.address.city %>
-          <%end%>
-        </td>  
-        <td><%= visit.department_doctor.name %></td>
+        <td><%= visit.user.name if visit.user.present?%>
+        <td><%=visit.date%></td>
+        <td><%=visit.visit_type%></td>
+      </tr>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%#= link_to 'New Visit', new_visit_path %>

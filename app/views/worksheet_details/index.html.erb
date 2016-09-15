@@ -19,13 +19,13 @@
         <td><%= worksheet_detail.weight %></td>
         <td><%= worksheet_detail.blood_presure %></td>
         <td><%= worksheet_detail.user.name if worksheet_detail.user.present?%></td>
-        <td><%=link_to'Remove', addmission_worksheet_detail_path(worksheet_detail.addmission,worksheet_detail ),method: :delete %></td>
+        <td><%=link_to'Remove', visit_worksheet_detail_path(worksheet_detail.visit,worksheet_detail ),method: :delete %></td>
         
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%=link_to'Add details',new_addmission_worksheet_detail_path(@addmission),:class=>"btn  btn-primary"%>
+<%=link_to'Add details', new_visit_worksheet_detail_path(@visit),:class=>"btn  btn-primary"%>
 
 <br>

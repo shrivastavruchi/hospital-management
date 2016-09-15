@@ -12,9 +12,12 @@ class UserController < ApplicationController
 	end
 
 	def create
+	
 		authorize! :create, User
 		@user = User.new(params_user)
     if @user.save
+    	@user.send_sms
+    	UserMailer.welcome_email(@user,@password).deliver
       unless params[:roles].blank?
         add_roles(params[:roles])
       end
@@ -42,7 +45,7 @@ class UserController < ApplicationController
 	private 
 
 	def params_user
-    params.require(:user).permit(:name, :age, :email, :type, :password, :password_confirmation)
+    params.require(:user).permit(:name, :age, :email, :type, :password, :password_confirmation,:department_id,:phone_no,:specilization)
   end
 
   def find_user

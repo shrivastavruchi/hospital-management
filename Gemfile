@@ -31,6 +31,7 @@ gem 'bootstrap-sass'
 gem 'bootstrap-timepicker-rails-addon'
 gem "font-awesome-rails"
 gem "nested_form"
+gem 'twilio-ruby'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

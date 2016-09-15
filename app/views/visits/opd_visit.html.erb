@@ -7,23 +7,22 @@
       <th>Doctor name</th>
       <th>Opd date</th>
       <th>Register date</th>
-      <th>Prescription detail</th>
-      <th>Diagnosis</th>
+      <th>Services</th>
     </tr>
   </thead>
 
   <tbody>
     <% @visits.each do |visit| %>
       <tr>
-        <td><%= visit.id %></td>
+        <td><%=link_to visit.id ,visit_path(visit) %></td>
         <td><%= visit.patient.patient_name %></td>  
-        <%if visit.user.present?%>   
-          <td><%= visit.user.name %></td>
-        <%end%>
+        <td>
+          <%if visit.user.present?%>   
+            <%= visit.user.name %>
+          <%end%>
+        </td>
         <td><%= visit.date %></td>
         <td><%=visit.patient.created_at.strftime("%d-%m-%Y")%></td>
-        <td><%=link_to 'prescription details',visit_prescription_details_path(visit)%></td>
-        <td><%=link_to'DIA',new_visit_diagnosis_path(visit)%></td>
         <td><%=link_to'services',  visit_services_path(visit)  %></td>
         <td><%#=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td>
       </tr>

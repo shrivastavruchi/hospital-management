@@ -1,21 +1,33 @@
-<%= form_for [@visit, @diagnosis] do |f| %>
-  <% if @diagnosis.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@diagnosis.errors.count, "error") %> prohibited this diagnosis from being saved:</h2>
 
-      <ul>
-      <% @diagnosis.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="panel-group">
+    <div class="panel panel-default"> 
+      <div class="panel-heading">Add Diagnosis</div>  
+        <div class="panel-body">
+          
+          <%= form_for [@visit, @diagnosis] do |f| %>
+            <% if @diagnosis.errors.any? %>
+              <div id="">
+
+                <ul>
+                <% @diagnosis.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="field">
+              <%= f.label :name %><br>
+              <%= f.text_field :name,:class=>"form-control" %>
+            </div>
+            <div class="actions">
+              <%= f.submit 'save', :class=>"btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>  
     </div>
-  <% end %>
+  </div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+
+
+

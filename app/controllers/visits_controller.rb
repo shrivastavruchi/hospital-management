@@ -1,13 +1,13 @@
 class VisitsController < ApplicationController
-  before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail,:services]
+  before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail,:services,:basic_detail]
   before_action :set_patient, only: [:new, :create]
-  layout 'patient', only: [:show]
+  layout 'patient', only: [:basic_detail,:show]
 
   # GET /visits
   # GET /visits.json
   def index
     authorize! :read, Visit
-    @visits = Visit.all
+    @visits =  Visit.where(:doctor_id=>current_user.id)
   end
 
   # GET /visits/1
@@ -96,6 +96,9 @@ class VisitsController < ApplicationController
 
   def ipd_visits
     @visits = Visit.where(:visit_type=>"ipd")
+  end  
+
+  def basic_detail
   end  
 
 

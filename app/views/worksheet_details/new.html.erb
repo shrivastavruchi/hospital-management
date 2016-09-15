@@ -1,32 +1,58 @@
-<%= form_for [@addmission, @work_sheet_detail] do |f| %>
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.text_field :date %>
-  </div>
-  <div class="field">
-    <%= f.label :time %><br>
-    <%= f.text_field :time %>
-  </div>
-  <div class="field">
-    <%= f.label :blood_presure %><br>
-    <%= f.text_field :blood_presure %>
-  </div>
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">Add Work Sheet Detail</div>
+      <div class="panel-body">
+        <%= form_for [@visit, @work_sheet_detail] do |f| %>
+          <div class="field">
+            <%= f.label :date %><br>
+            <%= f.text_field :date,:class=>"form-control",:id=>"start_date_picker"  %>
+          </div>
+          <div class="field">
+            <%= f.label :time %><br>
+            <%= f.text_field :time,:class=>"form-control",id: 'timepicker' %>
+          </div>
+          <div class="field">
+            <%= f.label :blood_presure %><br>
+            <%= f.text_field :blood_presure,:class=>"form-control" %>
+          </div>
 
-  <div class="field">
-    <%= f.label :wieght %><br>
-    <%= f.text_field :weight %>
+          <div class="field">
+            <%= f.label :wieght %><br>
+            <%= f.text_field :weight,:class=>"form-control" %>
+          </div>
+          <div class="field">
+            <%= f.label :height %><br>
+            <%= f.text_field :height,:class=>"form-control" %>
+          </div>
+          <div class="field">
+            <%= f.label :pulse_rate %><br>
+            <%= f.text_field :pulse_rate,:class=>"form-control" %>
+          </div>
+          <div class="field">
+            <%#= f.label :user %><br>
+            <%#= f.text_field :user_id %>
+          </div>
+          <%=f.submit 'save',:class=>"btn btn-primary"%>
+        <% end %>
+      </div>  
   </div>
-  <div class="field">
-    <%= f.label :height %><br>
-    <%= f.text_field :height %>
-  </div>
-  <div class="field">
-    <%= f.label :pulse_rate %><br>
-    <%= f.text_field :pulse_rate %>
-  </div>
-  <div class="field">
-    <%= f.label :user %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <%=f.submit 'save'%>
-<% end %>
+</div>
+
+
+
+
+<script>
+    $('#start_date_picker').datepicker({
+        format: 'yyyy-mm-dd',
+        daysOfWeekDisabled: [0, 6],
+        daysOfWeekHighlighted: [1, 2, 3, 4, 5],
+        todayBtn: false
+    })
+</script>
+
+
+<script>
+  $(function() {
+    $('#timepicker').timepicker();
+  });
+</script>

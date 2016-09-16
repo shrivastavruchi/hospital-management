@@ -12,13 +12,16 @@
   <tbody>
     <% @visits.each do |visit| %>
       <tr>
-        <td><%=link_to visit.id ,visit_path(visit) %>	
+        <td><%=visit.id  %>	
         <td><%= visit.patient.patient_name %></td>
         <td><%= visit.user.name if visit.user.present?%>
         <td><%=visit.date%></td>
         <td><%=visit.visit_type%></td>
-      </tr>
-      </tr>
+        <% if can? :service, Visit %>
+          <td><%=link_to'services',  visit_services_path(visit)  %></td>
+        <%end%>  
+        <td><%=link_to 'genrate_bill', visit_genrate_bill_path(visit)%></td>
+      </tr> 
     <% end %>
   </tbody>
 </table>

@@ -8,6 +8,7 @@ class Visit < ActiveRecord::Base
 	has_many :diagnoses
 	has_many :worksheet_details
 	has_many :notes
+	has_one :discharge
 
 	accepts_nested_attributes_for :basic_detail
 	accepts_nested_attributes_for :prescription_details

@@ -1,19 +1,23 @@
 class VisitsController < ApplicationController
-  before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail,:services,:basic_detail]
+  before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail,:services,:basic_detail,:discharge,:discharge_visit]
   before_action :set_patient, only: [:new, :create]
-  layout 'patient', only: [:basic_detail,:show]
+  layout 'patient', only: [:basic_detail,:show,:discharge]
 
   # GET /visits
   # GET /visits.json
   def index
     authorize! :read, Visit
-    @visits =  Visit.where(:doctor_id=>current_user.id)
+    if current_user.has_role?(:doctor)
+      @visits =  Visit.where(:doctor_id=>current_user.id)
+    else
+      @visits = Visit.all
+    end
   end
 
   # GET /visits/1
   # GET /visits/1.json
   def show
-    authorize! :read, Visit
+    authorize! :show, Visit
   end
 
   # GET /visits/new
@@ -51,7 +55,7 @@ class VisitsController < ApplicationController
   def update
     authorize! :update, Visit
       if @visit.update(visit_params)
-        redirect_to opd_visits_path, notice: 'Visit was successfully updated.' 
+        redirect_to visits_path, notice: 'Visit was successfully updated.' 
       else
         render :services
       end
@@ -74,12 +78,16 @@ class VisitsController < ApplicationController
   end  
 
   def opd_visit
-    authorize! :read, Visit    
-    @visits = Visit.where(:visit_type=>"opd")
+    authorize! :read, Visit   
+    if current_user.has_role?(:doctor)  
+      @visits = Visit.where("visit_type=? and doctor_id=?", "opd",current_user.id)
+    else  
+      @visits = Visit.where(:visit_type=>"opd")
+    end
   end  
 
   def services
-    authorize! :read, Visit    
+    authorize! :services, Visit    
     if @visit.services.present?
       @visit.services
     else
@@ -95,11 +103,18 @@ class VisitsController < ApplicationController
   end  
 
   def ipd_visits
-    @visits = Visit.where(:visit_type=>"ipd")
+    authorize! :read, Visit 
+    if current_user.has_role?(:doctor)  
+     @visits = Visit.where("visit_type=? and doctor_id=?", "ipd",current_user.id)
+    else  
+      @visits = Visit.where(:visit_type=>"ipd")
+    end
   end  
 
   def basic_detail
+    authorize! :read, Visit 
   end  
+
 
 
 
@@ -115,6 +130,6 @@ class VisitsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
-      params.require(:visit).permit(:id, :patient_id, :appointment_id,:room_no, :doctor_id,:visit_type, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ])
+      params.require(:visit).permit(:id, :patient_id, :appointment_id,:room_no, :doctor_id,:visit_type, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ] )
     end
 end

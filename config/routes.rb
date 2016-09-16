@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   get 'visit/:id/prescription_detail' => 'visits#prescription_detail', :as=>"prescription_details"
   get  'visit/:id/services' => 'visits#services', :as=>"visit_services"
   get '/opd_visit' => 'visits#opd_visit', :as=>"opd_visits"
-  
+
+
+
+ 
+
+
   resources :patient do  
      resources :appointments,only: [:new, :create,:edit,:update] do
       #get 'prescription_detail' 
@@ -50,6 +55,14 @@ Rails.application.routes.draw do
     end  
   end 
 
+  resources :discharges
+  resources :visits do
+    resources :discharges, only: [:new, :create] do
+    end  
+  end 
+
+
+
   get '/ipd_visits' => 'visits#ipd_visits', :as=>"ipd_visits"
   get '/visit/:id/basic_detail' => 'visits#basic_detail', :as=>"basic_detail"
 
@@ -83,7 +96,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :user
   resources :visits do
-   get 'genrate_bill'   
+    get 'genrate_bill' 
+    post 'payment_bill'  
   end  
 
   # The priority is based upon order of creation: first created -> highest priority.

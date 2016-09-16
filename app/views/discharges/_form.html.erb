@@ -1,0 +1,39 @@
+<%= form_for [@visit, @discharge] do |f| %>
+  <% if @discharge.errors.any? %>
+    <div id="">
+
+      <ul>
+      <% @discharge.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :final_diagnosis %><br>
+    <%= f.text_field :final_diagnoses ,:class=>"form-control"%>
+  </div>
+  <div class="field">
+    <%= f.label :discharge_date %><br>
+    <%= f.text_field :discharge_date ,:class=>"form-control",:id=>"start_date_picker"%>
+  </div>
+  <div class="actions">
+    <%= f.submit "save",:class=>"btn btn-primary" %>
+  </div>
+<% end %>
+
+
+
+<script>
+    $('#start_date_picker').datepicker({
+        format: 'yyyy-mm-dd',
+        daysOfWeekDisabled: [0, 6],
+        daysOfWeekHighlighted: [1, 2, 3, 4, 5],
+        todayBtn: false
+    })
+</script>
+
+
+
+

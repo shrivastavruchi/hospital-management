@@ -62,10 +62,14 @@
                 <li><%#=link_to 'Appointment', new_appointment_path%></li>
                 <li><%#=link_to 'All Appointment', appointments_path%></li> 
                 <li><%=link_to 'IPD Patients', ipd_visits_path %><li>
-              <%end%> 
-              <%if can? :read, Visit %>  
                 <li><%=link_to 'OPD Patients', opd_visits_path %></li>
-              <%end%>  
+              <%end%>
+              <% if  current_user.has_role? (:doctor) %>
+                  <li><%=link_to 'IPD Patients', ipd_visits_path %><li>
+                  <li><%=link_to 'OPD Patients', opd_visits_path %></li>
+                  <li><%=link_to 'Discharge' , discharges_path %></li>  
+                <%end%>
+
               <% if  current_user.has_role? (:admin) %>
                 <li><%= link_to 'User',user_index_path %></li> 
                 <li><%=link_to 'Departments', departments_path%></li>

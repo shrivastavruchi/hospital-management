@@ -1,0 +1,30 @@
+<table class="table table-striped">
+  <thead >
+    <tr>
+      <th>Registration no</th>
+      <th>Visit id</th>
+      <th>Patient Name</th>
+      <th>Patient Age</th>
+      <th>Visit date</th>
+      <th>Discharge date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @discharges.each do |discharge| %>
+      <tr>
+        <%if discharge.visit.present?%>
+          <td><%=discharge.visit.patient.id%></td>
+          <td><%=discharge.visit.id%>
+          <td><%=discharge.visit.patient.patient_name%></td>
+          <td><%=discharge.visit.patient.age%></td>
+          <td><%= discharge.visit.date%></td>
+        <%end%>  
+        <td><%= discharge.discharge_date %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

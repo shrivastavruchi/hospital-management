@@ -1,0 +1,38 @@
+<%=render 'index'%>
+
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Category </div>
+          <div class="panel-body">
+          	<button type="button" class="btn btn-primary modal_popup" data-toggle="modal" data-target="#myModal">Add Category</button>
+          	</br>
+          	</br>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Description</th>
+                  <th>Edit/Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+								<%@categories.each do |category| %>
+								<tr>
+									<td>
+										<%=category.category_type%>
+									</td>
+									<td>	
+										<%=category.description%>
+									</td>	
+									<td>
+										<%=link_to 'edit',edit_category_path(category) %>/
+										<%=link_to 'delete',category_path(category),method: :delete, data: {confirm: "Are you sure?"}%>
+									</td>
+								<%end%>
+              </tbody>
+            </table>
+          </div>  
+    </div>
+  </div>
+</div>  

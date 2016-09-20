@@ -46,7 +46,7 @@ class PrescriptionDetailsController < ApplicationController
   end	
 
   def prescription_detail_params
-  	params.require(:prescription_detail).permit(:addmission_id,:drug_name,:description,:schedule,:quantity)
+  	params.require(:prescription_detail).permit(:addmission_id,:drug_name,:description,:schedule,:quantity,:day)
 	end	
 
 end

@@ -1,0 +1,25 @@
+<%= form_for(@bed) do |f| %>
+  <% if @bed.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bed.errors.count, "error") %> prohibited this bed from being saved:</h2>
+
+      <ul>
+      <% @bed.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bed_no %><br>
+    <%= f.text_field :bed_no,:class=>"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :room_id %><br>
+    <%= f.select :room_id, Room.all.map{|room|[ room.room_no, room.id]},{},:class=>"form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'save',:class=>"btn btn-primary" %>
+  </div>
+<% end %>

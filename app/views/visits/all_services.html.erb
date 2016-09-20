@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading"> services </div>
+        <div class="panel-body">
+         <p>Registration number:<%=@visit.patient.id%></p>
+         <p>Patient name:<%=@visit.patient.patient_name%></p>
+         <p>Consultant doctor:<%=@visit.user.name%></p>
+
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Service name</th>
+                  <th>Charges</th>
+                 </tr>
+              </thead>
+              <tbody>
+                <%=form_tag payment_path(@visit) do %>
+  								<%@services.each do |service|%>
+  								  <tr>
+                      <td>
+                      <% if service.paid== "true"%>
+                        <%=check_box_tag  "service_ids[]" ,service.id, true , disabled: true, id: "dsadasd" %>
+                          <%=service.service_name%>
+                      <%else%>
+                        <%=check_box_tag  "service_ids[]" ,service.id, false , id: "dsadasd" %>
+                          <%=service.service_name%>
+                      <%end%>    
+                      </td>
+               
+                      <td>
+                        <%=service.charges%>
+                      </td> 
+                    </tr>
+  								<%end%>
+                  <div>
+                    <%=submit_tag 'payment',:class=>"btn btn-primary"%>
+                  </div>
+                <%end%>  
+              </tbody>
+            </table>
+            <%#=link_to 'Bill Genrate', visit_genrate_bill_path(@visit),:class=>"btn btn-primary"%>
+      </div>  
+    </div>
+  </div>
+</div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

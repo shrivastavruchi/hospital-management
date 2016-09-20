@@ -79,6 +79,10 @@ class VisitsController < ApplicationController
 
   def opd_visit
     authorize! :read, Visit   
+
+    @q = Visit.ransack(params[:q])
+    @visits = @q.result.includes(:patient)
+    @doctors = User.with_role(:doctor)
     if current_user.has_role?(:doctor)  
       @visits = Visit.where("visit_type=? and doctor_id=?", "opd",current_user.id)
     else  
@@ -96,7 +100,7 @@ class VisitsController < ApplicationController
   end  
 
 
-  def genrate_bill
+  def all_services
     authorize! :read, Visit  
     @visit = Visit.find(params[:visit_id])
     @services = @visit.services
@@ -113,8 +117,19 @@ class VisitsController < ApplicationController
 
   def basic_detail
     authorize! :read, Visit 
+  end   
+
+  def genrate_bill
+    @visit = Visit.find(params[:visit_id])
+    payment = Payment.where("visit_id=?", params[:visit_id]).last
+    @services = payment.services
   end  
 
+  def search
+    @q = Visit.ransack(params[:q])
+    @visits = @q.result.includes(:user)
+    render :opd_visit
+  end  
 
 
 

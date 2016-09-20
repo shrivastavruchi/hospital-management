@@ -1,27 +1,38 @@
-<table  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Patient name</th>
-      <th>Doctor Name</th>
-      <th>Date</th>
-      <th>Visit Type</th>
-    </tr>
-  </thead>
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Visits </div>
+        <div class="panel-body">
+          <table  class="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Patient name</th>
+                <th>Doctor Name</th>
+                <th>Date</th>
+                <th>Visit Type</th>
+              </tr>
+            </thead>
 
-  <tbody>
-    <% @visits.each do |visit| %>
-      <tr>
-        <td><%=visit.id  %>	
-        <td><%= visit.patient.patient_name %></td>
-        <td><%= visit.user.name if visit.user.present?%>
-        <td><%=visit.date%></td>
-        <td><%=visit.visit_type%></td>
-        <% if can? :service, Visit %>
-          <td><%=link_to'services',  visit_services_path(visit)  %></td>
-        <%end%>  
-        <td><%=link_to 'genrate_bill', visit_genrate_bill_path(visit)%></td>
-      </tr> 
-    <% end %>
-  </tbody>
-</table>
+            <tbody>
+              <% @visits.each do |visit| %>
+                <tr>
+                  <td><%=visit.id  %> 
+                  <td><%= visit.patient.patient_name %></td>
+                  <td><%= visit.user.name if visit.user.present?%>
+                  <td><%=visit.date%></td>
+                  <td><%=visit.visit_type%></td>
+                  <% if can? :service, Visit %>
+                    <td><%=link_to'services',  visit_services_path(visit)  %></td>
+                  <%end%>  
+                  <td><%=link_to 'Payment', visit_all_services_path(visit)%></td>
+                  <td><%=link_to 'Paid bill', paid_bill_path(visit)%></td>
+                </tr> 
+              <% end %>
+            </tbody>
+          </table>
+      </div>  
+    </div>
+  </div>
+</div> 
+

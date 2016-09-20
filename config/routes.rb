@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :beds
+  resources :rooms
   resources :diagnoses
   resources :departments
   resources :department_doctors
@@ -63,48 +65,35 @@ Rails.application.routes.draw do
 
 
 
+
+
   get '/ipd_visits' => 'visits#ipd_visits', :as=>"ipd_visits"
   get '/visit/:id/basic_detail' => 'visits#basic_detail', :as=>"basic_detail"
-
-#-------------------------------------------------
-
-  resources :patients do
-    resources :addmissions do
-    end  
-  end
-
-  # resources :addmissions do
-  #   resources :notes do
-  #   end  
-  #   get 'basic_information'
-  # end 
-
-  # resources :addmissions do
-  #   resources :worksheet_details do
-  #   end  
-  # end 
-
-
-  resources :addmissions do
-    resources :prescription_details do
-    end
-  end    
-
-
+#-------------------------------------------------------
 
  
   devise_for :users
   resources :user
   resources :visits do
+    get 'all_services' 
+    get 'report'
     get 'genrate_bill' 
-    post 'payment_bill'  
   end  
+
+  post 'visit/:visit_id/payment' => 'payments#payment', :as=>"payment"
+  get 'visit/:visit_id/paid_bill' => 'reports#paid_bill', :as=>"paid_bill"
+    
+  post '/search' => 'visits#search', :as=>"search"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'user#index'
+
+#----------------------
+resources :categories
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -15,7 +15,7 @@
             <% end %>
 
             <div class="field">
-              <%= f.label :drug_name %><br>
+              <%= f.label :Medicine %><br>
               <%= f.text_field :drug_name,:class=>"form-control" %>
             </div>
              <div class="field">
@@ -23,12 +23,16 @@
               <%= f.text_field :quantity,:class=>"form-control" %>
             </div>
             <div class="field">
-              <%= f.label :description %><br>
-              <%= f.text_field :description,:class=>"form-control" %>
+              <%= f.label :day %><br>
+              <%= f.text_field :day,:class=>"form-control" %>
             </div>
             <div class="field">
-              <%= f.label :schedule %><br>
-              <%= f.text_field :schedule,:class=>"form-control" %>
+              <%= f.label :description %><br>
+              <%= f.text_area :description,:class=>"form-control" %>
+            </div>
+            <div class="field">
+              <%= f.label :instruction %><br>
+              <%= f.text_area :schedule,:class=>"form-control" %>
             </div>
             <%=f.submit 'save',:class=>"btn btn-primary"%>
           <% end %>

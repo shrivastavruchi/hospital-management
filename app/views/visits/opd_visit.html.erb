@@ -1,37 +1,66 @@
-<h3>Opd Visit</h3>
-<table  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Opd Id</th>
-      <th>Patient name</th>
-      <th>Doctor name</th>
-      <th>Opd date</th>
-      <th>Register date</th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @visits.each do |visit| %>
-        <tr>
-          <td>
-            <% if can? :show, Visit %>
-              <%=link_to visit.id ,visit_path(visit) %>
-            <%else%>
-              <%=visit.id%>
-            <%end%>  
-          </td>
-          <td><%= visit.patient.patient_name %></td>  
-          <td>
-            <%if visit.user.present?%>   
-              <%= visit.user.name %>
-            <%end%>
-          </td>
-          <td><%= visit.date %></td>
-          <td><%=visit.patient.created_at.strftime("%d-%m-%Y")%></td>
-          <td><%#=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td>
-        </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Opd Visit </div>
+        <div class="panel-body">
+          <table  class="table table-striped">
+            <div>
+              <%= search_form_for @q, :url=>search_path, :method =>:post do |f| %>
+              <div class="col-md-2">
+                <%= f.label :from_date %>
+                <%= f.search_field :date_gteq, :class=>"start_date_picker form-control" %>
+              </div>
+              <div class="col-md-2">
+                <%= f.label :to_date %>
+                <%= f.search_field :date_lteq ,:class=>"start_date_picker form-control"%>
+              </div>
 
-<br>
+              <%= f.submit 'search',:class=>"btn btn-primary" ,:style=>"
+                margin-top: 23px;"%>
+              <% end %>
+            </div>
+            </br>
+            </br>
+            <thead>
+              <tr>
+                <th>OPD No</th>
+                <th>Patient name</th>
+                <th>Doctor name</th>
+                <th>Visit Date</th>
+                <th>Register date</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @visits.each do |visit| %>
+                  <tr>
+                    <td>
+                      <% if can? :show, Visit %>
+                        <%=link_to visit.id ,visit_path(visit) %>
+                      <%else%>
+                        <%=visit.id%>
+                      <%end%>  
+                    </td>
+                    <td><%= visit.patient.patient_name %></td>  
+                    <td>
+                      <%if visit.user.present?%>   
+                        <%= visit.user.name %>
+                      <%end%>
+                    </td>
+                    <td><%= visit.date %></td>
+                    <td><%=visit.patient.created_at.strftime("%d-%m-%Y")%></td>
+                    <td><%#=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td>
+                  </tr>
+              <% end %>
+            </tbody>
+          </table>
+      </div>  
+    </div>
+  </div>
+</div> 
+<script>
+  $('.start_date_picker').datepicker({
+      format: 'yyyy-mm-dd'
+  })
+</script>

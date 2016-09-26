@@ -1,0 +1,9 @@
+$(".category_add").html('<%= j render "categories/form"  %>');
+$("#save").click(function(){
+	if($("#category_category_type").val() == ""){
+		$("p").show();
+	}
+	else{
+		$("#new_category").submit();
+	}
+});

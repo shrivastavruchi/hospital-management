@@ -7,11 +7,13 @@
       <th>Doctor name</th>
       <th>Date Admit</th>
       <th>Room No</th>
+      <th>Bed No</th>
     </tr>
   </thead>
 
   <tbody>
     <% @visits.each do |visit| %>
+      <%@visit_room = VisitRoom.find_by_visit_id(visit.id)%>
       <%unless visit.discharge.present?%>
         <tr>
           <td>
@@ -27,8 +29,11 @@
               <%= visit.user.name %>
             <%end%>
           </td>  
-          <td><%= visit.date %></td>
-          <td><%= visit.room_no %></td>
+          <td><%= @visit_room.date if @visit_room.present?%></td>
+          <td>
+            <%=  @visit_room.room.room_no if @visit_room.present?  %>
+          </td>
+          <td><%= @visit_room.bed.bed_no if @visit_room.present? %></td>
           <%#=link_to 'Progress Notes',new_visit_note_path(visit)%>
         </tr>
       <%end%>  

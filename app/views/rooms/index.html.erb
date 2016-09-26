@@ -3,7 +3,9 @@
     <div class="panel panel-default">
       <div class="panel-heading">Category </div>
           <div class="panel-body">
-            <%= link_to 'New Room', new_room_path,:class=>"btn btn-primary", "data-toggle" => "modal", "data-target" => "#myModal" ,:remote=>:true%>
+            <% if can? :create, Room %>
+              <%= link_to 'New Room', new_room_path,:class=>"btn btn-primary", "data-toggle" => "modal", "data-target" => "#myModal" ,:remote=>:true%>
+            <%end%>
             </br>
             </br>
             <table class="table table-bordered">
@@ -12,8 +14,12 @@
                   <th>Room no</th>
                   <th>Room Type</th>
                   <th>Room rent</th>
-                  <th>Beds</th>
-                  <th>Action</th>
+                  <th>Total beds</th>
+                  <th>Booked beds</th>
+                  <th>Available beds</th>
+                  <%if can? :edit, Room%>
+                    <th>Action</th>
+                  <%end%>
                 </tr>
               </thead>
 
@@ -23,9 +29,17 @@
                     <td><%= room.room_no %></td>
                     <td><%= room.category.category_type if room.category.present? %></td>
                     <td><%= room.room_rent %></td>
-                    <td><%= room.beds %></td>
-                    <td><%= link_to 'Edit', edit_room_path(room)%>
+                    <td><%= total_beds = room.beds.count %></td>
+                    <td><%= booked_beds = room.visits.count%></td>
+                    <td><%= available_beds = total_beds-booked_beds%>
+                    </td>
+                    
+                    <%if can? :edit, Room%>
+                      <td><%= link_to 'Edit', edit_room_path(room)%>
+                    <%end%>
+                    <%if can? :destroy, Room%>  
                       <%= link_to 'Destroy', room, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <%end%>
                   </tr>
                 <% end %>
               </tbody>

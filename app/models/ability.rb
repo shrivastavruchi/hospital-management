@@ -7,10 +7,12 @@ class Ability
       user ||= User.new # guest user (not logged in)
       if user.has_role? :admin
         can :manage, [User,Department,DepartmentDoctor]
+        can :manage,[Category,Room,Bed]
       elsif user.has_role? :receptionist 
         can :manage, [Patient,Appointment ,Address,Addmission]
         can :manage,[Visit, Service]
         cannot :show,[Visit]
+        can :read,[Room,Bed,Category]
       elsif user.has_role? :doctor
         can :read,[Appointment]  
         can :manage,[Visit,Discharge]

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :beds
-  resources :rooms
   resources :diagnoses
   resources :departments
   resources :department_doctors
@@ -10,7 +9,7 @@ Rails.application.routes.draw do
   get  'visit/:id/services' => 'visits#services', :as=>"visit_services"
   get '/opd_visit' => 'visits#opd_visit', :as=>"opd_visits"
 
-
+  resources :rooms  
 
  
 
@@ -63,7 +62,13 @@ Rails.application.routes.draw do
     end  
   end 
 
+  resources :visits do
+    resources :visit_rooms, only: [:new, :create] do
+    end  
+  end 
 
+  resources :visit_rooms,:only=> [:index] do
+  end
 
 
 
@@ -74,17 +79,20 @@ Rails.application.routes.draw do
  
   devise_for :users
   resources :user
+  
   resources :visits do
     get 'all_services' 
     get 'report'
-    get 'genrate_bill' 
+    get 'genrate_bill'
   end  
 
   post 'visit/:visit_id/payment' => 'payments#payment', :as=>"payment"
   get 'visit/:visit_id/paid_bill' => 'reports#paid_bill', :as=>"paid_bill"
     
   post '/search' => 'visits#search', :as=>"search"
-
+  post  '/search_category_room' => 'visits#search_category_room',:as=>"search_category_room"
+  
+  get '/bed/:bed_id/admit' => 'beds#admit',:as=>"admit"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -93,6 +101,8 @@ Rails.application.routes.draw do
 
 #----------------------
 resources :categories
+
+
 
 
   # Example of regular route:

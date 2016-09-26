@@ -1,5 +1,15 @@
 $(".add").html('<%= j render "rooms/form" %>');
-
+$("#save").click(function(){	
+	if($("#room_room_no").val()==""){
+		$("p").show();
+	}
+	if($("#room_room_rent").val()==""){
+		$("p1").show();
+	}
+	else{
+		$("#new_room").submit();
+	}
+});
 
 
 

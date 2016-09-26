@@ -1,3 +1,6 @@
+<%if params[:visit_type] == "ipd" %>
+  <%= render 'select_category' %>
+<%end%>   
 <div class="container">
   <div class="panel-group">
     <div class="panel panel-default">
@@ -8,6 +11,7 @@
     <%end%>    
         <div class="panel-body">
             <%= form_for [@patient, @visit]  do |f| %>
+
               <% if @visit.errors.any? %>
                 <div id="error_explanation">
                   <ul>
@@ -17,7 +21,6 @@
                   </ul>
                 </div>
               <% end %>
-
               <div class="field">
                 <%= f.label :visit_id %><br>
                 <% if params[:visit_type] == "ipd"%>
@@ -30,17 +33,12 @@
 
               <div class="field">
                 <%= f.label :doctor_id %><br>
-                <%= f.select :doctor_id ,@doctors.all.map{|d| [ d.name, d.id ]},{},class: "form-control" %>
+                <%= f.select :doctor_id ,@doctors.all.map{|d| [ d.name, d.id ]},{:include_blank=>"Please select doctors"},class: "form-control" %>
               </div>
               <% if params[:visit_type] == "ipd"%>
-                <div class="field">
-                  <%= f.label :addmision_date %><br>
-                  <%= f.text_field :date , class: "form-control ",id: 'start_date_picker' %>
-                </div>
-                <div class="field">
-                  <%= f.label :room_no %><br>
-                  <%= f.text_field :room_no , class: "form-control " %>
-                </div></br>
+                <%= f.fields_for :visit_rooms do |visit_room| %>
+                  <% render :partial=>'visit_room', locals: {visit_room: visit_room}%>
+                <% end %>
               <%end%>
               <% if params[:visit_type] == "opd"%>
                 <div class="field">
@@ -53,7 +51,7 @@
                 <%= f.hidden_field :visit_type,  :value=>params[:visit_type]  %>
               </div></br>
               <div class="actions">
-                <%= f.submit 'save', :class=>"btn btn-primary",:style=>"margin-top: -59px;" %>
+                <%= f.submit 'save',  :class=>"btn btn-primary",:style=>"margin-top: -59px;" %>
               </div>
             <% end %>
         </div>  
@@ -70,6 +68,10 @@
         todayBtn: false
     })
 </script>
+
+
+
+
 
 
 

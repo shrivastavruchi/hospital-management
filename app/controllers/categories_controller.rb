@@ -2,15 +2,18 @@ class CategoriesController < ApplicationController
 	before_action :set_category, only: [:edit, :update,:destroy] 
 
 	def index
+    authorize! :read, Category
 		@categories = Category.all
 	end
 	
 	def  new
+    authorize! :create, Category
 		@category = Category.new
 	end	
 
 	def create
-		@category = Category.new(category_params)
+    authorize! :create, Category
+    @category = Category.new(category_params)
 		if @category.save
   		redirect_to  categories_path 
   	else
@@ -19,10 +22,12 @@ class CategoriesController < ApplicationController
   end
 
   def edit
+    authorize! :edit, Category
   	@category = Category.find(params[:id])
   end	
 
   def update
+    authorize! :update, Category
   	if @category.update(category_params)
   		redirect_to categories_path 
   	else
@@ -31,10 +36,16 @@ class CategoriesController < ApplicationController
   end	
 
   def destroy
+    authorize! :destroy, Category
   	if @category.destroy
   		redirect_to categories_path
   	end	
-  end	
+  end
+
+  def show
+   @category = Category.find(params[:id])
+   @rooms = @category.rooms
+  end  
 	
 	private
 		def category_params

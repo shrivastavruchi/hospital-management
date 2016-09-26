@@ -13,13 +13,16 @@
 
   <div class="field">
     <%= f.label :bed_no %><br>
-    <%= f.text_field :bed_no,:class=>"form-control" %>
+    <%= f.text_field :bed_no,:class=>"form-control",:id=>"bed_no" %>
+    <p style="display:none;">Bed no can not be blank</p>
   </div>
   <div class="field">
     <%= f.label :room_id %><br>
     <%= f.select :room_id, Room.all.map{|room|[ room.room_no, room.id]},{},:class=>"form-control" %>
   </div>
-  <div class="actions">
-    <%= f.submit 'save',:class=>"btn btn-primary" %>
-  </div>
+    <%if params[:action] =="edit"%>
+      <%= f.submit 'save',:class=>"btn btn-primary" %>
+    <%else%>
+      <button type="button" class="btn btn-primary" id="save" >Save</button>
+    <%end%>  
 <% end %>

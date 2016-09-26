@@ -36,6 +36,10 @@ class WorksheetDetailsController < ApplicationController
   	@visit = Visit.find(params[:visit_id])
   end	
 
+  def set_work_sheet
+  	 @work_sheet_detail = WorksheetDetail.find(params[:id])
+  end	
+
   def worksheet_params
   	 params.require(:worksheet_detail).permit(:date, :time, :addmission_id,:user_id,:pulse_rate,:height,:weight,:visit_id,:blood_presure)
 	end	

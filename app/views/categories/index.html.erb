@@ -1,19 +1,21 @@
-<%=render 'index'%>
-
 <div class="container">
   <div class="col-sm-12">
     <div class="panel panel-default">
       <div class="panel-heading">Category </div>
           <div class="panel-body">
-          	<button type="button" class="btn btn-primary modal_popup" data-toggle="modal" data-target="#myModal">Add Category</button>
-          	</br>
+            <%if can? :create, Category%>
+              <%=link_to 'Add Category', new_category_path, :class=>"btn btn-primary", "data-toggle" => "modal", "data-target" => "#myModal" ,:remote=>:true%>
+          	<%end%>
+            </br>
           	</br>
             <table class="table table-bordered">
               <thead>
                 <tr>
                   <th>Category</th>
                   <th>Description</th>
-                  <th>Edit/Delete</th>
+                  <%if can? :edit, Room%>
+                    <th>Edit/Delete</th>
+                  <%end%>
                 </tr>
               </thead>
               <tbody>
@@ -25,10 +27,11 @@
 									<td>	
 										<%=category.description%>
 									</td>	
-									<td>
-										<%=link_to 'edit',edit_category_path(category) %>/
-										<%=link_to 'delete',category_path(category),method: :delete, data: {confirm: "Are you sure?"}%>
-									</td>
+                  <%if can? :edit, Category%>
+                    <td>
+										  <%=link_to 'edit',edit_category_path(category)%>/<%=link_to 'delete',category_path(category),method: :delete, data: {confirm: "Are you sure?"}%>
+                    </td>
+                  <%end%>
 								<%end%>
               </tbody>
             </table>
@@ -36,3 +39,23 @@
     </div>
   </div>
 </div>  
+
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Category</h4>
+        </div>
+        <div class="modal-body category_add">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+

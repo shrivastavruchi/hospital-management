@@ -3,7 +3,9 @@
     <div class="panel panel-default">
       <div class="panel-heading">Category </div>
           <div class="panel-body">
-            <%= link_to 'New Bed', new_bed_path,:class=>"btn btn-primary", "data-toggle" => "modal", "data-target" => "#myModal" ,:remote=>:true%>
+            <%if can? :new, Room%>
+              <%= link_to 'New Bed', new_bed_path,:class=>"btn btn-primary", "data-toggle" => "modal", "data-target" => "#myModal" ,:remote=>:true%>
+            <%end%>
             </br>
             </br>
             <table class="table table-bordered">
@@ -12,7 +14,9 @@
                   <th>Bed no</th>
                   <th>Room no</th>
                   <th>Room Type</th>
-                  <th>Action</th>
+                  <%if can? :edit, Bed%>
+                    <th>Action</th>
+                  <%end%>
                 </tr>
               </thead>
 
@@ -23,10 +27,12 @@
                     <td><%= bed.room.room_no  if bed.room.present?%></td>
                     <td>
                       <%=bed.room.category.category_type if bed.room.present? && bed.room.category.present?%></td>
-                    <td>
-                      <%= link_to 'Edit', edit_bed_path(bed) %>/
-                      <%= link_to 'Destroy', bed, method: :delete, data: { confirm: 'Are you sure?' } %>
-                    </td>
+                    <%if can? :edit, Bed%>
+                      <td>
+                        <%= link_to 'Edit', edit_bed_path(bed) %>/
+                        <%= link_to 'Destroy', bed, method: :delete, data: { confirm: 'Are you sure?' } %>
+                      </td>
+                    <%end%>  
                   </tr>
                 <% end %>
               </tbody>

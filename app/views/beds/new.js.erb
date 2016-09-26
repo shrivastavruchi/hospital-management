@@ -1,1 +1,9 @@
 $(".add").html('<%= j render "beds/form" %>');
+$("#save").click(function(){
+	if($("#bed_no").val() ==""){
+		$("p").show();
+	}
+	else{
+		$("#new_bed").submit();
+	}
+});

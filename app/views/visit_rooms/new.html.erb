@@ -1,0 +1,26 @@
+ <%= render 'visits/select_category' %>
+
+<div class="panel-group">
+  <div class="panel panel-default"> 
+    <div class="panel-heading">Patient Transfer</div>  
+      <div class="panel-body">
+      	<%=form_for :@visit do |f| %>
+			  	<%= f.fields_for :visit_rooms do |visit_room| %>
+            <% render :partial=>'visits/visit_room', locals: {visit_room: visit_room}%>
+          <% end %>
+          <%=f.submit 'save' %>
+				<%end%>
+      </div>  
+  </div>
+</div>
+
+<script>
+  $('#start_date_picker').datepicker({
+      format: 'yyyy-mm-dd',
+      daysOfWeekDisabled: [0, 6],
+      daysOfWeekHighlighted: [1, 2, 3, 4, 5],
+      todayBtn: false
+  })
+</script>
+
+

@@ -16,7 +16,11 @@
           </p>
           <p>
             <strong>Room no:</strong>
-            <%= @visit.room_no%>
+            <%= @visit.room.room_no%>
+          </p>
+          <p>
+            <strong>Bed no:</strong>
+            <%= @visit.bed.bed_no%>
           </p>
         <%else%>
           <p>

@@ -1,0 +1,30 @@
+ <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Room no</th>
+      <th>Room Type</th>
+      <th>Room rent</th>
+      <th>Total beds</th>
+      <th>Booked beds</th>
+      <th>Available beds</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rooms.each do |room| %>
+      <%if room.beds.count > room.beds.where(:status=>"true").count%>
+        <tr>
+        	<td><%=link_to "#{room.room_no}",room_path(room),:remote=>true %></td>
+          <td><%= room.category.category_type if room.category.present? %></td>
+          <td><%= room.room_rent %></td>
+          <td><%= total_beds = room.beds.count %></td>
+          <td><%= booked_beds = room.beds.where(:status=>"true").count%></td>
+          <td><%= available_beds = total_beds-booked_beds%>
+          </td>
+        </tr>
+      <%end%>  
+    <% end %>
+  </tbody>
+</table>
+
+ 

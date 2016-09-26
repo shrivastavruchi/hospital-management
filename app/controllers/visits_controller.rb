@@ -1,21 +1,11 @@
 class VisitsController < ApplicationController
-  before_action :set_visit, only: [:show, :edit, :update, :destroy,:prescription_detail,:services,:basic_detail,:discharge,:discharge_visit]
-  before_action :set_patient, only: [:new, :create]
-  layout 'patient', only: [:basic_detail,:show,:discharge]
+  include PatientVisits
 
-  # GET /visits
-  # GET /visits.json
   def index
     authorize! :read, Visit
-    if current_user.has_role?(:doctor)
-      @visits =  Visit.where(:doctor_id=>current_user.id)
-    else
-      @visits = Visit.all
-    end
+    @visits = Visit.dashboard(current_user)
   end
 
-  # GET /visits/1
-  # GET /visits/1.json
   def show
     authorize! :show, Visit
   end
@@ -24,9 +14,7 @@ class VisitsController < ApplicationController
   def new
     authorize! :new, Visit
     @visit = Visit.new
-    @doctors = User.with_role :doctor
-    #@visit.build_basic_detail
-    #@visit.prescription_details.build
+    @visit.visit_rooms.build
   end
 
   # GET /visits/1/edit
@@ -46,12 +34,12 @@ class VisitsController < ApplicationController
             redirect_to ipd_visits_path, notice: 'Ipd Visit was successfully created.'
           end  
         else
+          params[:visit_type] = params[:visit][:visit_type]
+          @doctors = User.with_role :doctor
           render :new 
         end 
     end
 
-  # PATCH/PUT /visits/1
-  # PATCH/PUT /visits/1.json
   def update
     authorize! :update, Visit
       if @visit.update(visit_params)
@@ -61,16 +49,6 @@ class VisitsController < ApplicationController
       end
   end
 
-  # DELETE /visits/1
-  # DELETE /visits/1.json
-  def destroy
-    authorize! :delete, Visit
-    @visit.destroy
-    respond_to do |format|
-      format.html { redirect_to visits_url, notice: 'Visit was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   def prescription_detail
     authorize! :read, Visit
@@ -82,12 +60,7 @@ class VisitsController < ApplicationController
 
     @q = Visit.ransack(params[:q])
     @visits = @q.result.includes(:patient)
-    @doctors = User.with_role(:doctor)
-    if current_user.has_role?(:doctor)  
-      @visits = Visit.where("visit_type=? and doctor_id=?", "opd",current_user.id)
-    else  
-      @visits = Visit.where(:visit_type=>"opd")
-    end
+    @visits = Visit.fetch_visit_of_doctors(current_user,"opd")
   end  
 
   def services
@@ -108,11 +81,7 @@ class VisitsController < ApplicationController
 
   def ipd_visits
     authorize! :read, Visit 
-    if current_user.has_role?(:doctor)  
-     @visits = Visit.where("visit_type=? and doctor_id=?", "ipd",current_user.id)
-    else  
-      @visits = Visit.where(:visit_type=>"ipd")
-    end
+    @visits = Visit.fetch_visit_of_doctors(current_user,"ipd") 
   end  
 
   def basic_detail
@@ -129,22 +98,14 @@ class VisitsController < ApplicationController
     @q = Visit.ransack(params[:q])
     @visits = @q.result.includes(:user)
     render :opd_visit
-  end  
+  end 
+
 
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_visit
-      @visit = Visit.find(params[:id])
-    end 
 
-    def set_patient
-     @patient = Patient.find(params[:patient_id])
-    end  
-
-    # Never trust parameters from the scary internet, only allow the white list through.
     def visit_params
-      params.require(:visit).permit(:id, :patient_id, :appointment_id,:room_no, :doctor_id,:visit_type, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ] )
+      params.require(:visit).permit(:id, :patient_id, :appointment_id,:room_id,:bed_id, :doctor_id,:visit_type, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ],visit_rooms_attributes: [:id, :date, :room_id , :bed_id,:visit_id ] )
     end
 end

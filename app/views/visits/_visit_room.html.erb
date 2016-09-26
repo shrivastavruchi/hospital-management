@@ -1,0 +1,12 @@
+<div class="field">
+  <%= visit_room.label :addmision_date %><br>
+  <%= visit_room.text_field :date , class: "form-control ",id: 'start_date_picker' %>
+</div>
+<div class="field">
+  <%= visit_room.label :room_no %>*<br>
+  <%= visit_room.select :room_id, options_for_select([''] ),{}, class: "form-control room_no",:readonly=>true%>
+</div></br>
+<div class="field">
+  <%= visit_room.label :bed_no %>*<br>
+  <%= visit_room.select :bed_id ,options_for_select([''] ),{}, class: "form-control bed_no ",:readonly=>true %>
+</div></br> 

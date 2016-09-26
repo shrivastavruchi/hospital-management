@@ -4,6 +4,7 @@ class BedsController < ApplicationController
   # GET /beds
   # GET /beds.json
   def index
+    authorize! :read, Bed
     @beds = Bed.all
   end
 
@@ -14,16 +15,19 @@ class BedsController < ApplicationController
 
   # GET /beds/new
   def new
+    authorize! :new, Bed
     @bed = Bed.new
   end
 
   # GET /beds/1/edit
   def edit
+    authorize! :edit, Bed
   end
 
   # POST /beds
   # POST /beds.json
   def create
+    authorize! :create, Bed
     @bed = Bed.new(bed_params)
     if @bed.save
       redirect_to beds_path, notice: 'Bed was successfully created.' 
@@ -35,26 +39,26 @@ class BedsController < ApplicationController
   # PATCH/PUT /beds/1
   # PATCH/PUT /beds/1.json
   def update
-    respond_to do |format|
-      if @bed.update(bed_params)
-        format.html { redirect_to @bed, notice: 'Bed was successfully updated.' }
-        format.json { render :show, status: :ok, location: @bed }
-      else
-        format.html { render :edit }
-        format.json { render json: @bed.errors, status: :unprocessable_entity }
-      end
+    authorize! :update, Bed
+    if @bed.update(bed_params)
+      redirect_to beds_path, notice: 'Bed was successfully updated.' 
+    else
+      render :edit 
     end
   end
 
   # DELETE /beds/1
   # DELETE /beds/1.json
   def destroy
-    @bed.destroy
-    respond_to do |format|
-      format.html { redirect_to beds_url, notice: 'Bed was successfully destroyed.' }
-      format.json { head :no_content }
+    authorize! :destroy, Bed
+    if @bed.destroy
+      redirect_to beds_path, notice: 'Bed was successfully destroyed.' 
     end
   end
+
+  def admit
+    @bed=Bed.find(params[:bed_id])
+  end  
 
   private
     # Use callbacks to share common setup or constraints between actions.

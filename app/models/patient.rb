@@ -4,6 +4,7 @@ class Patient < ActiveRecord::Base
 	has_many :users , :through => :appointments
 	has_many :addmissions
 	has_many :visits
+
 	accepts_nested_attributes_for :address
 
 	validates :patient_name, :gender, :presence=>true 

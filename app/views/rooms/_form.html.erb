@@ -23,12 +23,18 @@
   <div class="field">
     <%= f.label :room_rent %><br>
     <%= f.text_field :room_rent,:class=>'form-control' %>
+    <p1 style="display: none;">Room rent can not be blank</p1>
   </div>
   <div class="field">
-    <%= f.label :beds %><br>
-    <%= f.text_field :beds,:class=>'form-control' %>
+    <%#= f.label :beds %><br>
+    <%#= f.text_field :beds,:class=>'form-control' %>
   </div>
-  <button id="save" class="btn btn-primary" >Save</button>
+  <%if params[:action] == "edit"%>
+    <button id="save" class="btn btn-primary" >Save</button>
+
+  <%else%>  
+    <button id="save" type="button" class="btn btn-primary" >Save</button>
+  <%end%>  
 <% end %>
 
 

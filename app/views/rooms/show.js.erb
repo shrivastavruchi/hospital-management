@@ -1,0 +1,3 @@
+$(".room_beds").html("<%= j render partial: 'show', locals: {beds: @beds} %>");
+$(".room_no").html("<%= j render partial: 'room_option', locals: {room: @room} %>");
+$(".bed_no ").html("<%= j render partial: 'room_beds', locals: {beds: @beds} %>" );

@@ -1,0 +1,18 @@
+<div class ="col-md-4 ">
+  <%=form_tag search_category_room_path do %>
+    <%= select_tag(:category_id, options_for_select(Category.all.map { |c| [c.category_type, c.id] }), {:include_blank=>"select category", :class => 'form-control target'})   %>
+  <%end%>
+</div>
+
+<div class="panel-body show_room">
+</div>  
+
+<div class="panel-body room_beds">
+</div>
+<script>
+  $( ".target" ).change(function() {
+    var id = $(".target").val();
+    $.get("/categories/"+ id,{}, function(){
+    });
+  });
+</script>

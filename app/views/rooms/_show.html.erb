@@ -1,0 +1,17 @@
+ <table class="table table-bordered">
+  <thead>
+    <tr>
+    	<th>Admit</th>
+      <th>Bed No</th>
+    </tr>
+  </thead>
+
+  <tbody>
+   	<%beds.each do |bed|%>
+   		<tr>
+				<td><%=link_to 'Admit',admit_path(bed) ,:remote=>true%></td>	
+				<td><%=bed.bed_no%></td>
+			</tr>		
+		<%end%>
+  </tbody>
+</table>

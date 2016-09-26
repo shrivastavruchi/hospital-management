@@ -3,6 +3,17 @@
     <div class="panel-heading">Add Work Sheet Detail</div>
       <div class="panel-body">
         <%= form_for [@visit, @work_sheet_detail] do |f| %>
+           <% if @work_sheet_detail.errors.any? %>
+              <div id="">
+
+                <ul>
+                <% @work_sheet_detail.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
           <div class="field">
             <%= f.label :date %><br>
             <%= f.text_field :date,:class=>"form-control",:id=>"start_date_picker"  %>

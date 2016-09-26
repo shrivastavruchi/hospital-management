@@ -6,15 +6,12 @@
 
           <%= form_for [@visit, @note] do |f| %>
             <% if @note.errors.any? %>
-              <div id="error_explanation">
-                <h2><%= pluralize(@note.errors.count, "error") %> prohibited this note from being saved:</h2>
 
-                <ul>
-                <% @note.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-                </ul>
-              </div>
+              <ul>
+              <% @note.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+              </ul>
             <% end %>
 
             <div class="field">
@@ -40,7 +37,7 @@
               <%= f.text_field :remarks,:class=>"form-control" %>
             </div>
             <div class="actions">
-              <%= f.submit 'save',:class=>"btn btn-primary" %>
+              <%= f.submit 'save',:class=>"btn btn-primary", :style=>"margin-top: 15px;" %>
             </div>
           <% end %>
         </div>  

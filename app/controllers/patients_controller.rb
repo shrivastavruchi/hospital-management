@@ -21,7 +21,14 @@ class PatientsController < ApplicationController
     authorize! :create, Patient
     @patient = Patient.new
     @patient.build_address
+    @countries = CS.countries.except!(:COUNTRY_ISO_CODE).collect {|p| [ p[ 1], p[0] ] }.compact
+    @states = CS.states(:in).collect {|p| [ p[ 1], p[0] ] }.compact
+    @cities = CS.cities(:MP)
   end
+ 
+
+
+
 
   # GET /patients/1/edit
   def edit
@@ -68,6 +75,23 @@ class PatientsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def states
+   country = params[:country_id]
+   @states = CS.states(country)
+    respond_to do |format|
+      format.js # actually means: if the client ask for js -> return file.js
+    end 
+  end
+
+  def cities
+    state = params[:state_id]
+    @cities = CS.cities(state)
+  
+    respond_to do |format|
+      format.js # actually means: if the client ask for js -> return file.js
+    end 
+  end  
 
 
 

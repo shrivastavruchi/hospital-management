@@ -1,0 +1,62 @@
+<%= form_for [@visit, @operation_theater] do |f| %>
+  <% if @operation_theater.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@operation_theater.errors.count, "error") %> prohibited this operation_theater from being saved:</h2>
+
+      <ul>
+      <% @operation_theater.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :from_date %><br>
+    <%= f.text_field :from_date ,:class=>"form-control start_date_picker"%>
+  </div>
+  <div class="field">
+    <%= f.label :from_time %><br>
+    <%= f.text_field :from_time,:class=>"form-control timepicker" %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.text_field :end_date,:class=>"form-control start_date_picker" %>
+  </div>
+  <div class="field">
+    <%= f.label :end_time %><br>
+    <%= f.text_field :end_time,:class=>"form-control timepicker" %>
+  </div>
+  <div class="field">
+    <%= f.label :operation_name %><br>
+    <%= f.text_field :operation_name,:class=>"form-control"  %>
+  </div>
+  <div class="field">
+    <%= f.label :doctor_id %><br>
+    <%= f.select :doctor_id ,options_for_select([["#{@doctor.name}", @doctor.id ]]) ,{},class: "form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :notes %><br>
+    <%= f.text_field :notes,:class=>"form-control"  %>
+  </div>
+  <div class="field">
+    <%= f.label :operation_procedure %><br>
+    <%= f.text_field :operation_procedure,:class=>"form-control"  %>
+  </div>
+  <div class="actions">
+    <%= f.submit'save',:class=>"btn  btn-primary" %>
+  </div>
+<% end %>
+<script>
+  $('.start_date_picker').datepicker({
+      format: 'yyyy-mm-dd',
+      daysOfWeekDisabled: [0, 6],
+      daysOfWeekHighlighted: [1, 2, 3, 4, 5],
+      todayBtn: false
+  })
+</script>
+
+<script>
+  $(function() {
+    $('.timepicker').timepicker();
+  });
+</script>

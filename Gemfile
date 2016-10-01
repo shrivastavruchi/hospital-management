@@ -33,6 +33,7 @@ gem "font-awesome-rails"
 gem "nested_form"
 gem 'twilio-ruby'
 gem 'ransack'
+gem 'city-state'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

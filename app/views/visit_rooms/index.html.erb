@@ -1,0 +1,29 @@
+<table class="table table-striped">
+  <thead >
+    <tr>
+      <th>Patent name</th>
+      <th>Category Type</th>
+      <th>Room no</th>
+      <th>Bed No</th>
+      <th>Date Transfer</th>
+      <th>Remove</th>
+    </tr>
+  </thead>
+
+  <tbody>
+	  <%@visit_rooms.each do |visit_room| %>
+			<tr>
+				<td><%= visit_room.visit.patient.patient_name  if visit_room.visit.present?%></td>
+				<td><%=visit_room.room.category.category_type if visit_room.room.present? && visit_room.room.category.present?%></td>	
+				<td><%=visit_room.room.room_no if visit_room.room.present?%></td>
+				<td><%=visit_room.bed.bed_no if visit_room.bed.present?%></td>
+				<td><%= visit_room.date%></td>
+				<td><%=link_to 'delete', visit_visit_room_path(visit_room.visit , visit_room) ,method: :delete, :class=>"btn btn-primary"%>
+			</tr>		
+		<%end%>
+  </tbody>
+</table>
+
+
+<%=link_to 'Transfer Patient',  new_visit_visit_room_path(@visit),:class=>"btn  btn-primary"%>
+<br>

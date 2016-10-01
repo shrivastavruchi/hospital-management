@@ -1,0 +1,53 @@
+<p>
+  <strong>From date:</strong>
+  <%= @operation_theater.visit.patient.patient_name %>
+</p>
+
+
+ <p>
+  <strong>From date:</strong>
+  <%= @operation_theater.from_date %>
+</p>
+
+<p>
+  <strong>From time:</strong>
+  <%= @operation_theater.from_time %>
+</p>
+<p>
+  <strong>End date:</strong>
+  <%= @operation_theater.end_date %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @operation_theater.end_time %>
+</p>
+
+<p>
+  <strong>Operation name:</strong>
+  <%= @operation_theater.operation_name %>
+</p>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @operation_theater.user.name if @operation_theater.user.present?  %>
+</p>
+
+
+<p>
+  <strong>Notes:</strong>
+  <%= @operation_theater.notes %>
+</p>
+
+<p>
+  <strong>Operation procedure:</strong>
+  <%= @operation_theater.operation_procedure %>
+</p>
+
+<button id="print">Print</button>
+
+<script>
+  $("#print").click(function(){
+    window.print();
+});
+</script>

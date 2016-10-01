@@ -28,11 +28,15 @@
             <%= f.fields_for :address do |patient_address| %>
               <div class="field">
                 <%= patient_address.label :country %>
-                <%= patient_address.text_field :country, class: "form-control" %>
+                <%= patient_address.select :country, @countries,{}, class: "form-control country" %>
+              </div>
+              <div class="field">
+                <%= patient_address.label :state %>
+                <%= patient_address.select :state, @states,{}, class: "form-control state" %>  
               </div>
               <div class="field">
                 <%= patient_address.label :city %>
-                <%= patient_address.text_field :city, class: "form-control" %>  
+                <%= patient_address.select :city, @cities,{},class: "form-control city" %>  
               </div>
               <div class="field">  
                 <%= patient_address.label :pincode %>
@@ -49,3 +53,20 @@
     </div>
   </div>
 </div>      
+
+<script>
+$(".country").change(function () {
+   var country_id = $(".country").val();
+    $.get("/country/"+ country_id+ "/states",{}, function(){
+    });
+});
+</script>
+
+
+<script>
+  $(".state").change(function () {
+   var state_id = $(".state").val();
+    $.get("/state/"+ state_id+ "/cities",{}, function(){
+    });
+});
+</script>

@@ -13,6 +13,7 @@ class Visit < ActiveRecord::Base
 	
 	has_many :visit_rooms
 	has_many :rooms, :through=>:visit_rooms
+	has_many :operation_theaters
 	after_create :booked_bed
 
 	accepts_nested_attributes_for :services
@@ -32,7 +33,7 @@ class Visit < ActiveRecord::Base
 	end	
 
 
-	def dashboard(current_user)
+	def self.dashboard(current_user)
 		if current_user.has_role?(:doctor)
      	@visits =  Visit.where(:doctor_id=>current_user.id)
     else

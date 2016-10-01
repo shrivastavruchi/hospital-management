@@ -4,11 +4,14 @@
   <div class="panel panel-default"> 
     <div class="panel-heading">Patient Transfer</div>  
       <div class="panel-body">
-      	<%=form_for :@visit do |f| %>
-			  	<%= f.fields_for :visit_rooms do |visit_room| %>
-            <% render :partial=>'visits/visit_room', locals: {visit_room: visit_room}%>
-          <% end %>
-          <%=f.submit 'save' %>
+      	<%=form_for [@visit, @visit_room] do |f| %>
+      		<%=f.label :bed_no %>
+      		<%=f.select :bed_id, options_for_select([''] ),{}, class: "form-control bed_no ",:readonly=>true%>
+      		<%=f.label :room_no %>
+      		<%=f.select :room_id,options_for_select([''] ),{}, class: "form-control room_no",:readonly=>true%>
+          <%=f.label :date %>
+          <%=f.text_field :date, :id=>"start_date_picker" ,:class=>'form-control'%>
+          <%=f.submit 'save',:class=>"btn btn-primary" %>
 				<%end%>
       </div>  
   </div>

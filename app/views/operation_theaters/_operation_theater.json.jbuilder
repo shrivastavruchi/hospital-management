@@ -1,0 +1,2 @@
+json.extract! operation_theater, :id, :visit_id, :from_date, :end_date, :end_time, :operation_name, :doctor_id, :from_time, :notes, :operation_procedure, :created_at, :updated_at
+json.url operation_theater_url(operation_theater, format: :json)

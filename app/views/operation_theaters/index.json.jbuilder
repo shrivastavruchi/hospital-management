@@ -1,0 +1,1 @@
+json.array! @operation_theaters, partial: 'operation_theaters/operation_theater', as: :operation_theater

@@ -1,0 +1,1 @@
+json.partial! "operation_theaters/operation_theater", operation_theater: @operation_theater

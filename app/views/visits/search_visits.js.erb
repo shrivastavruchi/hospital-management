@@ -1,0 +1,6 @@
+<% if params[:visit_type] == "ipd" %>
+	$(".admit_patient").html("<%= j render partial: 'search_ipd_visits', locals: {visits: @visits} %>");
+<%else%>
+	$(".visited_patient").html("<%= j render partial: 'search_ipd_visits', locals: {visits: @visits,visit_type: params[:visit_type]} %>");
+<%end%>
+ 

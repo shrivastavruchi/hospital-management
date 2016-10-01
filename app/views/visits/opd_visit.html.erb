@@ -1,25 +1,11 @@
-
 <div class="container">
   <div class="col-sm-12">
     <div class="panel panel-default">
       <div class="panel-heading">Opd Visit </div>
         <div class="panel-body">
           <table  class="table table-striped">
-            <div>
-              <%= search_form_for @q, :url=>search_path, :method =>:post do |f| %>
-              <div class="col-md-2">
-                <%= f.label :from_date %>
-                <%= f.search_field :date_gteq, :class=>"start_date_picker form-control" %>
-              </div>
-              <div class="col-md-2">
-                <%= f.label :to_date %>
-                <%= f.search_field :date_lteq ,:class=>"start_date_picker form-control"%>
-              </div>
-
-              <%= f.submit 'search',:class=>"btn btn-primary" ,:style=>"
-                margin-top: 23px;"%>
-              <% end %>
-            </div>
+          
+            <%=render partial: 'search_visit_form'%>
             </br>
             </br>
             <thead>
@@ -32,7 +18,7 @@
               </tr>
             </thead>
 
-            <tbody>
+            <tbody class="visited_patient">
               <% @visits.each do |visit| %>
                   <tr>
                     <td>

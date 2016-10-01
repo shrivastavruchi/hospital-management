@@ -25,14 +25,21 @@
       <li>
        <%=link_to 'Work sheet details', new_visit_worksheet_detail_path(@visit)%>
       </li>
+      <% if @visit.visit_type == "ipd" %>
+        <li>
+          <%=link_to 'Patient Transfer',  new_visit_visit_room_path(@visit)%>
+        </li>
+
+        <li>
+          <%=link_to'Operation theater',new_visit_operation_theater_path(@visit)%>
+        </li>
+        <li>
+          <%=link_to 'service',  new_service_path(@visit)%>
+        </li>
+      <%end%>
       <li>
         <%=link_to 'Discharge',new_visit_discharge_path(@visit)%>
       </li>
-      <li>
-      	<%=link_to 'Patient Transfer',  new_visit_visit_room_path(@visit)%>
-      </li>
-      </li>
-
 
 
   </ul>

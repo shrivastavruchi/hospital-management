@@ -1,0 +1,16 @@
+<div>
+  <%=form_tag search_visits_path, :remote=>true do %>
+  <div class="col-md-4">
+    <%=text_field_tag :from_date,params[:from_date], :class=>"form-control start_date_picker" %>
+  </div>
+  <div class="col-md-4">  
+    <%=text_field_tag :end_date,params[:end_date],:class=>"form-control start_date_picker" %>
+  </div>  
+    <%if params["action"]=="ipd_visits"%>
+      <%=hidden_field_tag :visit_type,'ipd' %>
+    <%else%>
+      <%=hidden_field_tag :visit_type,'opd' %>
+    <%end%>  
+    <%=submit_tag 'search', name: nil, class: "btn btn-default"%>
+  <%end%>
+</div>

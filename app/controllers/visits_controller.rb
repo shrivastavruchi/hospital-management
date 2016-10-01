@@ -101,6 +101,18 @@ class VisitsController < ApplicationController
   end 
 
 
+  def search_visits
+    @from_date= params[:from_date]
+    @end_date = params[:end_date]
+    if params[:visit_type] == "ipd"
+      admit_patient = VisitRoom.where(:date=>@from_date..@end_date).map(&:visit_id)
+      @visits = Visit.where("id = ? and doctor_id=? ",admit_patient, current_user.id)
+    else
+      @visits = Visit.where(:date=>@from_date..@end_date)
+    end  
+  end  
+
+
 
 
   private

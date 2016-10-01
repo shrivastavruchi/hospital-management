@@ -1,0 +1,37 @@
+<% visits.each do |visit| %>
+  <% @visit_room = VisitRoom.find_by(:visit_id=>visit.id) %>
+  <tr>
+    <td>
+      <% if can? :show, Visit %>
+        <%=link_to visit.id,visit_path(visit) %>
+      <%else%>
+        <%= visit.id %>
+      <%end%>  
+    </td>
+    <td><%= visit.patient.patient_name %></td>  
+    <td>  
+      <%if visit.user.present?%>   
+        <%= visit.user.name %>
+      <%end%>
+    </td>
+    <td>
+      <%if params[:visit_type] == "opd"%>
+        <%= visit.date%>
+      <%else%>
+        <%= @visit_room.date if @visit_room.date.present?%>
+      <%end%>  
+    </td> 
+    <td>
+      <%if  params[:visit_type] == "opd" %>
+        <%= visit.patient.created_at if visit.patient.present?%>
+      <%else%>
+        <%= @visit_room.room.room_no if @visit_room.room.present?%>
+      <%end%>
+    </td>
+    <%if  params[:visit_type] == "ipd" %>
+      <td>
+        <%= @visit_room.bed.bed_no if @visit_room.bed.present? %>
+      </td>
+    <%end%>  
+  </tr>  
+<% end %>

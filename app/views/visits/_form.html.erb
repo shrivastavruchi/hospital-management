@@ -13,7 +13,7 @@
             <%= form_for [@patient, @visit]  do |f| %>
 
               <% if @visit.errors.any? %>
-                <div id="error_explanation">
+                <div id="">
                   <ul>
                   <% @visit.errors.full_messages.each do |message| %>
                     <li><%= message %></li>

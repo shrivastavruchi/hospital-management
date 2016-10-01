@@ -1,44 +1,58 @@
-<h3>Ipd Visits</h3>
-<table  class="table table-striped">
-  <thead>
-    <tr>
-      <th>Ipd id</th>
-      <th>Patient name</th>
-      <th>Doctor name</th>
-      <th>Date Admit</th>
-      <th>Room No</th>
-      <th>Bed No</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @visits.each do |visit| %>
-      <%@visit_room = VisitRoom.find_by_visit_id(visit.id)%>
-      <%unless visit.discharge.present?%>
-        <tr>
-          <td>
-            <% if can? :show, Visit %>
-              <%=link_to visit.id,visit_path(visit) %>
-            <%else%>
-              <%= visit.id %>
-            <%end%>  
-          </td>
-          <td><%= visit.patient.patient_name %></td>  
-          <td>  
-            <%if visit.user.present?%>   
-              <%= visit.user.name %>
-            <%end%>
-          </td>  
-          <td><%= @visit_room.date if @visit_room.present?%></td>
-          <td>
-            <%=  @visit_room.room.room_no if @visit_room.present?  %>
-          </td>
-          <td><%= @visit_room.bed.bed_no if @visit_room.present? %></td>
-          <%#=link_to 'Progress Notes',new_visit_note_path(visit)%>
-        </tr>
-      <%end%>  
-    <% end %>
-  </tbody>
-</table>
-
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Ipd Visits </div>
+        <div class="panel-body">
+          <table  class="table table-striped">
+            <%=render partial: 'search_visit_form'%>
+            </br>
+            </br>
+            <thead>
+              <tr>
+                <th>Ipd id</th>
+                <th>Patient name</th>
+                <th>Doctor name</th>
+                <th>Date Admit</th>
+                <th>Room No</th>
+                <th>Bed No</th>
+              </tr>
+            </thead>
+            <tbody class="admit_patient">
+              <% @visits.each do |visit| %>
+                <%@visit_room = VisitRoom.find_by_visit_id(visit.id)%>
+                <%unless visit.discharge.present?%>
+                  <tr>
+                    <td>
+                      <% if can? :show, Visit %>
+                        <%=link_to visit.id,visit_path(visit) %>
+                      <%else%>
+                        <%= visit.id %>
+                      <%end%>  
+                    </td>
+                    <td><%= visit.patient.patient_name %></td>  
+                    <td>  
+                      <%if visit.user.present?%>   
+                        <%= visit.user.name %>
+                      <%end%>
+                    </td>  
+                    <td><%= @visit_room.date if @visit_room.present?%></td>
+                    <td>
+                      <%=  @visit_room.room.room_no if @visit_room.present?  %>
+                    </td>
+                    <td><%= @visit_room.bed.bed_no if @visit_room.present? %></td>
+                    <%#=link_to 'Progress Notes',new_visit_note_path(visit)%>
+                  </tr>
+                <%end%>  
+              <% end %>
+            </tbody>
+          </table>
+     </div>     
+  </div>        
+</div>
 <br>
+
+<script>
+  $('.start_date_picker').datepicker({
+      format: 'yyyy-mm-dd'
+  })
+</script>

@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   get 'visit/:id/prescription_detail' => 'visits#prescription_detail', :as=>"prescription_details"
   get  'visit/:id/services' => 'visits#services', :as=>"visit_services"
   get '/opd_visit' => 'visits#opd_visit', :as=>"opd_visits"
+  get  'visit/:visit_id/services/new' => 'services#new', :as=>"new_service"
+  post 'visit/:visit_id/create_services' => 'services#create', :as=>"create_services"
+ 
+
 
   resources :rooms  
 
@@ -63,12 +67,16 @@ Rails.application.routes.draw do
   end 
 
   resources :visits do
-    resources :visit_rooms, only: [:new, :create] do
+    resources :visit_rooms, only: [:new, :create,:index,:destroy] do
     end  
   end 
 
-  resources :visit_rooms,:only=> [:index] do
-  end
+  resources :visits do 
+    resources :operation_theaters,  only: [:new,:create,:index,:show] do
+    end
+  end    
+
+
 
 
 
@@ -91,8 +99,12 @@ Rails.application.routes.draw do
     
   post '/search' => 'visits#search', :as=>"search"
   post  '/search_category_room' => 'visits#search_category_room',:as=>"search_category_room"
-  
+  post '/search_visit'  => 'visits#search_visits', :as=>"search_visits"
+
+
   get '/bed/:bed_id/admit' => 'beds#admit',:as=>"admit"
+  get '/country/:country_id/states' => 'patients#states',:as=>"states"
+  get '/state/:state_id/cities' => 'patients#cities',:as=>"cities" 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

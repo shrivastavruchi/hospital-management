@@ -1,0 +1,97 @@
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Billing List </div>
+        <div class="panel-body">
+        <%=form_tag create_payment_path  do %>
+          <table  class="table table-striped">
+            <thead>
+              <tr>
+                <th>SERVICE NAME</th>
+                <th>RATE</th>
+                <th>QUANTITY</th>
+                <th>Amount</th
+              </tr>
+            </thead>
+
+            <tbody>
+								<%@total= 0%>
+            		<%@visit_service.each do |visit_service| %>
+									<tr>
+										<td>
+											<%=visit_service.service.service_name%>
+										</td>
+										<td>	
+											<%=charges=visit_service.service.charges%>
+										</td>
+										<td>	
+											<%=quantity = visit_service.quantity%>
+										</td>
+										<td>
+											<%=get_amount(charges, quantity)%>
+										</td>
+										<%@total +=get_amount(charges,quantity) %>
+
+									</tr>
+								<%end%>
+								<%@prescription_details.each do |prescription_detail| %>
+									<tr>
+										<td>
+											<%=prescription_detail.medicine.medicine_name%>
+										</td>
+										<td>	
+											<%=charges = prescription_detail.medicine.charges%>
+										</td>
+										<td>	
+											<%=quantity = prescription_detail.quantity%>
+										</td>
+										<td>
+											<%=get_amount(charges, quantity)%>
+										</td>
+											<%@total +=get_amount(charges,quantity) %>
+									</tr>
+								<%end%>
+								<%@rooms.each do |room| %>
+
+									<tr>
+										<td>
+											<%=room.room.room_no if room.room.present?%>
+										</td>
+										<td>	
+											<%= charges = room.room.room_rent if room.room.present?%>
+										</td>
+										<td>
+										<%= quantity = get_day(room) %>
+										</td>		
+										<td>
+											<%= get_amount(charges,quantity)%>
+										
+										</td>
+									</tr>		
+									<%@total +=get_amount(charges,quantity) %>
+
+								<%end%>
+     						<tr>
+     							<td></td>
+     							<td></td>
+     							<td>Total</td>
+   								<td><%=@total%></td>
+     						</tr>
+            </tbody>
+
+          </table>
+          	<%=hidden_field_tag :total_amount ,@total %>
+      		<%=submit_tag 'Payment'%>
+  			<%end%>	
+
+      </div>  
+    </div>
+  </div>
+</div> 
+
+
+  <!-- Modal -->
+
+
+
+

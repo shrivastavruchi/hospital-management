@@ -1,0 +1,32 @@
+<table  class="table table-striped">
+  <thead>
+    <tr>
+      <th>Service name</th>
+     	<th>Charges</th>
+     	<th>Quantity</th>
+    </tr>
+  </thead>
+
+  <tbody>
+		<% @visit_services.each do |visit_service| %>
+			<tr>
+				<td>
+					<%=visit_service.service.service_name%>
+				</td>
+				<td>
+					<%=visit_service.service.charges%>
+				</td>
+				<td>
+					<%=visit_service.quantity%>
+				</td>
+				<td>
+					<%=link_to 'delete',visit_visit_service_path(@visit,visit_service),:method=>:delete  %>
+				</td>
+		<%end%>
+  </tbody>
+</table>
+
+<%=link_to 'Add servcie', new_visit_visit_service_path(@visit),:class=>"btn btn-primary","data-toggle"=>"modal", "data-target"=>"#myModal",:remote=>:true%>
+
+
+<%= render :partial=> 'open_popup' %>

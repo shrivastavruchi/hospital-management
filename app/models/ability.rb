@@ -17,6 +17,8 @@ class Ability
         can :read,[Appointment]  
         can :manage,[Visit,Discharge]
         cannot :service,[Visit] 
+      elsif user.has_role?(:chasier)
+        can :manage,[Payment]
       else  
     end
     #

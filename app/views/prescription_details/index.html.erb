@@ -11,7 +11,7 @@
   <tbody>
     <% @prescription_details.each do |prescription_detail| %>
       <tr>
-        <td><%= prescription_detail.drug_name %></td>
+        <td><%= prescription_detail.medicine.medicine_name if prescription_detail.medicine.present?%></td>
         <td><%= prescription_detail.quantity %></td>
         <td><%= prescription_detail.description %></td>
         <td><%= prescription_detail.schedule %></td>     

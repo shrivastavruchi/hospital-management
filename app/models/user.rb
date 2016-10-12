@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
  
 
 
-  ROLES = ['doctor','receptionist','chasier','pathlogist','ipd user','opd user']      
+  ROLES = ['doctor','receptionist','chasier','pathlogist','chasier']      
 
   def send_sms
     account_sid = "AC520aeff208c6d56a2cd5fe08f7773904"

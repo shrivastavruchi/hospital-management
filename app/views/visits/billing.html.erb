@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Billing </div>
+        <div class="panel-body">
+          <table  class="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Patient Name</th>
+                <th>Patient Age</th>
+                <th>Visit Type</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <%  @discharges.each do |discharge| %>
+               <%unless discharge.visit.payment.present? %>
+              
+                    <tr>
+                      <td><%= discharge.visit_id%></td>
+
+                    <td><%= discharge.visit.patient.patient_name if discharge.visit.present? && discharge.visit.patient.present? %></td>
+                    <td><%= discharge.visit.patient.age if discharge.visit.present? && discharge.visit.patient.present?  %></td>
+                    <td><%= discharge.visit.visit_type if discharge.visit.present? %></td>
+                    <% if current_user.has_role?(:chasier) %>
+                      <td>
+                        <%=link_to 'Payment',payment_new_path(discharge.visit)%>
+                      </td>
+                      <td>
+                        <%=link_to 'Add more service',new_visit_visit_service_path(discharge.visit ,:add_item=>'add_item'),:remote=>true,"data-toggle"=>"modal", "data-target"=>"#myModal"%>
+                      </td>
+                    <%end%>  
+                <%end%>  
+              <%end%>  
+
+            </tbody>
+          </table>
+      </div>  
+    </div>
+  </div>
+</div> 
+
+
+
+
+ 
+<%= render :partial=> 'visit_services/open_popup' %>
+
+
+
+
+

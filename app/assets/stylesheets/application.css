@@ -15,5 +15,7 @@
  *= require bootstrap-timepicker
  *= require font-awesome
  *= require jquery-ui
+ *= require jquery.dataTables.min.css
  *= require sidebar
  */
+

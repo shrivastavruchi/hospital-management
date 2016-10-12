@@ -36,6 +36,10 @@
                 <%= f.select :doctor_id ,@doctors.all.map{|d| [ d.name, d.id ]},{:include_blank=>"Please select doctors"},class: "form-control" %>
               </div>
               <% if params[:visit_type] == "ipd"%>
+                <div class="field">
+                  <%= f.label :addmision_date %><br>
+                  <%= f.text_field :date , class: "form-control start_date_picker " %>
+                </div>
                 <%= f.fields_for :visit_rooms do |visit_room| %>
                   <% render :partial=>'visit_room', locals: {visit_room: visit_room}%>
                 <% end %>
@@ -43,7 +47,7 @@
               <% if params[:visit_type] == "opd"%>
                 <div class="field">
                   <%= f.label :visit_date %><br>
-                  <%= f.text_field :date , class: "form-control ",id: 'start_date_picker' %>
+                  <%= f.text_field :date , class: "form-control start_date_picker" %>
                 </div></br>
               <%end%>
 
@@ -60,14 +64,6 @@
 </div>
 
 
-<script>
-    $('#start_date_picker').datepicker({
-        format: 'yyyy-mm-dd',
-        daysOfWeekDisabled: [0, 6],
-        daysOfWeekHighlighted: [1, 2, 3, 4, 5],
-        todayBtn: false
-    })
-</script>
 
 
 

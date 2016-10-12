@@ -9,8 +9,8 @@
       		<%=f.select :bed_id, options_for_select([''] ),{}, class: "form-control bed_no ",:readonly=>true%>
       		<%=f.label :room_no %>
       		<%=f.select :room_id,options_for_select([''] ),{}, class: "form-control room_no",:readonly=>true%>
-          <%=f.label :date %>
-          <%=f.text_field :date, :id=>"start_date_picker" ,:class=>'form-control'%>
+          <%=f.label :transfer_date %>
+          <%=f.text_field :start_date, :id=>"start_date_picker" ,:class=>'form-control'%>
           <%=f.submit 'save',:class=>"btn btn-primary" %>
 				<%end%>
       </div>  
@@ -19,10 +19,7 @@
 
 <script>
   $('#start_date_picker').datepicker({
-      format: 'yyyy-mm-dd',
-      daysOfWeekDisabled: [0, 6],
-      daysOfWeekHighlighted: [1, 2, 3, 4, 5],
-      todayBtn: false
+      format: 'dd-mm-yyyy'
   })
 </script>
 

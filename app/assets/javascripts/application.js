@@ -13,14 +13,28 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require turbolinks
 //= require bootstrap-timepicker
 //= require jquery-ui
 //= require jquery_nested_form
+//= require jquery.dataTables.min.js
+//= require custome.js
 //= require_tree .
 
 
 
 
+
+
+
+
+
+
+$(document).ready(function(){
+  $('.start_date_picker').datepicker({
+    format: 'yyyy-mm-dd',
+    minDate: 'dateToday'
+
+  })
+})
 
 

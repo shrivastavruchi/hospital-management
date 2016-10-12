@@ -4,8 +4,9 @@
       <div class="panel-heading">Opd Visit </div>
         <div class="panel-body">
           <table  class="table table-striped">
-          
+          <% if current_user.has_role?(:doctor)%>
             <%=render partial: 'search_visit_form'%>
+          <%end%>  
             </br>
             </br>
             <thead>
@@ -20,6 +21,7 @@
 
             <tbody class="visited_patient">
               <% @visits.each do |visit| %>
+                <%unless visit.discharge.present?%>
                   <tr>
                     <td>
                       <% if can? :show, Visit %>
@@ -38,6 +40,7 @@
                     <td><%=visit.patient.created_at.strftime("%d-%m-%Y")%></td>
                     <td><%#=link_to 'genrate bill',visit_genrate_bill_path(visit)%></td>
                   </tr>
+                <%end%>  
               <% end %>
             </tbody>
           </table>
@@ -45,8 +48,4 @@
     </div>
   </div>
 </div> 
-<script>
-  $('.start_date_picker').datepicker({
-      format: 'yyyy-mm-dd'
-  })
-</script>
+

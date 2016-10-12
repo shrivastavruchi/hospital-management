@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :rooms  
   resources :beds
   resources :diagnoses
   resources :departments
@@ -11,10 +12,12 @@ Rails.application.routes.draw do
   get  'visit/:visit_id/services/new' => 'services#new', :as=>"new_service"
   post 'visit/:visit_id/create_services' => 'services#create', :as=>"create_services"
  
+  get '/dashboard'  => 'visits#dashboard', :as=>"dashboard"
+  get '/billing'  => 'visits#billing', :as=>"billing"
+  get '/paid_bill'  => 'visits#paid_bill', :as=>"paid_bill"
+  get '/visit/:visit_id/report_genrate' => 'reports#genrate_report', :as=>"genrate_report" 
 
-
-  resources :rooms  
-
+ 
  
 
 
@@ -94,10 +97,15 @@ Rails.application.routes.draw do
     get 'genrate_bill'
   end  
 
+  get 'visit/:visit_id/payment/new' => 'payments#new', :as=>"payment_new"
+  post 'visit/:visit_id/payments' => 'payments#create', :as=>"create_payment"
   post 'visit/:visit_id/payment' => 'payments#payment', :as=>"payment"
-  get 'visit/:visit_id/paid_bill' => 'reports#paid_bill', :as=>"paid_bill"
+
+
+
+
+  #--------------------------------
     
-  post '/search' => 'visits#search', :as=>"search"
   post  '/search_category_room' => 'visits#search_category_room',:as=>"search_category_room"
   post '/search_visit'  => 'visits#search_visits', :as=>"search_visits"
 
@@ -111,8 +119,24 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'user#index'
 
+  resources :visits do
+    resources :visit_services do 
+    end
+  end  
+
+  resources :medicines do 
+  end  
+  get '/export' => 'medicines#export',:as=>"export" 
+
+ 
 #----------------------
 resources :categories
+
+
+#------------------------
+#bill part
+
+
 
 
 

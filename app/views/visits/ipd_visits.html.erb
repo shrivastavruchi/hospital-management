@@ -4,7 +4,9 @@
       <div class="panel-heading">Ipd Visits </div>
         <div class="panel-body">
           <table  class="table table-striped">
-            <%=render partial: 'search_visit_form'%>
+            <% if current_user.has_role?(:doctor)%>
+              <%=render partial: 'search_visit_form'%>
+            <%end%>
             </br>
             </br>
             <thead>
@@ -19,7 +21,6 @@
             </thead>
             <tbody class="admit_patient">
               <% @visits.each do |visit| %>
-                <%@visit_room = VisitRoom.find_by_visit_id(visit.id)%>
                 <%unless visit.discharge.present?%>
                   <tr>
                     <td>
@@ -35,11 +36,11 @@
                         <%= visit.user.name %>
                       <%end%>
                     </td>  
-                    <td><%= @visit_room.date if @visit_room.present?%></td>
+                    <td><%= visit.date%></td>
                     <td>
-                      <%=  @visit_room.room.room_no if @visit_room.present?  %>
+                      <%= get_visit_rooms(visit) %>  
                     </td>
-                    <td><%= @visit_room.bed.bed_no if @visit_room.present? %></td>
+                    <td><%= @visit_room.bed.bed_no%></td>
                     <%#=link_to 'Progress Notes',new_visit_note_path(visit)%>
                   </tr>
                 <%end%>  
@@ -51,8 +52,7 @@
 </div>
 <br>
 
-<script>
-  $('.start_date_picker').datepicker({
-      format: 'yyyy-mm-dd'
-  })
-</script>
+
+
+
+

@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Visited Patient </div>
+        <div class="panel-body">
+          <table  class="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Patient Name</th>
+                <th>Patient Age</th>
+                <th>Visit Type</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <%  @discharges.each do |discharge| %>
+                <tr>
+                  <td><%= discharge.visit_id%></td>
+
+                <td><%= discharge.visit.patient.patient_name if discharge.visit.present? && discharge.visit.patient.present? %></td>
+                <td><%= discharge.visit.patient.age if discharge.visit.present? && discharge.visit.patient.present?  %></td>
+                <td><%= discharge.visit.visit_type if discharge.visit.present? %></td> 
+              <%end%>  
+
+            </tbody>
+          </table>
+      </div>  
+    </div>
+  </div>
+</div> 

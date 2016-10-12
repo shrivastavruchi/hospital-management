@@ -10,14 +10,13 @@ class VisitsController < ApplicationController
     authorize! :show, Visit
   end
 
-  # GET /visits/new
+
   def new
     authorize! :new, Visit
     @visit = Visit.new
     @visit.visit_rooms.build
   end
 
-  # GET /visits/1/edit
   def edit
     authorize! :edit, Visit
   end
@@ -57,27 +56,24 @@ class VisitsController < ApplicationController
 
   def opd_visit
     authorize! :read, Visit   
-
-    @q = Visit.ransack(params[:q])
-    @visits = @q.result.includes(:patient)
     @visits = Visit.fetch_visit_of_doctors(current_user,"opd")
   end  
 
-  def services
-    authorize! :services, Visit    
-    if @visit.services.present?
-      @visit.services
-    else
-      @visit.services.build
-    end
-  end  
+  # def services
+  #   authorize! :services, Visit    
+  #   if @visit.services.present?
+  #     @visit.services
+  #   else
+  #     @visit.services.build
+  #   end
+  # end  
 
 
-  def all_services
-    authorize! :read, Visit  
-    @visit = Visit.find(params[:visit_id])
-    @services = @visit.services
-  end  
+  # def all_services
+  #   authorize! :read, Visit  
+  #   @visit = Visit.find(params[:visit_id])
+  #   @services = @visit.services
+  # end  
 
   def ipd_visits
     authorize! :read, Visit 
@@ -88,34 +84,39 @@ class VisitsController < ApplicationController
     authorize! :read, Visit 
   end   
 
-  def genrate_bill
-    @visit = Visit.find(params[:visit_id])
-    payment = Payment.where("visit_id=?", params[:visit_id]).last
-    @services = payment.services
+  # def genrate_bill
+  #   @visit = Visit.find(params[:visit_id])
+  #   payment = Payment.where("visit_id=?", params[:visit_id]).last
+  #   @services = payment.services
   end  
-
-  def search
-    @q = Visit.ransack(params[:q])
-    @visits = @q.result.includes(:user)
-    render :opd_visit
-  end 
 
 
   def search_visits
     @from_date= params[:from_date]
     @end_date = params[:end_date]
     if params[:visit_type] == "ipd"
-      admit_patient = VisitRoom.where(:date=>@from_date..@end_date).map(&:visit_id)
-      @visits = Visit.where("id = ? and doctor_id=? ",admit_patient, current_user.id)
+      @visits = Visit.where(:date=>@from_date..@end_date, :doctor_id=>current_user.id,:visit_type=>"ipd")
+      #@visits = Visit.where("doctor_id=?" ,current_user.id).joins(:visit_rooms).where("visit_rooms.start_date >= ? and visit_rooms.start_date <= ? ",@from_date, @end_date)
     else
-      @visits = Visit.where(:date=>@from_date..@end_date)
+      @visits = Visit.where(:date=>@from_date..@end_date, :doctor_id=>current_user.id,:visit_type=>"opd")
     end  
   end  
 
+  def dashboard
+    @discharges = Discharge.all
+  end  
+  def billing
+    @discharges = Discharge.all
+  end
 
 
+  def paid_bill
+    @visits = Visit.joins(:payment)
+  end  
 
-  private
+
+  private  
+
 
     def visit_params
       params.require(:visit).permit(:id, :patient_id, :appointment_id,:room_id,:bed_id, :doctor_id,:visit_type, :date, basic_detail_attributes: [:blood_group, :boold_presure, :patient_id, :visit_id, :weight, :patient_history,:examination_details,:diagnosis, :id], prescription_details_attributes: [:id, :drug_name, :description,:schedule,:visit_id ],services_attributes: [:id, :service_name, :charges ,:visit_id ],visit_rooms_attributes: [:id, :date, :room_id , :bed_id,:visit_id ] )

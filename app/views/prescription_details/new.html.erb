@@ -16,7 +16,7 @@
 
             <div class="field">
               <%= f.label :Medicine %><br>
-              <%= f.text_field :drug_name,:class=>"form-control" %>
+              <%= f.select :medicine_id,Medicine.all.map{|m| [m.medicine_name , m.id]},{}, :class=>"form-control" %>
             </div>
              <div class="field">
               <%= f.label :quantity %><br>

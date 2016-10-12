@@ -17,7 +17,9 @@
 				<td><%=visit_room.room.category.category_type if visit_room.room.present? && visit_room.room.category.present?%></td>	
 				<td><%=visit_room.room.room_no if visit_room.room.present?%></td>
 				<td><%=visit_room.bed.bed_no if visit_room.bed.present?%></td>
-				<td><%= visit_room.date%></td>
+				<td>
+          <%=visit_room.start_date%>
+        </td>
 				<td><%=link_to 'delete', visit_visit_room_path(visit_room.visit , visit_room) ,method: :delete, :class=>"btn btn-primary"%>
 			</tr>		
 		<%end%>

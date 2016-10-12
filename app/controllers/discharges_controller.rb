@@ -1,7 +1,7 @@
 class DischargesController < ApplicationController
   before_action :set_visit,only: [:new,:create]
   before_action :set_discharge, only: [:show, :edit, :update, :destroy]
-
+  layout 'patient'
   # GET /discharges
   # GET /discharges.json
   def index
@@ -30,14 +30,16 @@ class DischargesController < ApplicationController
   # POST /discharges.json
   def create
     authorize! :create, Discharge
-    unless @visit.discharge.present?
+    if @visit.discharge.present?
+      redirect_to dashboard_path,notice: 'Visit already discharged.' 
+    else  
       @discharge = @visit.build_discharge(discharge_params)
       if @discharge.save
-        redirect_to visits_path, notice: 'Discharge was successfully created.' 
+        redirect_to dashboard_path, notice: 'Discharge was successfully created.' 
       else
         render :new 
       end  
-    end  
+    end    
   end
 
   # PATCH/PUT /discharges/1
@@ -78,6 +80,6 @@ class DischargesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def discharge_params
-      params.require(:discharge).permit(:discharge_date,:final_diagnoses,:visit_id)
+      params.require(:discharge).permit(:discharge_date,:final_diagnoses,:visit_id,:reason_for_addmission)
     end
 end

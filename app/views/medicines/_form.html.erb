@@ -1,0 +1,52 @@
+<%= form_for(@medicine) do |f| %>
+
+
+  <div class="field">
+    <p style="display:none;">Please Add Medicine Name</p>
+    <%= f.label :medicine_name %><br>
+    <%= f.text_field :medicine_name ,:class=>"form-control" %>
+
+  </div>
+  <div class="field">
+    <p1 style="display:none;">Please Add Charges</p>
+    <%= f.label :charges %><br>
+    <%= f.text_field :charges,:class=>"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br>
+    <%= f.text_field :quantity,:class=>"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.label :expire_date %><br>
+    <%= f.text_field :expire_date,:class=>"form-control " ,:id=>"start_date_picker" %>
+  </div>
+  <!-- <div class="actions">
+    <%#= f.submit 'save',:class=>"btn btn-primary",:style=>"margin-top: 15px;" %>
+  </div> -->
+  <button type="button" id="save"> Save</button>
+<% end %>
+
+
+
+
+<script>
+    $('#start_date_picker').datepicker({
+        format: 'dd-mm-yyyy'
+    })
+</script>
+
+
+<script>
+  $("#save").click(function(){
+    if ($("#medicine_medicine_name").val()==""){
+      $("p").show();
+    }
+    if ($("#medicine_charges").val()==""){
+      $("p1").show();
+    }
+    $("#new_medicine").submit();
+  });
+
+</script>
+
+

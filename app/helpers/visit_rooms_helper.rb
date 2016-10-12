@@ -1,0 +1,2 @@
+module VisitRoomsHelper
+end

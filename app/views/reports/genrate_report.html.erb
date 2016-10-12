@@ -1,0 +1,127 @@
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Receipt</div>
+        <div class="panel-body">
+        	<table>
+        		<tr>
+      				<td>Patient name: </td>
+      				<td><%=@visit.patient.patient_name %></td>
+						</tr>
+						<tr>	
+							<td>Gender:</td>
+							<td><%=@visit.patient.gender %></td>
+						</tr>	
+						<tr>
+							<td>Age</td>
+							<td><%=@visit.patient.age%></td>
+						</tr>	
+						<tr>
+							<td>visit id</td>
+							<td><%=@visit.id%></td>
+						</tr>
+						<tr>	
+							<td>Patient Registration no</td>
+							<td><%=@visit.patient.id%></td>
+						</tr>
+          <table  class="table table-striped">
+            <thead>
+              <tr>
+                <th>SERVICE NAME</th>
+                <th>RATE</th>
+                <th>QUANTITY</th>
+                <th>Amount</th
+              </tr>
+            </thead>
+
+            <tbody>
+								<%@total= 0%>
+            		<%@visit_service.each do |visit_service| %>
+									<tr>
+										<td>
+											<%=visit_service.service.service_name%>
+										</td>
+										<td>	
+											<%=charges=visit_service.service.charges%>
+										</td>
+										<td>	
+											<%=quantity = visit_service.quantity%>
+										</td>
+										<td>
+											<%=get_amount(charges, quantity)%>
+										</td>
+										<%@total +=get_amount(charges,quantity) %>
+
+									</tr>
+								<%end%>
+								<%@prescription_details.each do |prescription_detail| %>
+									<tr>
+										<td>
+											<%=prescription_detail.medicine.medicine_name%>
+										</td>
+										<td>	
+											<%=charges = prescription_detail.medicine.charges%>
+										</td>
+										<td>	
+											<%=quantity = prescription_detail.quantity%>
+										</td>
+										<td>
+											<%=get_amount(charges, quantity)%>
+										</td>
+											<%@total +=get_amount(charges,quantity) %>
+									</tr>
+								<%end%>
+								<%@rooms.each do |room| %>
+
+									<tr>
+										<td>
+											<%=room.room.room_no if room.room.present?%>
+										</td>
+										<td>	
+											<%= charges = room.room.room_rent if room.room.present?%>
+										</td>
+										<td>
+										<%= quantity = get_day(room) %>
+										</td>		
+										<td>
+											<%= get_amount(charges,quantity)%>
+										
+										</td>
+									</tr>		
+									<%@total +=get_amount(charges,quantity) %>
+
+								<%end%>
+     						<tr>
+     							<td></td>
+     							<td></td>
+     							<td>Total Amount</td>
+   								<td><%=@total%></td>
+     						</tr>
+     						<tr>
+     							<td></td>
+     							<td></td>
+     							<td>Paid Amount</td>
+   								<td><%=@visit.payment.total_amount if @visit.payment.present?%></td>
+     						</tr>
+            </tbody>
+          </table>
+
+      </div>  
+    </div>
+  </div>
+</div> 
+
+<button id="print"> Print</button>
+
+
+
+<script type="text/javascript">
+	$("#print").click(function(){
+	   window.print();;
+	});
+</script>
+
+
+
+
+

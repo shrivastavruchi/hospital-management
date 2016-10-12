@@ -1,0 +1,15 @@
+<%= form_for [@visit ,@visit_service] do |f| %>
+	 <%= f.label :service %>
+    <%= f.select :service_id,Service.all.map{|d| [ d.service_name, d.id ]}, {},:class=>"form-control" %></br>
+    <%= f.label :quantity %>
+		<%= f.text_field :quantity,:class=>"form-control" %></br>
+		<%= hidden_field_tag :add_item ,params[:add_item] %></br>
+
+  <%=f.submit 'save',:class=>"btn btn-primary"%>
+<%end%>  
+
+
+
+
+
+

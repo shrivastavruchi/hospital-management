@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Paid Bill </div>
+        <div class="panel-body">
+          <table  class="table table-striped">
+            <thead>
+              <tr>
+                <th>VIsit Id</th>
+                <th>Patient Name</th>
+                <th>Patient Age</th>
+                <th>Visit Type</th>
+              </tr>
+            </thead>
+
+            <tbody>
+            	<% @visits.each do |visit|   %>
+            	<tr>
+            		<td>
+            			<%=visit.id %>
+            		</td>
+            		<td>
+            			<%=visit.patient.patient_name if visit.patient.present?%>
+            		</td>
+            		<td>
+            			<%=visit.patient.age if visit.patient.present?%>
+            		</td>
+            		<td>
+            			<%=visit.visit_type %>
+            		</td>
+            	</tr>
+
+            	<%end%> 
+            </tbody>
+          </table>
+      </div>  
+    </div>
+  </div>
+</div> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

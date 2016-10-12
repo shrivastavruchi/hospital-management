@@ -11,12 +11,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if resource.has_role? (:receptionist)
-      visits_path
-    elsif resource.has_role? (:doctor)  
-      visits_path
-    else
+    if resource.has_role? (:admin)
       user_index_path
+    else   
+      dashboard_path
     end
   end
 

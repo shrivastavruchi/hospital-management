@@ -9,19 +9,21 @@ class Visit < ActiveRecord::Base
 	has_many :notes
 	has_one :discharge
 	has_many :services
-	has_many :payments
+	has_one :payment
 	
 	has_many :visit_rooms
 	has_many :rooms, :through=>:visit_rooms
 	has_many :operation_theaters
 	after_create :booked_bed
+	after_create :update_start_date
 
 	accepts_nested_attributes_for :services
 	accepts_nested_attributes_for :visit_rooms
 
-	
+	has_many :visit_services 
+	has_many :services ,:through=>:visit_services
 
-	validates :doctor_id,:presence=>true
+	validates :doctor_id, :date, :presence=>true
 	
 
 	def booked_bed
@@ -49,6 +51,10 @@ class Visit < ActiveRecord::Base
 		end		
 	end
 
+	def update_start_date
+		visit_room = VisitRoom.find_by_visit_id(self.id)
+		visit_room.update(:start_date=>self.date) if visit_room.present?
+	end	
 end
 
 

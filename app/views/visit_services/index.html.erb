@@ -29,4 +29,6 @@
 <%=link_to 'Add servcie', new_visit_visit_service_path(@visit),:class=>"btn btn-primary","data-toggle"=>"modal", "data-target"=>"#myModal",:remote=>:true%>
 
 
+<%= link_to 'Print',print_receipt_path(@visit, :receipt=> "service"),:class=>"btn btn-primary" %>
+
 <%= render :partial=> 'open_popup' %>

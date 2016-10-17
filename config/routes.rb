@@ -7,17 +7,19 @@ Rails.application.routes.draw do
   resources :patients do  
   end  
   get 'visit/:id/prescription_detail' => 'visits#prescription_detail', :as=>"prescription_details"
-  get  'visit/:id/services' => 'visits#services', :as=>"visit_services"
   get '/opd_visit' => 'visits#opd_visit', :as=>"opd_visits"
-  get  'visit/:visit_id/services/new' => 'services#new', :as=>"new_service"
-  post 'visit/:visit_id/create_services' => 'services#create', :as=>"create_services"
  
   get '/dashboard'  => 'visits#dashboard', :as=>"dashboard"
   get '/billing'  => 'visits#billing', :as=>"billing"
   get '/paid_bill'  => 'visits#paid_bill', :as=>"paid_bill"
   get '/visit/:visit_id/report_genrate' => 'reports#genrate_report', :as=>"genrate_report" 
+  get '/visit/:visit_id/print_receipt' => 'diagnoses#print_receipt', :as=>"print_receipt"  
+  
+  post '/download_paid_bill'  => 'reports#download_paid_bill', :as=>"downlaod_paid_bill"
 
- 
+  resources :services do 
+    
+  end   
  
 
 
@@ -100,6 +102,7 @@ Rails.application.routes.draw do
   get 'visit/:visit_id/payment/new' => 'payments#new', :as=>"payment_new"
   post 'visit/:visit_id/payments' => 'payments#create', :as=>"create_payment"
   post 'visit/:visit_id/payment' => 'payments#payment', :as=>"payment"
+  get '/report' => 'reports#index', :as=>"report"
 
 
 
@@ -126,15 +129,16 @@ Rails.application.routes.draw do
 
   resources :medicines do 
   end  
-  get '/export' => 'medicines#export',:as=>"export" 
+  get '/export' => 'medicines#export',:as=>"export"
+  
 
- 
 #----------------------
 resources :categories
 
 
 #------------------------
 #bill part
+
 
 
 

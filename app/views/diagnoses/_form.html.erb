@@ -18,7 +18,7 @@
 
             <div class="field">
               <%= f.label :name %><br>
-              <%= f.text_field :name,:class=>"form-control" %>
+              <%= f.select :name, options_for_select([["Cavity", "Cavity"],["Normal fever","fever"]]),{}, :class=>"form-control" %>
             </div>
             <div class="actions">
               <%= f.submit 'save', :class=>"btn btn-primary" %>

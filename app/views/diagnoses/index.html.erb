@@ -6,12 +6,13 @@
   </thead>
 
   <tbody>
-    <% @diagnoses.each do |diagnosis| %>
-      <tr>
-        <td><%= diagnosis.name %></td>
-        <td><%= link_to 'Remove',  visit_diagnosis_path(diagnosis.visit,diagnosis), method: :delete, data: { confirm: 'Are you sure?' }%></td>
-      </tr>
-    <% end %>
+      <% @diagnoses.each do |diagnosis| %>
+        <tr>
+          <td><%= diagnosis.name %></td>
+          <td><%= link_to 'Remove',  visit_diagnosis_path(diagnosis.visit,diagnosis), method: :delete, data: { confirm: 'Are you sure?' }%></td>
+        </tr>
+      <% end %>
+      
   </tbody>
 </table>
 
@@ -20,3 +21,4 @@
 <%= link_to 'Add Diagnosis',   new_visit_diagnosis_path(
 @visit),:class=>"btn btn-primary"%>
 
+<%= link_to 'Print',print_receipt_path(@visit, :receipt=> "diagnosis"),:class=>"btn btn-primary" %>

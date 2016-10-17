@@ -64,6 +64,13 @@ class DiagnosesController < ApplicationController
     end
   end
 
+  def print_receipt
+    @visit = Visit.find(params[:visit_id])
+    @diagnosis  = @visit.diagnoses
+    @presecription_details = @visit.prescription_details
+    @visit_services = @visit.visit_services
+  end  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_diagnosis

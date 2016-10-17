@@ -16,11 +16,11 @@
           </p>
           <p>
             <strong>Room no:</strong>
-            <%= @visit.room.room_no%>
+            <%= get_visit_rooms(@visit) %>
           </p>
           <p>
             <strong>Bed no:</strong>
-            <%= @visit.bed.bed_no%>
+            <%= get_bed(@visit)%>
           </p>
         <%else%>
           <p>

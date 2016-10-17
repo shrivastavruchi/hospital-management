@@ -28,17 +28,20 @@ class UserController < ApplicationController
 	end	
 
 	def edit
-	authorize! :edit, User
+
 	end	
 
 	def update
-		authorize! :update, User
 		if @user.update(params_user)
 			unless params[:roles].blank?
 				@user.roles.delete_all
 				add_roles(params[:roles])
 			end
-			redirect_to user_index_path, :notice => "User successfully updated"
+			if @user.has_role?(:admin)
+				redirect_to user_index_path, :notice => "User successfully updated"	
+			else
+				redirect_to dashboard_path, :notice => "User successfully updated"
+			end	
 		end	
 	end	
 	

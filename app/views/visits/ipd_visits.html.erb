@@ -38,9 +38,10 @@
                     </td>  
                     <td><%= visit.date%></td>
                     <td>
+                    
                       <%= get_visit_rooms(visit) %>  
                     </td>
-                    <td><%= @visit_room.bed.bed_no%></td>
+                    <td><%= @visit_room.bed.bed_no if @visit_room.present?&& @visit_room.bed.present? %></td>
                     <%#=link_to 'Progress Notes',new_visit_note_path(visit)%>
                   </tr>
                 <%end%>  

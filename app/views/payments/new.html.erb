@@ -61,7 +61,7 @@
 											<%= charges = room.room.room_rent if room.room.present?%>
 										</td>
 										<td>
-										<%= quantity = get_day(room) %>
+											<%= quantity = room.get_day %>
 										</td>		
 										<td>
 											<%= get_amount(charges,quantity)%>

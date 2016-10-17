@@ -5,7 +5,7 @@ class Visit < ActiveRecord::Base
 	has_many :prescription_details
 	#has_one :addmission
 	has_many :diagnoses
-	has_many :worksheet_details
+	has_many :worksheet_details 
 	has_many :notes
 	has_one :discharge
 	has_many :services
@@ -55,7 +55,36 @@ class Visit < ActiveRecord::Base
 		visit_room = VisitRoom.find_by_visit_id(self.id)
 		visit_room.update(:start_date=>self.date) if visit_room.present?
 	end	
+
+	# def total_amount
+	# 	# @total = 0
+	# 	# if self.prescription_details.present? 
+
+	# 	# 	self.prescription_details.each do |pd|
+	# 	# 		 @total +=pd.quantity.to_i*pd.medicine.charges.to_i
+	# 	# 	end
+	# 	# end
+	# 	# # if self.visit_rooms.present?
+	# 	# # 	self.visit_rooms.each do |visit_room|
+	# 	# # 		@total += visit_room.room.room_rent.to_i
+	# 	# # 	end	
+	# 	# # end	
+	# 	# # if self.visit_services.present?
+	# 	# # 	self.visit_services.each do |visit_service|
+	# 	# # 		@total +=visit_service.quantity.to_i*visit_service.service.charges.to_i
+	# 	# # 	end	
+	# 	# # end
+	# 	# return @total	
+	# end		
 end
+
+
+
+
+
+
+
+
 
 
 

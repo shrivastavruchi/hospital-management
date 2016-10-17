@@ -1,0 +1,15 @@
+<%@services.each do |service|  %>
+	<tr>
+		<td>
+			<%=service.service_name%>
+		</td>
+		<td>	
+			<%=service.charges%>
+		</td>
+		<td>	
+			<%#=link_to 'Delete', service_path(service),,method: :delete, data: {confirm: "Are you sure?"} %>
+			<%=check_box_tag "service_id" ,service.id, nil, :data => {:remote => true, :url => url_for( :action => 'destroy', :id => service.id,  ), method: :delete}%>
+
+		</td>
+	</tr>
+<%end%>	

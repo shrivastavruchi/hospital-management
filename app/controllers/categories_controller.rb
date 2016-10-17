@@ -45,7 +45,10 @@ class CategoriesController < ApplicationController
   def show
    @category = Category.find(params[:id])
    @rooms = @category.rooms
-  end  
+  end 
+
+
+ 
 	
 	private
 		def category_params

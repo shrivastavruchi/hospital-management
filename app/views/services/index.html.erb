@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Services</div>
+          <div class="panel-body">
+           	<%=link_to 'Add service', new_service_path ,:class=>"btn btn-primary","data-toggle"=>"modal", "data-target"=>"#myModal",:remote=>:true%>
+            </br>
+          	</br>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>Charges</th>
+                  <th>Delete</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody id="service">
+								<%@services.each do |service|  %>
+									<tr>
+										<td>
+											<%=service.service_name%>
+										</td>
+										<td>	
+											<%=service.charges%>
+										</td>
+										<td>	
+											<%#=link_to 'Delete', service_path(service),,method: :delete, data: {confirm: "Are you sure?"} %>
+											<%=check_box_tag "service_id" ,service.id, nil, :data => {:remote => true, :url => url_for( :action => 'destroy', :id => service.id,  ), method: :delete}%>
+
+										</td>
+                    <td>
+                      <%=link_to 'Edit service',edit_service_path(service),"data-toggle"=>"modal", "data-target"=>"#myModal",:remote=>:true%>
+                    </td>
+									</tr>
+								<%end%>
+              </tbody>
+            </table>
+          </div>  
+    </div>
+  </div>
+</div>  
+
+
+ 
+<%= render :partial=> 'visit_services/open_popup' %>
+
+        

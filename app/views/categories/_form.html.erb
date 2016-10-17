@@ -1,6 +1,6 @@
   
 <p style="display:none;">Category can not be  blank</p>
- <%=form_for @category,:url=>categories_path,remote: true do |f|%>
+ <%=form_for @category do |f|%>
   <div> 
     <%=f.label :category%>  
     <%=f.text_field :category_type,:class=>"form-control"%>
@@ -8,7 +8,13 @@
   <div>
     <%=f.label :description%>   
     <%=f.text_area :description,:class=>"form-control"%>
-  </div>  
-  <button  type="button" class="btn btn-primary" id="save">Save</button>
+  </div> 
+  <% if params[:action] =="edit"%>
+		<%=f.submit 'save'%>
+  <%else%>
+		<button  type="button" class="btn btn-primary" id="save">Save</button>
+	<%end%>	
 <%end%>
+
+
 

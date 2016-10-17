@@ -1,0 +1,7 @@
+<%=form_for @service do |f| %>
+	<%=f.label :service_name%>
+	<%=f.text_field :service_name,:class=>"form-control"%>
+	<%=f.label :charges%>
+	<%=f.text_field :charges,:class=>"form-control"%></br>
+	<%=f.submit 'save' %>
+<%end%>

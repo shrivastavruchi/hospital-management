@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="col-sm-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">Receipt</div>
+        <div class="panel-body">
+        	<table>
+        		<tr>
+      				<td>Patient name: </td>
+      				<td><%=@visit.patient.patient_name %></td>
+						</tr>
+						<tr>	
+							<td>Gender:</td>
+							<td><%=@visit.patient.gender %></td>
+						</tr>	
+						<tr>
+							<td>Age</td>
+							<td><%=@visit.patient.age%></td>
+						</tr>	
+						<tr>
+							<td>visit id</td>
+							<td><%=@visit.id%></td>
+						</tr>
+						<tr>	
+							<td>Patient Registration no</td>
+							<td><%=@visit.patient.id%></td>
+						</tr>
+          <table  class="table table-striped">
+            <thead>
+              <tr>
+                <% if  params[:receipt] == "diagnosis" %>
+                  <th>Diagnosys Name</th>
+                <%end%>
+                 <% if  params[:receipt] == "prescription_detail" %>
+                  <th>Medicine name</th>
+                  <th>Quantity </th>
+                  <th>day</th>
+                  <th>instruction</th>
+                <%end%>
+                <% if  params[:receipt] == "service" %>
+                  <th>Service</th>
+                  <th>Charges </th>
+                  <th>Quantity</th>
+                <%end%>
+              </tr>
+            </thead>
+
+
+            <tbody>
+              <% if  params[:receipt] == "diagnosis" %>
+              	<%@diagnosis.each do |diagnosis| %>
+              	 <tr>
+                  <td><%=diagnosis.name%></td>
+                </tr>
+  							<%end%>
+              <%end%>
+              <% if  params[:receipt] == "prescription_detail" %>
+                <%@presecription_details.each do |prescription_detail| %>
+                  <tr> 
+                    <td><%=prescription_detail.medicine.medicine_name%></td>
+                    <td><%=prescription_detail.quantity%></td>
+                    <td><%=prescription_detail.day%></td>
+                    <td><%=prescription_detail.schedule%></td>
+                  </tr>
+                <%end%>
+              <%end%>
+              <% if params[:receipt] == "service" %>
+                <%@visit_services.each do |visit_service| %>
+                  <%= visit_service.service.service_name%>
+                  <%= visit_service.quantity%>
+                  <%= visit_service.service.charges%>
+                <%end%> 
+              <%end%>  
+            </tbody>
+          </table>
+
+      </div>  
+    </div>
+  </div>
+</div> 
+
+<button id="print"> Print</button>
+
+
+
+
+

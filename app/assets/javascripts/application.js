@@ -38,3 +38,20 @@ $(document).ready(function(){
 })
 
 
+
+$(document).ready(function(){
+	$("#print").click(function(){
+	   window.print();;
+	});
+})
+
+$(document).ready(function(){
+  $('.date_picker').datepicker({
+    format: 'yyyy-mm-dd',
+
+  })
+})
+
+
+
+

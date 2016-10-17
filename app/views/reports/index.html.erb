@@ -1,0 +1,56 @@
+<div class="panel-group">
+  <div class="panel panel-default"> 
+    <div class="panel-heading">Report</div>  
+      <div class="panel-body">
+      	<%=form_tag downlaod_paid_bill_path, :remote=>true do   %>
+					<p style="display:none;"> Start Date and End Date not applicable for unpaid bill </p>
+					<div style="display:none;" id="s_date"> select start date </div>
+					<div class="field">
+	          <lable>Start Date</lable>
+						<%=text_field_tag :start_date,"",:class=>"form-control date_picker"%>
+					</div>
+					<div style="display:none;" id="e_date"> select end date </div>
+					<div class="field">
+						<lable>End Date</lable>
+						<%=text_field_tag :end_date, "",class: 'form-control date_picker' %>
+					</div>
+					<div class="field">
+						<lable>Paid bill</lable>
+						<%=radio_button_tag "paid_bill" ,"true"%>
+					</div>
+					<div class="field">
+						<lable>Unpaid bill</lable>
+						<%=radio_button_tag "paid_bill" ,"false" ,:id=>"unpaid_bill"%>
+					</div>
+					<%=submit_tag 'save',:id=>'save'%>
+				<%end%>
+      </div>  
+  </div>
+</div>
+
+
+<div id="report">
+</div>
+
+<script>
+	$("#save").click(function(){
+		if($("#paid_bill_false").is(":checked")) {
+	    $("#start_date").attr("disabled", "disabled");
+	    $("#end_date").attr("disabled", "disabled");
+	    $("p").show();
+  }
+  if($("#paid_bill_true").is(":checked") && $("#start_date").val()==""&& $("#end_date").val()==""){
+  	$("#s_date").show();
+  	$("#e_date").show();
+  	return false;
+  }
+  if($("#paid_bill_true").is(":checked") && $("#start_date").val()== ""){
+  	$("#s_date").show();
+  	return false;
+  }
+  if($("#paid_bill_true").is(":checked") && $("#end_date").val()== ""){
+  	$("#e_date").show();
+  	return false;
+  }
+});
+</script>

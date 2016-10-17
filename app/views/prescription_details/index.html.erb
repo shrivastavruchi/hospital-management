@@ -25,3 +25,4 @@
 <%=link_to'Add prescription',new_visit_prescription_detail_path(@visit),:class=>"btn  btn-primary"%>
 
 <br>
+<%= link_to 'Print',print_receipt_path(@visit, :receipt=> "prescription_detail"),:class=>"btn btn-primary" %>

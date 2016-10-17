@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Receipt</div>
+        <div class="panel-body">
+        	<table>
+        		<tr>
+      				<td>Patient name: </td>
+      				<td><%=@visit.patient.patient_name %></td>
+						</tr>
+						<tr>	
+							<td>Gender:</td>
+							<td><%=@visit.patient.gender %></td>
+						</tr>	
+						<tr>
+							<td>Age</td>
+							<td><%=@visit.patient.age%></td>
+						</tr>	
+						<tr>
+							<td>visit id</td>
+							<td><%=@visit.id%></td>
+						</tr>
+						<tr>	
+							<td>Patient Registration no</td>
+							<td><%=@visit.patient.id%></td>
+						</tr>
+          <table  class="table table-striped">
+            <thead>
+              <tr>
+                <th>SERVICE NAME</th>
+                <th>RATE</th>
+                <th>QUANTITY</th>
+                <th>Amount</th
+              </tr>
+            </thead>
+
+            <tbody>
+							
+            </tbody>
+          </table>
+
+      </div>  
+    </div>
+  </div>
+</div> 
+
+<button id="print"> Print</button>
+
+
+
+<script type="text/javascript">
+	$("#print").click(function(){
+	   window.print();;
+	});
+</script>
+
+
+
+
+

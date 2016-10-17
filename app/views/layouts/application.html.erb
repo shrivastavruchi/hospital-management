@@ -49,6 +49,7 @@
               <span class="caret"></span></button>
               <ul class="dropdown-menu ">
                 <li><%= link_to "Sign Out", destroy_user_session_path ,:method=>:delete  %></li>
+                 <li><%=link_to "Edit user", edit_user_path(current_user,:profile=>"edit_profile") %>
               </ul>
             <%end%>
         </div>
@@ -79,6 +80,8 @@
                 <li><%=link_to 'Category',  categories_path %></li>li> 
                 <li><%=link_to 'room',rooms_path%></li>  
                 <li><%=link_to'bed', beds_path%></li> 
+                <li><%=link_to'services', services_path%></li> 
+                <li><%=link_to'report', report_path%></li> 
               <%end%>
               <% if current_user.has_role?(:chasier)%>
                 <li><%= link_to ' Dashboard',  dashboard_path%></li> 

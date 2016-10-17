@@ -88,7 +88,7 @@ class VisitsController < ApplicationController
   #   @visit = Visit.find(params[:visit_id])
   #   payment = Payment.where("visit_id=?", params[:visit_id]).last
   #   @services = payment.services
-  end  
+  #end  
 
 
   def search_visits

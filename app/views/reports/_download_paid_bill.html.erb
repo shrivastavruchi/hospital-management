@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">Report</div>
+        <div class="panel-body">
+        	<table  class="table table-striped">
+            <thead>
+            	<tr>
+            		<th>
+            			Patient Registration id
+            		</th>
+            		<th>
+            			Visit Id
+            		</th>
+            		<th>
+            			Patient Name
+            		</th>
+            		<th>
+          				age
+            		</th>
+            		<th>
+            			gender
+            		</th>
+            		<th>
+            			Total Amount	
+            		</th>
+            		<th>
+            			Paid Amount
+            		</th>
+            		<th>
+            			UnPaid Amount
+            		</th>
+            	</tr>
+            	
+            </thead>
+
+
+            <tbody>
+            	
+
+            	<%visits.each do |visit| %>	
+                <%total= 0%>        		
+            		<tr>
+            			<td>
+            				<%= visit.patient.id%>
+            			</td>
+            			<td>
+          					<%= visit.id%>
+          				</td>
+          				<td>	
+            				<%= visit.patient.patient_name%>
+            			</td>
+            			<td>
+          					<%= visit.patient.age%>
+            			</td>
+            			<td>
+          					<%= visit.patient.gender%>
+            			</td>
+            			<td>
+          					<%=total_amount = PrescriptionDetail.total_amount(visit)+VisitService.total_amount(visit)+VisitRoom.total_amount(visit)%>
+            			</td>
+            			<td>
+          					<%=paid_amount = visit.payment.present? ? visit.payment.total_amount : 0%>
+            			</td>
+            			<td>
+            				<%=unpaid_amount= total_amount.to_i-paid_amount.to_i%>
+          			
+            			</td>
+                </tr>
+
+            	<%end%>
+            </tbody>
+          </table>
+      </div>  
+    </div>
+  </div>
+</div> 
+
+<button id="print"> Print</button>

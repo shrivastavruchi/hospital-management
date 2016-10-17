@@ -1,21 +1,30 @@
 <%=form_for @user, url: user_path do |f| %>
 	<%= f.label :name %>
-  <%= f.text_field :name, autofocus: true, class: "form-control", :require=>true %>
+  <%= f.text_field :name, autofocus: true, class: "form-control" %>
   <%= f.label :age %>
-  <%= f.text_field :age, autofocus: true, class: "form-control" ,:required => true%>
+  <%= f.text_field :age, autofocus: true, class: "form-control" %>
   <%= f.label :email %>
-  <%= f.email_field :email, autofocus: true, class: "form-control" ,:required => true%>
+  <%= f.email_field :email, autofocus: true, class: "form-control" %>
+  <%= f.label :phone_no %>
+  <%= f.text_field :phone_no,  class: "form-control" %>
+  <%= f.label :password %>
+  <%= f.text_field :password,  class: "form-control" %>
+  <%= f.label :password_confirmation %>
+  <%= f.text_field :password_confirmation,  class: "form-control" %>
+  <%= hidden_field_tag :profile, params[:profile], class: "form-control" %>
+  <% unless params[:profile].present?%>
   <%= label_tag :add_roles %>
-  <div class="controls">
-    <% User::ROLES.each do |role|%>
-      <label class="checkbox-inline">
-        <% if @user.has_role? role %>
-          <input name="roles[]" type="checkbox" value="<%= role %>" checked="checked"><%= role %></label>
-        <%else%>  
-          <input name="roles[]" type="checkbox" value="<%= role %>"><%= role %></label>
-        <%end%>  
-    <% end %>
-  </div>
+    <div class="controls">
+      <% User::ROLES.each do |role|%>
+        <label class="checkbox-inline">
+          <% if @user.has_role? role %>
+            <input name="roles[]" type="checkbox" value="<%= role %>" checked="checked"><%= role %></label>
+          <%else%>  
+            <input name="roles[]" type="checkbox" value="<%= role %>"><%= role %></label>
+          <%end%>  
+      <% end %>
+    </div>
+  <%end%>  
   <%=f.submit 'save' , :class => 'btn btn-primary', :style=>"
     margin-top: 15px;"%>
 <%end%>

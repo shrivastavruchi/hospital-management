@@ -29,7 +29,7 @@
 									</td>	
                   <%if can? :edit, Category%>
                     <td>
-										  <%=link_to 'edit',edit_category_path(category)%>/<%=link_to 'delete',category_path(category),method: :delete, data: {confirm: "Are you sure?"}%>
+										  <%=link_to 'edit',edit_category_path(category),:remote=>true , "data-toggle" => "modal", "data-target" => "#myModal" %>/<%=link_to 'delete',category_path(category),method: :delete, data: {confirm: "Are you sure?"}%>
                     </td>
                   <%end%>
 								<%end%>
@@ -59,3 +59,29 @@
     </div>
   </div>
 
+
+
+
+<!-- <script>
+  $('.category').click(function() {
+    var ids = [];
+    $(':checked').each(function(i, e) {
+        ids.push($(this).val());
+    });  
+    var checked; 
+    if ($(this).is(':checked')) {
+      checked = true;
+    } else {
+      checked = false;
+    } 
+    $.ajax({
+        type: "POST",
+        url: "/category/search_room",
+        data: { id: ids, checked: checked }
+     });     
+  });
+</script> -->
+
+<!-- <div class="show_room">
+
+</div> -->
